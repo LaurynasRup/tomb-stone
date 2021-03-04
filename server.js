@@ -5,7 +5,10 @@ const mongoose = require('mongoose');
 const port = 5000 || process.env.PORT;
 
 //Routes
+// User routes
 const authRoute = require('./routes/auth');
+// Product Routes
+const productRoute = require('./routes/product');
 
 // DB Connect
 const db = process.env.DB_CONNECT;
@@ -18,5 +21,6 @@ app.use(express.json());
 
 //Route Middleware
 app.use('/api/user', authRoute);
+app.use('/api/product', productRoute);
 
 app.listen(5000, () => console.log(`Server running on port ${port}`));
