@@ -1,9 +1,11 @@
 const router = require('express').Router();
 const User = require('../model/User');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const verify = require('../routes/verifyToken');
 
 // Create a user
-router.post('/register', async (req, res) => {
+router.post('/register', verify, async (req, res) => {
 	// Check if username already exists
 	const doesExist = await User.findOne({ username: req.body.username });
 	if (doesExist) return res.status(400).send('User already exist');
@@ -28,7 +30,7 @@ router.post('/register', async (req, res) => {
 });
 
 // Delete a user
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/delete/:id', verify, async (req, res) => {
 	try {
 		// remove user
 		const removedUser = await User.deleteOne({ _id: req.params.id });
@@ -39,7 +41,7 @@ router.delete('/delete/:id', async (req, res) => {
 });
 
 // Update a user
-router.patch('/update/:id', async (req, res) => {
+router.patch('/update/:id', verify, async (req, res) => {
 	const salt = await bcrypt.genSalt(10);
 	const hashedPass = await bcrypt.hash(req.body.password, salt);
 	const updateDetails = {
@@ -71,5 +73,20 @@ router.patch('/update/:id', async (req, res) => {
 });
 
 // Login
+router.post('/login', async (req, res) => {
+	// Check if username  exists
+	const user = await User.findOne({ username: req.body.username });
+	if (!user) return res.status(400).send('User does not exist');
+
+	// Is password correct
+	const validPass = await bcrypt.compare(req.body.password, user.password);
+	if (!validPass) return res.status(400).send('Invalid password');
+
+	// Create a JWT token
+	const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
+		expiresIn: '9h',
+	});
+	res.header('auth-token', token).send(token);
+});
 
 module.exports = router;
