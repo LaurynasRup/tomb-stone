@@ -76,17 +76,23 @@ router.patch('/update/:id', verify, async (req, res) => {
 router.post('/login', async (req, res) => {
 	// Check if username  exists
 	const user = await User.findOne({ username: req.body.username });
-	if (!user) return res.status(400).send('User does not exist');
+	if (!user)
+		return res.status(400).json({
+			msg: 'User does not exist',
+		});
 
 	// Is password correct
 	const validPass = await bcrypt.compare(req.body.password, user.password);
-	if (!validPass) return res.status(400).send('Invalid password');
+	if (!validPass) return res.status(400).json({ msg: 'Invalid password' });
 
 	// Create a JWT token
 	const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
 		expiresIn: '9h',
 	});
-	res.header('auth-token', token).send(token);
+	res.header('auth-token', token).json({
+		user,
+		token,
+	});
 });
 
 module.exports = router;

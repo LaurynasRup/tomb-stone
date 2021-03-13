@@ -5,16 +5,16 @@ const AdminMenu = () => {
 	return (
 		<StyledMenu>
 			<li>
-				<a>Products</a>
+				<a href="/">Products</a>
 			</li>
 			<li>
-				<a>Users</a>
+				<a href="/">Users</a>
 			</li>
 			<li>
-				<a>Historical</a>
+				<a href="/">Historical</a>
 			</li>
 			<li>
-				<a>Log out</a>
+				<a href="/">Log out</a>
 			</li>
 		</StyledMenu>
 	);

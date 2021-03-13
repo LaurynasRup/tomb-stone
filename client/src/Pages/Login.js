@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginAction } from '../Redux/actions/userAction';
+// Components
+import PageLoading from '../Components/PageLoading';
 
 const Login = () => {
+	// User form input
 	const [input, setInput] = useState({
 		username: '',
 		password: '',
@@ -13,26 +18,39 @@ const Login = () => {
 			[key]: e.target.value,
 		});
 	};
-	const formHandler = (e) => {
+	// Dispatch login action to redux store
+	const dispatch = useDispatch();
+	const formHandler = async (e) => {
 		e.preventDefault();
-		console.log(input);
+		// See if form is not empty
+
+		// Dispatch action with details
+		dispatch(loginAction(input));
+
+		// Display errors if any
+
+		// No errors, relocate
 	};
+	const isLoading = useSelector((state) => state.user.loading);
 	return (
-		<Wrapper>
-			<Inner>
-				<h1>Log in</h1>
-				<div className="line"></div>
-				<StyledForm onSubmit={formHandler}>
-					<input type="text" placeholder="Username" onChange={inputHandler} />
-					<input
-						type="password"
-						placeholder="Password"
-						onChange={inputHandler}
-					/>
-					<button type="submit">Log in</button>
-				</StyledForm>
-			</Inner>
-		</Wrapper>
+		<>
+			{isLoading && <PageLoading />}
+			<Wrapper>
+				<Inner>
+					<h1>Log in</h1>
+					<div className="line"></div>
+					<StyledForm onSubmit={formHandler}>
+						<input type="text" placeholder="Username" onChange={inputHandler} />
+						<input
+							type="password"
+							placeholder="Password"
+							onChange={inputHandler}
+						/>
+						<button type="submit">Log in</button>
+					</StyledForm>
+				</Inner>
+			</Wrapper>
+		</>
 	);
 };
 
