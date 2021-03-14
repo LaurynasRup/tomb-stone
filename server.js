@@ -23,6 +23,6 @@ app.use(cors());
 
 //Route Middleware
 app.use('/api/user', authRoute);
-app.use('/api/product', productRoute);
+app.use('/api/products', productRoute);
 
 app.listen(5000, () => console.log(`Server running on port ${port}`));

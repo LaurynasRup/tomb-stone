@@ -8,9 +8,9 @@ const verify = require('../routes/verifyToken');
 router.get('/all_products', verify, async (req, res) => {
 	try {
 		const allItems = await product.find();
-		res.status(200).send(allItems);
+		res.status(200).json({ ...allItems });
 	} catch (err) {
-		res.status(404).send('No items found');
+		res.status(404).json({ msg: 'No items found' });
 	}
 });
 
