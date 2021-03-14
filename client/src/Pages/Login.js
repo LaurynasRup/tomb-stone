@@ -1,16 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginAction } from '../Redux/actions/userAction';
+import { useHistory } from 'react-router-dom';
 // Components
 import PageLoading from '../Components/PageLoading';
+// Functions
+import { inputErrors } from '../functions/inputErrors';
 
 const Login = () => {
-	// User form input
+	// User form input state
 	const [input, setInput] = useState({
 		username: '',
 		password: '',
 	});
+	// Error State
+	const [errors, setErrors] = useState([]);
+	// Extract data from redux store
+	const { loading, error, loggedIn } = useSelector((state) => state.user);
 	const inputHandler = (e) => {
 		const key = e.target.placeholder.toLowerCase();
 		setInput({
@@ -23,22 +30,34 @@ const Login = () => {
 	const formHandler = async (e) => {
 		e.preventDefault();
 		// See if form is not empty
-
+		inputErrors(input, setErrors);
 		// Dispatch action with details
-		dispatch(loginAction(input));
-
-		// Display errors if any
-
-		// No errors, relocate
+		if (input.username !== '' && input.password !== '') {
+			// Dispatch action
+			dispatch(loginAction(input));
+		}
 	};
-	const isLoading = useSelector((state) => state.user.loading);
+	const history = useHistory();
+	useEffect(() => {
+		if (loggedIn) {
+			history.push('/home');
+		}
+	}, [loggedIn, history]);
+
 	return (
 		<>
-			{isLoading && <PageLoading />}
+			{loading && <PageLoading />}
 			<Wrapper>
 				<Inner>
 					<h1>Log in</h1>
 					<div className="line"></div>
+					{errors.length === 0 && (
+						<StyledSmall>{error !== '' ? `* ${error}` : ''}</StyledSmall>
+					)}
+					{errors.length !== 0 && <StyledSmall>{`* ${errors[0]}`}</StyledSmall>}
+					{/* <StyledSmall>
+						{errors.length !== 0 ? `* ${errors[0]}` : ''}
+					</StyledSmall> */}
 					<StyledForm onSubmit={formHandler}>
 						<input type="text" placeholder="Username" onChange={inputHandler} />
 						<input
@@ -104,6 +123,11 @@ const StyledForm = styled.form`
 		border: none;
 		color: #e2e2e2;
 	}
+`;
+
+const StyledSmall = styled.small`
+	color: #c42828;
+	padding-bottom: 0.5rem;
 `;
 
 export default Login;

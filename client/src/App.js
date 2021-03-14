@@ -2,6 +2,9 @@ import { useState } from 'react';
 // Components
 import Navbar from './Components/Navbar';
 import Login from './Pages/Login';
+import Home from './Pages/Home';
+// React router
+import { Switch, Route } from 'react-router-dom';
 
 function App() {
 	const [userDetails, setUserDetails] = useState({
@@ -12,7 +15,14 @@ function App() {
 	return (
 		<div className="App">
 			<Navbar userDetails={userDetails} setUserDetails={setUserDetails} />
-			<Login />
+			<Switch>
+				<Route path="/" exact>
+					<Login />
+				</Route>
+				<Route path="/home">
+					<Home />
+				</Route>
+			</Switch>
 		</div>
 	);
 }
