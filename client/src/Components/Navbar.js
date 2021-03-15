@@ -3,8 +3,13 @@ import styled from 'styled-components';
 import { BsChevronDown } from 'react-icons/bs';
 // Components
 import AdminMenu from '../Components/AdminMenu';
+// Redux
+import { useSelector } from 'react-redux';
 
-const Navbar = ({ userDetails, setUserDetails }) => {
+const Navbar = () => {
+	//Retrieve user details
+	const { name, userType, loggedIn } = useSelector((state) => state.user);
+
 	const [showAdminMenu, setShowAdminMenu] = useState(false);
 	const adminMenuHandler = () => setShowAdminMenu(!showAdminMenu);
 	return (
@@ -13,19 +18,19 @@ const Navbar = ({ userDetails, setUserDetails }) => {
 				<div className="logo">
 					Company <strong>Name</strong>
 				</div>
-				{userDetails.loggedIn && (
+				{loggedIn && (
 					<ul>
 						<li>
-							<p className="username">{userDetails.username}</p>
+							<p className="username">{name.split(' ')[0]}</p>
 						</li>
-						{userDetails.userType === 'admin' && (
+						{userType === 'admin' && (
 							<li>
 								<p className="admin-menu" onClick={adminMenuHandler}>
 									<span>Admin Menu</span> <BsChevronDown />
 								</p>
 							</li>
 						)}
-						{userDetails.userType === 'regular' && (
+						{userType === 'regular' && (
 							<li>
 								<p className="regular-menu">
 									<span>Log out</span>

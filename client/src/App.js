@@ -9,11 +9,11 @@ import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 function App() {
-	const [userDetails, setUserDetails] = useState({
-		username: 'Laurynas',
-		userType: 'admin',
-		loggedIn: false,
-	});
+	// const [userDetails, setUserDetails] = useState({
+	// 	username: 'Laurynas',
+	// 	userType: 'admin',
+	// 	loggedIn: false,
+	// });
 	// Redirect if not logged in
 	const location = useLocation();
 	const history = useHistory();
@@ -27,7 +27,7 @@ function App() {
 	}, [location, history, loggedIn]);
 	return (
 		<div className="App">
-			<Navbar userDetails={userDetails} setUserDetails={setUserDetails} />
+			<Navbar />
 			<Switch>
 				<Route path="/" exact>
 					<Login />

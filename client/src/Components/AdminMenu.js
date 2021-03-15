@@ -32,6 +32,7 @@ const StyledMenu = styled.ul`
 		cursor: pointer;
 		list-style: none;
 		padding: 0.5rem 3.5rem;
+		background-color: #ffffff;
 		border-bottom: solid 1px #a3a3a3;
 		transition: background 0.3s ease;
 		&:hover {
@@ -42,6 +43,10 @@ const StyledMenu = styled.ul`
 		}
 		&:first-of-type {
 			border-radius: 10px 10px 0 0;
+		}
+		a {
+			text-decoration: none;
+			color: black;
 		}
 	}
 	:not(li:last-of-type) {

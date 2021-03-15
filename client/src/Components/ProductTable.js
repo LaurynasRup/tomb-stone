@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { productsAction } from '../Redux/actions/productsAction';
-import axios from 'axios';
 const ProductTable = () => {
 	// Retrieve token
-	const token = useSelector((state) => state.user.token);
+	const { token } = useSelector((state) => state.user);
+	const { products, isLoading } = useSelector((state) => state.products);
 	// Fetch products
 	const dispatch = useDispatch();
-	const [products, setProducts] = useState({});
-	useEffect(async () => {
+	useEffect(() => {
 		dispatch(productsAction(token));
 	}, [token]);
 
@@ -27,78 +26,24 @@ const ProductTable = () => {
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
+				{/* <tr>
 					<td>Plokste 1</td>
 					<td>123456789</td>
 					<td>100</td>
 					<td>200</td>
 					<td>10</td>
 					<td>Vieta 1</td>
-				</tr>
-				<tr>
-					<td>Plokste 2</td>
-					<td>987654321</td>
-					<td>300</td>
-					<td>500</td>
-					<td>15</td>
-					<td>Vieta 65</td>
-				</tr>
-				<tr>
-					<td>Plokste 1</td>
-					<td>123456789</td>
-					<td>100</td>
-					<td>200</td>
-					<td>10</td>
-					<td>Vieta 1</td>
-				</tr>
-				<tr>
-					<td>Plokste 1</td>
-					<td>123456789</td>
-					<td>100</td>
-					<td>200</td>
-					<td>10</td>
-					<td>Vieta 1</td>
-				</tr>
-				<tr>
-					<td>Plokste 2</td>
-					<td>987654321</td>
-					<td>300</td>
-					<td>500</td>
-					<td>15</td>
-					<td>Vieta 65</td>
-				</tr>
-				<tr>
-					<td>Plokste 1</td>
-					<td>123456789</td>
-					<td>100</td>
-					<td>200</td>
-					<td>10</td>
-					<td>Vieta 1</td>
-				</tr>
-				<tr>
-					<td>Plokste 1</td>
-					<td>123456789</td>
-					<td>100</td>
-					<td>200</td>
-					<td>10</td>
-					<td>Vieta 1</td>
-				</tr>
-				<tr>
-					<td>Plokste 2</td>
-					<td>987654321</td>
-					<td>300</td>
-					<td>500</td>
-					<td>15</td>
-					<td>Vieta 65</td>
-				</tr>
-				<tr>
-					<td>Plokste 1</td>
-					<td>123456789</td>
-					<td>100</td>
-					<td>200</td>
-					<td>10</td>
-					<td>Vieta 1</td>
-				</tr>
+				</tr> */}
+				{products.map((prod) => (
+					<tr key={prod._id} id={prod._id}>
+						<td>{prod.product.product_type}</td>
+						<td>{prod.barcode}</td>
+						<td>{prod.dimensions.short}</td>
+						<td>{prod.dimensions.long}</td>
+						<td>{prod.dimensions.width}</td>
+						<td>{prod.warehouse_location}</td>
+					</tr>
+				))}
 			</tbody>
 		</StyledTable>
 	);

@@ -8,9 +8,9 @@ const verify = require('../routes/verifyToken');
 router.get('/all_products', verify, async (req, res) => {
 	try {
 		const allItems = await product.find();
-		res.status(200).json({ ...allItems });
+		return res.status(200).json({ ...allItems });
 	} catch (err) {
-		res.status(404).json({ msg: 'No items found' });
+		return res.status(404).json({ msg: 'No items found' });
 	}
 });
 
@@ -36,9 +36,9 @@ router.post('/add_product', verify, async (req, res) => {
 	});
 	try {
 		const savedProduct = await newProduct.save();
-		res.status(201).send(savedProduct);
+		return res.status(201).send(savedProduct);
 	} catch (err) {
-		res.status(400).send(err);
+		return res.status(400).send(err);
 	}
 });
 
@@ -46,9 +46,9 @@ router.post('/add_product', verify, async (req, res) => {
 router.delete('/delete_product/:id', verify, async (req, res) => {
 	try {
 		const removedProduct = await product.deleteOne({ _id: req.params.id });
-		res.status(200).send('Product has been removed');
+		return res.status(200).send('Product has been removed');
 	} catch (err) {
-		res.status(400).send('Unable to remove the product');
+		return res.status(400).send('Unable to remove the product');
 	}
 });
 
@@ -81,12 +81,12 @@ router.patch('/update_product/:id', verify, async (req, res) => {
 					$set: updatedDetails,
 				}
 			);
-			res.status(200).send('Product has been updated succesfully');
+			return res.status(200).send('Product has been updated succesfully');
 		} catch (err) {
-			res.status(400).send('Cannot update product details');
+			return res.status(400).send('Cannot update product details');
 		}
 	} else {
-		res.status(400).send('Please enter all details');
+		return res.status(400).send('Please enter all details');
 	}
 });
 
@@ -112,9 +112,9 @@ router.post('/add_historical', verify, async (req, res) => {
 	});
 	try {
 		const savedProduct = await newProduct.save();
-		res.status(201).send(savedProduct);
+		return res.status(201).send(savedProduct);
 	} catch (err) {
-		res.status(400).send(err);
+		return res.status(400).send(err);
 	}
 });
 

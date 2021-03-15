@@ -27,14 +27,11 @@ const fetchProductsFailure = (error) => {
 export const productsAction = (token) => async (dispatch) => {
 	try {
 		dispatch(fetchProductsRequest());
-		const allProducts = await axios.get(
-			'http://localhost:5000/api/products/all_products',
-			{
-				headers: {
-					'auth-token': token,
-				},
-			}
-		);
+		const allProducts = await axios.get('/api/products/all_products', {
+			headers: {
+				'auth-token': token,
+			},
+		});
 		dispatch(fetchProductsSuccess(allProducts));
 	} catch (err) {
 		dispatch(fetchProductsFailure(err));

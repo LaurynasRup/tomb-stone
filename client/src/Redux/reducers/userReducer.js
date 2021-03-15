@@ -20,7 +20,7 @@ const userReducer = (state = initialState, action) => {
 				...state,
 				name: action.payload.user.data.user.name,
 				username: action.payload.user.data.user.username,
-				userType: action.payload.user.data.user.username ? 'admin' : 'regular',
+				userType: action.payload.user.data.user.admin ? 'admin' : 'regular',
 				loggedIn: action.payload.user.data.token !== '' ? true : false,
 				loading: false,
 				token: action.payload.user.data.token,
