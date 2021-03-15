@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { productsAction } from '../Redux/actions/productsAction';
+import { useHistory } from 'react-router-dom';
 const ProductTable = () => {
 	// Retrieve token
 	const { token } = useSelector((state) => state.user);
@@ -11,22 +12,28 @@ const ProductTable = () => {
 	useEffect(() => {
 		dispatch(productsAction(token));
 	}, [token]);
+	const history = useHistory();
+	const openProductHandler = (id) => {
+		history.push(`product/${id}`);
+	};
 
 	// display products
 	return (
-		<StyledTable>
-			<thead>
-				<tr>
-					<th>Type</th>
-					<th>Barcode</th>
-					<th>Length</th>
-					<th>Height</th>
-					<th>Width</th>
-					<th>Place</th>
-				</tr>
-			</thead>
-			<tbody>
-				{/* <tr>
+		<>
+			{!isLoading && (
+				<StyledTable>
+					<thead>
+						<tr>
+							<th>Type</th>
+							<th>Barcode</th>
+							<th>Length</th>
+							<th>Height</th>
+							<th>Width</th>
+							<th>Place</th>
+						</tr>
+					</thead>
+					<tbody>
+						{/* <tr>
 					<td>Plokste 1</td>
 					<td>123456789</td>
 					<td>100</td>
@@ -34,18 +41,24 @@ const ProductTable = () => {
 					<td>10</td>
 					<td>Vieta 1</td>
 				</tr> */}
-				{products.map((prod) => (
-					<tr key={prod._id} id={prod._id}>
-						<td>{prod.product.product_type}</td>
-						<td>{prod.barcode}</td>
-						<td>{prod.dimensions.short}</td>
-						<td>{prod.dimensions.long}</td>
-						<td>{prod.dimensions.width}</td>
-						<td>{prod.warehouse_location}</td>
-					</tr>
-				))}
-			</tbody>
-		</StyledTable>
+						{products.map((prod) => (
+							<tr
+								key={prod._id}
+								id={prod._id}
+								onClick={() => openProductHandler(prod._id)}
+							>
+								<td>{prod.product.product_type} </td>
+								<td>{prod.barcode}</td>
+								<td>{prod.dimensions.short}</td>
+								<td>{prod.dimensions.long}</td>
+								<td>{prod.dimensions.width}</td>
+								<td>{prod.warehouse_location}</td>
+							</tr>
+						))}
+					</tbody>
+				</StyledTable>
+			)}
+		</>
 	);
 };
 

@@ -5,6 +5,8 @@ import { BsChevronDown } from 'react-icons/bs';
 import AdminMenu from '../Components/AdminMenu';
 // Redux
 import { useSelector } from 'react-redux';
+// Router
+import { useHistory } from 'react-router-dom';
 
 const Navbar = () => {
 	//Retrieve user details
@@ -12,10 +14,14 @@ const Navbar = () => {
 
 	const [showAdminMenu, setShowAdminMenu] = useState(false);
 	const adminMenuHandler = () => setShowAdminMenu(!showAdminMenu);
+	const history = useHistory();
+	const redirectHomeHandler = () => {
+		history.push('/home');
+	};
 	return (
 		<>
 			<StyledNav>
-				<div className="logo">
+				<div className="logo" onClick={redirectHomeHandler}>
 					Company <strong>Name</strong>
 				</div>
 				{loggedIn && (
@@ -56,6 +62,9 @@ const StyledNav = styled.nav`
 	background: #32394d;
 	color: #e2e2e2;
 	font-size: 1.2rem;
+	.logo {
+		cursor: pointer;
+	}
 	ul {
 		display: flex;
 		font-weight: 300;
@@ -63,7 +72,7 @@ const StyledNav = styled.nav`
 			list-style: none;
 			padding: 0 1rem;
 			.username {
-				color: #a3a3a3;
+				color: #c9c9c9;
 			}
 			.admin-menu {
 				display: flex;
