@@ -4,7 +4,7 @@ const initialState = {
 	userType: '',
 	loggedIn: false,
 	loading: false,
-	token: '',
+	token: null,
 	error: '',
 };
 
@@ -21,9 +21,11 @@ const userReducer = (state = initialState, action) => {
 				name: action.payload.user.data.user.name,
 				username: action.payload.user.data.user.username,
 				userType: action.payload.user.data.user.admin ? 'admin' : 'regular',
-				loggedIn: action.payload.user.data.token !== '' ? true : false,
+				loggedIn: findToken(action.payload),
 				loading: false,
-				token: action.payload.user.data.token,
+				token: action.payload.user.data.token
+					? action.payload.user.data.token
+					: action.payload.user.token,
 				error: '',
 			};
 		case 'LOGIN_USER_FAILURE':
@@ -37,4 +39,15 @@ const userReducer = (state = initialState, action) => {
 	}
 };
 
+const findToken = (payload) => {
+	if (payload.user.data.token) {
+		return true;
+	} else {
+		if (payload.user.token) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+};
 export default userReducer;

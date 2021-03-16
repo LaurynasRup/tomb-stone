@@ -1,30 +1,33 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 // Components
 import Navbar from './Components/Navbar';
 import Login from './Pages/Login';
 import Home from './Pages/Home';
+import ProductView from './Pages/ProductView';
+// Functions
+import { autoLogin } from './functions/autoLogin';
 // React router
 import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
 // Redux
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+// Action
+import { loginByIdAction } from './Redux/actions/userAction';
 
 function App() {
-	// const [userDetails, setUserDetails] = useState({
-	// 	username: 'Laurynas',
-	// 	userType: 'admin',
-	// 	loggedIn: false,
-	// });
-	// Redirect if not logged in
 	const location = useLocation();
 	const history = useHistory();
+	const dispatch = useDispatch();
 	const { loggedIn } = useSelector((state) => state.user);
 	useEffect(() => {
+		//Auto login by id
+		autoLogin(dispatch, loginByIdAction);
+		// If not looged in redirect to login page
 		if (location.pathname !== '/') {
 			if (!loggedIn) {
 				history.push('/');
 			}
 		}
-	}, [location, history, loggedIn]);
+	}, [dispatch]);
 	return (
 		<div className="App">
 			<Navbar />
@@ -34,6 +37,9 @@ function App() {
 				</Route>
 				<Route path="/home">
 					<Home />
+				</Route>
+				<Route path="/product_view/">
+					<ProductView />
 				</Route>
 			</Switch>
 		</div>

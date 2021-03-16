@@ -95,4 +95,17 @@ router.post('/login', async (req, res) => {
 	});
 });
 
+// Login with id
+router.post('/login_id', async (req, res) => {
+	// Check if username exists
+	const user = await User.findOne({ _id: req.body.userId });
+	if (!user)
+		return res.status(400).json({
+			msg: 'User does not exist',
+		});
+	return res.status(200).json({
+		user,
+	});
+});
+
 module.exports = router;

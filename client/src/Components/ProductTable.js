@@ -3,25 +3,20 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { productsAction } from '../Redux/actions/productsAction';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
 const ProductTable = () => {
 	// Retrieve token
 	const { token } = useSelector((state) => state.user);
 	const { products, isLoading } = useSelector((state) => state.products);
 	// Fetch products
 	const dispatch = useDispatch();
-	useEffect(async () => {
-		// dispatch(productsAction(token));
-		const products = await axios.get('/api/products/all_products', {
-			headers: {
-				'auth-token': token,
-			},
-		});
-		console.log(products);
-	}, [token]);
+	useEffect(() => {
+		if (token) {
+			dispatch(productsAction(token));
+		}
+	}, [token, dispatch]);
 	const history = useHistory();
 	const openProductHandler = (id) => {
-		history.push(`product/${id}`);
+		history.push(`product_view/${id}`);
 	};
 
 	// display products

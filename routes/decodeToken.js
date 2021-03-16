@@ -9,7 +9,7 @@ router.get('/decode_token', (req, res) => {
 			tokenId: decoded,
 		});
 	} catch (err) {
-		res.status(400).send('Could not proccess');
+		return res.status(400).send('Could not proccess');
 	}
 });
 

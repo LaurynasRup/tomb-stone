@@ -31,7 +31,20 @@ export const loginAction = (userData) => async (dispacth) => {
 		dispacth(loginUserRequest());
 		const userDetails = await axios.post('/api/user/login', userData);
 		const user = await userDetails;
+		sessionStorage.setItem('jwt', user.data.token);
 		dispacth(loginUserSuccess(user));
+	} catch (err) {
+		dispacth(loginUserFailure(err));
+	}
+};
+
+export const loginByIdAction = (userId, token) => async (dispacth) => {
+	try {
+		dispacth(loginUserRequest());
+		const userDetails = await axios.post('/api/user/login_id', { userId });
+		const user = await userDetails;
+		const userStore = { ...user, token: token };
+		dispacth(loginUserSuccess(userStore));
 	} catch (err) {
 		dispacth(loginUserFailure(err));
 	}
