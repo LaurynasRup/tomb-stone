@@ -18,7 +18,8 @@ function App() {
 	const history = useHistory();
 	const dispatch = useDispatch();
 	const { loggedIn } = useSelector((state) => state.user);
-	useEffect(() => {
+
+	const loginOrRedirect = () => {
 		//Auto login by id
 		autoLogin(dispatch, loginByIdAction);
 		// If not looged in redirect to login page
@@ -27,7 +28,8 @@ function App() {
 				history.push('/');
 			}
 		}
-	}, [dispatch]);
+	};
+	useEffect(loginOrRedirect, []); // eslint-disable-line react-hooks/exhaustive-deps
 	return (
 		<div className="App">
 			<Navbar />

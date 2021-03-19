@@ -52,7 +52,7 @@ const StyledOuter = styled.div`
 	width: 100%;
 	height: 60vh;
 	min-width: 200px;
-	border: solid 1px black;
+	border: solid 1px #a3a3a3;
 	margin: 2rem 0rem;
 	position: relative;
 	display: flex;
