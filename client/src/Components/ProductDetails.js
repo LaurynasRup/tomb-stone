@@ -2,7 +2,7 @@ import React from 'react';
 // Styled
 import styled from 'styled-components';
 
-const ProductDetails = ({ currentProduct, editable }) => {
+const ProductDetails = ({ currentProduct, editable, closeModalHandler }) => {
 	return (
 		<StyledForm>
 			<div className="form-row">
@@ -18,7 +18,7 @@ const ProductDetails = ({ currentProduct, editable }) => {
 								{currentProduct.product.product_type}
 							</option>
 						</select>
-						<div className="texture"></div>
+						<div className="texture" onClick={closeModalHandler}></div>
 					</div>
 				</div>
 				<div className="form-control">
