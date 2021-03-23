@@ -2,7 +2,7 @@ import React from 'react';
 // Styled
 import styled from 'styled-components';
 
-const ProductDetails = ({ currentProduct, editable, closeModalHandler }) => {
+const ProductDetails = ({ currentProduct, editable, modalHandler }) => {
 	return (
 		<StyledForm>
 			<div className="form-row">
@@ -18,7 +18,12 @@ const ProductDetails = ({ currentProduct, editable, closeModalHandler }) => {
 								{currentProduct.product.product_type}
 							</option>
 						</select>
-						<div className="texture" onClick={closeModalHandler}></div>
+						<div className="texture" onClick={modalHandler}>
+							<img
+								src="https://www.rubberduckbathrooms.co.uk/images/big/carrara-marble-slab-B-689.jpg"
+								alt="texture"
+							/>
+						</div>
 					</div>
 				</div>
 				<div className="form-control">
@@ -130,7 +135,12 @@ const StyledForm = styled.form`
 			height: 20px;
 			border-radius: 50%;
 			margin: 0rem 0.5rem;
-			background-color: #57885a;
+			overflow: hidden;
+			border: solid 1px #a3a3a3;
+			img {
+				width: 100%;
+				height: 100%;
+			}
 		}
 		@media (max-width: 600px) {
 			width: 100%;

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 // React Icons
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-const ImageCarousel = ({ closeModalHandler }) => {
+const ImageCarousel = ({ modalHandler }) => {
 	const arr = [
 		'https://www.rubberduckbathrooms.co.uk/images/big/carrara-marble-slab-B-689.jpg',
 		'https://images.photowall.com/products/57653/marble-with-yellow-veins.jpg?h=699&q=85',
@@ -25,7 +25,7 @@ const ImageCarousel = ({ closeModalHandler }) => {
 	};
 	return (
 		<StyledOuter>
-			<img src={arr[count]} alt="Marble Texture" onClick={closeModalHandler} />
+			<img src={arr[count]} alt="Marble Texture" onClick={modalHandler} />
 			{count !== 0 && (
 				<FaChevronLeft
 					count={count}

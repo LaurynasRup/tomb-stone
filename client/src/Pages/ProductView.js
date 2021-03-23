@@ -10,7 +10,7 @@ const ProductView = () => {
 		open: false,
 		src: '',
 	});
-	const closeModalHandler = (e) => {
+	const modalHandler = (e) => {
 		const imgSrc = e.target.src;
 		if (imgSrc) {
 			setImgOpen({
@@ -43,7 +43,7 @@ const ProductView = () => {
 			{currentProduct && (
 				<ProductOpen
 					currentProduct={currentProduct}
-					closeModalHandler={closeModalHandler}
+					modalHandler={modalHandler}
 					imgOpen={imgOpen}
 					setImgOpen={setImgOpen}
 					editable={editable}

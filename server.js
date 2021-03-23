@@ -10,6 +10,8 @@ const cors = require('cors');
 const authRoute = require('./routes/auth');
 // Product Routes
 const productRoute = require('./routes/product');
+// Product Type routes
+const productTypeRoute = require('./routes/productType');
 // Decode token
 const decodeRoute = require('./routes/decodeToken');
 
@@ -26,6 +28,7 @@ app.use(cors());
 //Route Middleware
 app.use('/api/user', authRoute);
 app.use('/api/products', productRoute);
+app.use('/api/types', productTypeRoute);
 app.use('/api/decode', decodeRoute);
 
 app.listen(5000, () => console.log(`Server running on port ${port}`));

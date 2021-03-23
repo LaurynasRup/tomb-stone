@@ -10,27 +10,25 @@ import { VscChromeClose } from 'react-icons/vsc';
 
 const ProductOpen = ({
 	currentProduct,
-	closeModalHandler,
+	modalHandler,
 	imgOpen,
 	setImgOpen,
 	editable,
 }) => {
 	return (
 		<>
-			{imgOpen.open && (
-				<ImageModal closeModalHandler={closeModalHandler} img={imgOpen} />
-			)}
+			{imgOpen.open && <ImageModal modalHandler={modalHandler} img={imgOpen} />}
 			<Wrapper>
 				<h1>Product {currentProduct.barcode}</h1>
 				<div className="line"></div>
 				<ProductDetails
 					currentProduct={currentProduct}
 					editable={editable}
-					closeModalHandler={closeModalHandler}
+					modalHandler={modalHandler}
 					imgOpen={imgOpen}
 					setImgOpen={setImgOpen}
 				/>
-				<ImageCarousel closeModalHandler={closeModalHandler} />
+				<ImageCarousel modalHandler={modalHandler} />
 				<ButtonsWrapper>
 					<Button link="/home">
 						<BsArrowLeft size={20} />
@@ -47,12 +45,12 @@ const ProductOpen = ({
 };
 
 // Image modal
-const ImageModal = ({ img, closeModalHandler }) => {
+const ImageModal = ({ img, modalHandler }) => {
 	return (
 		<ModalOuter className="outer">
 			<img src={img.src} alt={img.src} />
 			<div className="close-btn">
-				<VscChromeClose size={40} onClick={closeModalHandler} />
+				<VscChromeClose size={40} onClick={modalHandler} />
 			</div>
 		</ModalOuter>
 	);
