@@ -1,8 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 // Styled
 import styled from 'styled-components';
+// Redux
+import { useSelector } from 'react-redux';
 
 const ProductDetails = ({ currentProduct, editable, modalHandler }) => {
+	const [product, setProduct] = useState({ ...currentProduct });
+	const types = Object.values(useSelector((state) => state.types.types));
+	// Find selected image src
+	const findImgAttr = (e) => {
+		const idx = e.target.selectedIndex;
+		const el = e.target.childNodes[idx];
+		const imgAttr = el.getAttribute('imgsrc');
+		return imgAttr;
+	};
+	const updateType = (e) => {
+		const image = findImgAttr(e);
+		setProduct({
+			...product,
+			product: {
+				product_type: e.target.value,
+				type_img: image,
+			},
+		});
+	};
 	return (
 		<StyledForm>
 			<div className="form-row">
@@ -11,18 +32,20 @@ const ProductDetails = ({ currentProduct, editable, modalHandler }) => {
 					<div className="select-control">
 						<select
 							id="type"
+							name="type"
+							defaultValue={product.product.product_type}
+							onChange={updateType}
 							disabled={editable ? false : true}
 							readOnly={editable ? false : true}
 						>
-							<option value={currentProduct.product.product_type}>
-								{currentProduct.product.product_type}
-							</option>
+							{types.map((type) => (
+								<option key={type._id} value={type.name} imgsrc={type.image}>
+									{type.name}
+								</option>
+							))}
 						</select>
 						<div className="texture" onClick={modalHandler}>
-							<img
-								src="https://www.rubberduckbathrooms.co.uk/images/big/carrara-marble-slab-B-689.jpg"
-								alt="texture"
-							/>
+							<img src={product.product.type_img} alt="texture" />
 						</div>
 					</div>
 				</div>
@@ -177,6 +200,7 @@ const StyledForm = styled.form`
 			border-radius: 10px;
 			letter-spacing: 1px;
 			border: solid 1px #a3a3a3;
+			outline-width: 0;
 		}
 		textarea#comments {
 			resize: none;

@@ -22,7 +22,7 @@ const typesReducer = (state = initialState, action) => {
 			return {
 				...state,
 				isLoading: false,
-				error: action.payload,
+				error: action.payload.response.data.msg,
 			};
 		default:
 			return { ...state };

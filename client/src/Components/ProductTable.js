@@ -4,21 +4,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { productsAction } from '../Redux/actions/productsAction';
 import { typesAction } from '../Redux/actions/typesAction';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
 const ProductTable = () => {
 	// Retrieve token
 	const { token } = useSelector((state) => state.user);
 	const { products, isLoading } = useSelector((state) => state.products);
-	// Fetch types
-	// const fetchTypes = async () => {
-	// 	const types = await axios.get('/api/types/all_types');
-	// 	console.log(types.data);
-	// };
 	// Fetch products
 	const dispatch = useDispatch();
 	useEffect(() => {
 		if (token) {
+			// fetch products
 			dispatch(productsAction(token));
+			//fetch product types
 			dispatch(typesAction());
 		}
 		// fetchTypes();
@@ -28,7 +24,6 @@ const ProductTable = () => {
 		history.push(`product_view/${id}`);
 	};
 
-	// display products
 	return (
 		<>
 			{!isLoading && (
