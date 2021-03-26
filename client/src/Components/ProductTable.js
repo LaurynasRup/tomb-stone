@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { productsAction } from '../Redux/actions/productsAction';
 import { typesAction } from '../Redux/actions/typesAction';
 import { useHistory } from 'react-router-dom';
+// Icons
+import { MdDone } from 'react-icons/md';
 const ProductTable = () => {
 	// Retrieve token
 	const { token } = useSelector((state) => state.user);
@@ -36,6 +38,7 @@ const ProductTable = () => {
 							<th>Height</th>
 							<th>Width</th>
 							<th>Place</th>
+							<th>Reserved</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -59,6 +62,9 @@ const ProductTable = () => {
 								<td>{prod.dimensions.long}</td>
 								<td>{prod.dimensions.width}</td>
 								<td>{prod.warehouse_location}</td>
+								<td className="mid">
+									{prod.reserved.isReserved ? <MdDone size={20} /> : ''}
+								</td>
 							</tr>
 						))}
 					</tbody>
@@ -78,6 +84,7 @@ const StyledTable = styled.table`
 		text-align: left;
 		font-weight: 600;
 		background: #d6d6d6;
+		min-width: 100px;
 	}
 	tbody {
 		tr {

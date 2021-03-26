@@ -43,9 +43,14 @@ const productObj = {
 		type: String,
 		required: true,
 	},
-	available: {
-		type: Boolean,
-		required: true,
+	reserved: {
+		isReserved: {
+			type: Boolean,
+			required: true,
+		},
+		id: {
+			type: String,
+		},
 	},
 };
 

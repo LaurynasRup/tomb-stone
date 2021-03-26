@@ -125,6 +125,30 @@ const ProductDetails = ({ currentProduct, editable, modalHandler }) => {
 					></textarea>
 				</div>
 			</div>
+			<div className="form-row">
+				<div className="form-control inline">
+					<input
+						type="checkbox"
+						checked={currentProduct.reserved.isReserved}
+						id="reserved"
+						disabled={editable ? false : true}
+						readOnly={editable ? false : true}
+					/>
+					<label htmlFor="comments">Reserved</label>
+				</div>
+				{currentProduct.reserved.isReserved && (
+					<div className="form-control inline">
+						<label htmlFor="reserved_id">Reservation ID</label>
+						<input
+							type="text"
+							id="reserved_id"
+							disabled={editable ? false : true}
+							readOnly={editable ? false : true}
+							value={currentProduct.reserved.id}
+						/>
+					</div>
+				)}
+			</div>
 		</StyledForm>
 	);
 };
@@ -142,6 +166,9 @@ const StyledForm = styled.form`
 			min-width: 100%;
 			padding: 0;
 		}
+	}
+	.form-row:last-of-type {
+		padding-bottom: 2rem;
 	}
 	.form-control {
 		display: flex;
@@ -209,6 +236,21 @@ const StyledForm = styled.form`
 		select {
 			width: 90%;
 			padding: 0.28rem 1rem;
+		}
+		input#reserved {
+			display: inline;
+			width: auto;
+		}
+	}
+	.form-control.inline {
+		flex-direction: row;
+		align-items: center;
+		width: auto;
+		label {
+			padding: 0 1rem;
+		}
+		input {
+			width: auto;
 		}
 	}
 `;

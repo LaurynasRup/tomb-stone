@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-// Imprted styled comps
-import { Wrapper } from '../StyledComps/styledComponents';
 // Components
 import ProductOpen from '../Components/ProductOpen';
+// Styled
+import styled from 'styled-components';
+// Imprted styled comps
+import { Wrapper } from '../StyledComps/styledComponents';
 // Hooks
 import { useFindByUrl } from '../hooks/useFindByUrl';
-const ProductView = () => {
-	const [editable] = useState(false);
+
+const ProductEdit = () => {
+	const currentProduct = useFindByUrl();
+	const [editable] = useState(true);
 	const [imgOpen, setImgOpen] = useState({
 		open: false,
 		src: '',
@@ -28,13 +31,9 @@ const ProductView = () => {
 			});
 		}
 	};
-	const currentProduct = useFindByUrl();
-	const history = useHistory();
-	if (!currentProduct) {
-		history.push('/home');
-	}
+	console.log(currentProduct);
 	return (
-		<Wrapper imgOpen={imgOpen.open}>
+		<Wrapper>
 			{currentProduct && (
 				<ProductOpen
 					currentProduct={currentProduct}
@@ -48,4 +47,4 @@ const ProductView = () => {
 	);
 };
 
-export default ProductView;
+export default ProductEdit;

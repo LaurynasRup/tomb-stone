@@ -4,6 +4,7 @@ import Navbar from './Components/Navbar';
 import Login from './Pages/Login';
 import Home from './Pages/Home';
 import ProductView from './Pages/ProductView';
+import ProductEdit from './Pages/ProductEdit';
 // Functions
 import { autoLogin } from './functions/autoLogin';
 // React router
@@ -42,6 +43,9 @@ function App() {
 				</Route>
 				<Route path="/product_view/">
 					<ProductView />
+				</Route>
+				<Route path="/product_edit/">
+					<ProductEdit />
 				</Route>
 			</Switch>
 		</div>

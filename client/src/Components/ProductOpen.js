@@ -28,7 +28,12 @@ const ProductOpen = ({
 					imgOpen={imgOpen}
 					setImgOpen={setImgOpen}
 				/>
-				<ImageCarousel modalHandler={modalHandler} />
+				{!editable && (
+					<ImageCarousel
+						modalHandler={modalHandler}
+						images={currentProduct.product_img}
+					/>
+				)}
 				<ButtonsWrapper>
 					<Button link="/home">
 						<BsArrowLeft size={20} />
@@ -36,7 +41,7 @@ const ProductOpen = ({
 					</Button>
 					<div className="btns-right">
 						<Button link="#">Split</Button>
-						<Button link="#">Edit</Button>
+						<Button link={`/product_edit/${currentProduct._id}`}>Edit</Button>
 					</div>
 				</ButtonsWrapper>
 			</Wrapper>

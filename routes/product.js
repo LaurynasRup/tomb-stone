@@ -32,7 +32,10 @@ router.post('/add_product', verify, async (req, res) => {
 		barcode: req.body.barcode,
 		comments: req.body.comments,
 		edited_by: req.body.edited_by,
-		available: req.body.available,
+		reserved: {
+			isReserved: req.body.reserved.isReserved,
+			id: req.body.reserved.id,
+		},
 	});
 	try {
 		const savedProduct = await newProduct.save();
@@ -71,7 +74,10 @@ router.patch('/update_product/:id', verify, async (req, res) => {
 		barcode: detailOrNull(rBody.barcode, nullItems),
 		comments: rBody.comments,
 		edited_by: detailOrNull(rBody.edited_by, nullItems),
-		available: detailOrNull(rBody.available, nullItems),
+		reserved: {
+			isReserved: detailOrNull(req.body.reserved.isReserved),
+			id: detailOrNull(req.body.reserved.id),
+		},
 	};
 	if (nullItems.length === 0) {
 		try {
@@ -108,7 +114,10 @@ router.post('/add_historical', verify, async (req, res) => {
 		barcode: req.body.barcode,
 		comments: req.body.comments,
 		edited_by: req.body.edited_by,
-		available: req.body.available,
+		reserved: {
+			isReserved: req.body.reserved.isReserved,
+			id: req.body.reserved.id,
+		},
 	});
 	try {
 		const savedProduct = await newProduct.save();

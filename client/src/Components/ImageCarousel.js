@@ -4,13 +4,7 @@ import styled from 'styled-components';
 // React Icons
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-const ImageCarousel = ({ modalHandler }) => {
-	const arr = [
-		'https://www.rubberduckbathrooms.co.uk/images/big/carrara-marble-slab-B-689.jpg',
-		'https://images.photowall.com/products/57653/marble-with-yellow-veins.jpg?h=699&q=85',
-		'https://www.ilovewallpaper.com/images/liquid-marble-wallpaper-pink-gold-p7299-24098_image.jpg',
-	];
-
+const ImageCarousel = ({ modalHandler, images }) => {
 	const [count, setCount] = useState(0);
 	const changeImgHandler = (e) => {
 		const target = e.target.closest('.chevron');
@@ -25,20 +19,24 @@ const ImageCarousel = ({ modalHandler }) => {
 	};
 	return (
 		<StyledOuter>
-			<img src={arr[count]} alt="Marble Texture" onClick={modalHandler} />
+			<img
+				src={JSON.parse(images)[count]}
+				alt="Marble Texture"
+				onClick={modalHandler}
+			/>
 			{count !== 0 && (
 				<FaChevronLeft
 					count={count}
-					arr={arr}
+					arr={JSON.parse(images)}
 					size={40}
 					className="chevron left"
 					onClick={changeImgHandler}
 				/>
 			)}
-			{count !== arr.length - 1 && (
+			{count !== JSON.parse(images).length - 1 && (
 				<FaChevronRight
 					count={count}
-					arr={arr}
+					arr={JSON.parse(images)}
 					size={40}
 					className="chevron right"
 					onClick={changeImgHandler}
