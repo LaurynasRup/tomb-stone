@@ -1,49 +1,47 @@
 import React, { useState } from 'react';
 // Components
-import ProductOpen from '../Components/ProductOpen';
-// Styled
-import styled from 'styled-components';
-// Imprted styled comps
-import { Wrapper } from '../StyledComps/styledComponents';
+import ImageModal from '../Components/ImageModal';
+import ProductDetails from '../Components/ProductDetails';
+import EditImages from '../Components/EditImages';
+import { BtnLink, Btn } from '../Components/Button';
+// Styled comps
+import { Wrapper, ButtonsWrapper } from '../StyledComps/styledComponents';
 // Hooks
 import { useFindByUrl } from '../hooks/useFindByUrl';
+import { useModalHandler } from '../hooks/useModalHandler';
+// Icons
+import { BsArrowLeft } from 'react-icons/bs';
 
 const ProductEdit = () => {
-	const currentProduct = useFindByUrl();
 	const [editable] = useState(true);
-	const [imgOpen, setImgOpen] = useState({
-		open: false,
-		src: '',
-	});
-	const modalHandler = (e) => {
-		const imgSrc = e.target.src;
-		if (imgSrc) {
-			setImgOpen({
-				...imgOpen,
-				open: !imgOpen.open,
-				src: imgSrc,
-			});
-		} else {
-			setImgOpen({
-				...imgOpen,
-				open: !imgOpen.open,
-				src: '',
-			});
-		}
-	};
-	console.log(currentProduct);
+	// Find current product object
+	const currentProduct = useFindByUrl();
+	// Image modal handling
+	const { imgOpen, setImgOpen, modalHandler } = useModalHandler();
+	console.log(JSON.parse(currentProduct.product_img));
 	return (
-		<Wrapper>
-			{currentProduct && (
-				<ProductOpen
+		<>
+			{imgOpen.open && <ImageModal modalHandler={modalHandler} img={imgOpen} />}
+			<Wrapper>
+				<h1>Edit Product {currentProduct.barcode}</h1>
+				<div className="line" />
+				<ProductDetails
 					currentProduct={currentProduct}
+					editable={editable}
 					modalHandler={modalHandler}
 					imgOpen={imgOpen}
 					setImgOpen={setImgOpen}
-					editable={editable}
 				/>
-			)}
-		</Wrapper>
+				<EditImages images={JSON.parse(currentProduct.product_img)} />
+				<ButtonsWrapper>
+					<BtnLink link={`/product_view/${currentProduct._id}`}>
+						<BsArrowLeft size={20} />
+						<span style={{ paddingLeft: '0.2rem' }}>Back</span>
+					</BtnLink>
+					<Btn>Save changes</Btn>
+				</ButtonsWrapper>
+			</Wrapper>
+		</>
 	);
 };
 

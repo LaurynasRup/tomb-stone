@@ -2,12 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Button = ({ link, children }) => {
+export const BtnLink = ({ link, children }) => {
 	return (
 		<Link to={link} style={{ textDecoration: 'none' }}>
 			<StyledButton>{children}</StyledButton>
 		</Link>
 	);
+};
+
+export const Btn = ({ children }) => {
+	return <StyledButton>{children}</StyledButton>;
 };
 
 const StyledButton = styled.button`
@@ -30,5 +34,3 @@ const StyledButton = styled.button`
 		background: #32394d;
 	}
 `;
-
-export default Button;
