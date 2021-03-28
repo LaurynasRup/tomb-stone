@@ -10,6 +10,10 @@ const productObj = {
 			type: String,
 			required: true,
 		},
+		type_id: {
+			type: String,
+			required: true,
+		},
 	},
 	product_img: {
 		type: String,

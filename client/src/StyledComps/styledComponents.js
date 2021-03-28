@@ -28,4 +28,9 @@ export const ButtonsWrapper = styled.div`
 			}
 		}
 	}
+	.btn-red {
+		border: solid 1px red;
+	}
+	.btn-green {
+	}
 `;

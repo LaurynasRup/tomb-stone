@@ -27,7 +27,7 @@ const EditImages = ({ images }) => {
 
 			<div className="img-btns">
 				{images.map((image, idx) => (
-					<button className="img-btn">
+					<button className="img-btn" key={idx}>
 						{`Image ${idx + 1}`} &nbsp; <IoIosCloseCircle size={20} />
 					</button>
 				))}

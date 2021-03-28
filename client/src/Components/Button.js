@@ -14,6 +14,13 @@ export const Btn = ({ children }) => {
 	return <StyledButton>{children}</StyledButton>;
 };
 
+export const BtnRed = ({ children }) => {
+	return <StyledButtonRed>{children}</StyledButtonRed>;
+};
+export const BtnGreen = ({ children }) => {
+	return <StyledButtonGreen>{children}</StyledButtonGreen>;
+};
+
 const StyledButton = styled.button`
 	cursor: pointer;
 	padding: 0.1rem 2rem;
@@ -32,5 +39,22 @@ const StyledButton = styled.button`
 	&:hover {
 		color: white;
 		background: #32394d;
+	}
+`;
+
+const StyledButtonRed = styled(StyledButton)`
+	border: solid 1px #8b240a;
+	color: #8b240a;
+	&:hover {
+		color: white;
+		background: #8b240a;
+	}
+`;
+const StyledButtonGreen = styled(StyledButton)`
+	border: solid 1px #2e6429;
+	color: #2e6429;
+	&:hover {
+		color: white;
+		background: #2e6429;
 	}
 `;

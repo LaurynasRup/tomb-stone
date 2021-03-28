@@ -1,29 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 // Styled
 import styled from 'styled-components';
 // Redux
 import { useSelector } from 'react-redux';
 
-const ProductDetails = ({ currentProduct, editable, modalHandler }) => {
-	const [product, setProduct] = useState({ ...currentProduct });
+const ProductDetails = ({
+	editable,
+	modalHandler,
+	inputs,
+	inputHandler,
+	checkBoxHandler,
+	selectHandler,
+}) => {
 	const types = Object.values(useSelector((state) => state.types.types));
 	// Find selected image src
-	const findImgAttr = (e) => {
-		const idx = e.target.selectedIndex;
-		const el = e.target.childNodes[idx];
-		const imgAttr = el.getAttribute('imgsrc');
-		return imgAttr;
-	};
-	const updateType = (e) => {
-		const image = findImgAttr(e);
-		setProduct({
-			...product,
-			product: {
-				product_type: e.target.value,
-				type_img: image,
-			},
-		});
-	};
+
 	return (
 		<StyledForm>
 			<div className="form-row">
@@ -33,19 +24,24 @@ const ProductDetails = ({ currentProduct, editable, modalHandler }) => {
 						<select
 							id="type"
 							name="type"
-							defaultValue={product.product.product_type}
-							onChange={updateType}
+							defaultValue={inputs.product.product_type}
+							onChange={selectHandler}
 							disabled={editable ? false : true}
 							readOnly={editable ? false : true}
 						>
 							{types.map((type) => (
-								<option key={type._id} value={type.name} imgsrc={type.image}>
+								<option
+									key={type._id}
+									id={type._id}
+									value={type.name}
+									imgsrc={type.image}
+								>
 									{type.name}
 								</option>
 							))}
 						</select>
 						<div className="texture" onClick={modalHandler}>
-							<img src={product.product.type_img} alt="texture" />
+							<img src={inputs.product.type_img} alt="texture" />
 						</div>
 					</div>
 				</div>
@@ -54,7 +50,8 @@ const ProductDetails = ({ currentProduct, editable, modalHandler }) => {
 					<input
 						type="number"
 						id="barcode"
-						value={currentProduct.barcode}
+						value={inputs.barcode}
+						onChange={inputHandler}
 						disabled={editable ? false : true}
 						readOnly={editable ? false : true}
 					/>
@@ -66,7 +63,8 @@ const ProductDetails = ({ currentProduct, editable, modalHandler }) => {
 					<input
 						type="number"
 						id="length"
-						value={currentProduct.dimensions.short}
+						value={inputs.length}
+						onChange={inputHandler}
 						disabled={editable ? false : true}
 						readOnly={editable ? false : true}
 					/>
@@ -76,7 +74,8 @@ const ProductDetails = ({ currentProduct, editable, modalHandler }) => {
 					<input
 						type="number"
 						id="height"
-						value={currentProduct.dimensions.long}
+						value={inputs.height}
+						onChange={inputHandler}
 						disabled={editable ? false : true}
 						readOnly={editable ? false : true}
 					/>
@@ -86,7 +85,8 @@ const ProductDetails = ({ currentProduct, editable, modalHandler }) => {
 					<input
 						type="number"
 						id="width"
-						value={currentProduct.dimensions.width}
+						value={inputs.width}
+						onChange={inputHandler}
 						disabled={editable ? false : true}
 						readOnly={editable ? false : true}
 					/>
@@ -97,8 +97,9 @@ const ProductDetails = ({ currentProduct, editable, modalHandler }) => {
 					<label htmlFor="warehouse_location">Warehouse location</label>
 					<input
 						type="text"
-						id="warehouse-location"
-						value={currentProduct.warehouse_location}
+						id="location"
+						value={inputs.location}
+						onChange={inputHandler}
 						disabled={editable ? false : true}
 						readOnly={editable ? false : true}
 					/>
@@ -107,8 +108,9 @@ const ProductDetails = ({ currentProduct, editable, modalHandler }) => {
 					<label htmlFor="last_edited">Edited by</label>
 					<input
 						type="text"
-						id="last_edited"
-						value={currentProduct.edited_by}
+						id="editedBy"
+						value={inputs.editedBy}
+						onChange={inputHandler}
 						disabled={editable ? false : true}
 						readOnly={editable ? false : true}
 					/>
@@ -119,7 +121,8 @@ const ProductDetails = ({ currentProduct, editable, modalHandler }) => {
 					<label htmlFor="comments">Comments</label>
 					<textarea
 						id="comments"
-						defaultValue={currentProduct.comments}
+						defaultValue={inputs.comments}
+						onChange={inputHandler}
 						disabled={editable ? false : true}
 						readOnly={editable ? false : true}
 					></textarea>
@@ -129,22 +132,24 @@ const ProductDetails = ({ currentProduct, editable, modalHandler }) => {
 				<div className="form-control inline">
 					<input
 						type="checkbox"
-						checked={currentProduct.reserved.isReserved}
+						checked={inputs.reserved}
+						onChange={checkBoxHandler}
 						id="reserved"
 						disabled={editable ? false : true}
 						readOnly={editable ? false : true}
 					/>
 					<label htmlFor="comments">Reserved</label>
 				</div>
-				{currentProduct.reserved.isReserved && (
+				{inputs.reserved && (
 					<div className="form-control inline">
 						<label htmlFor="reserved_id">Reservation ID</label>
 						<input
 							type="text"
-							id="reserved_id"
+							id="reserveId"
 							disabled={editable ? false : true}
 							readOnly={editable ? false : true}
-							value={currentProduct.reserved.id}
+							value={inputs.reserveId}
+							onChange={inputHandler}
 						/>
 					</div>
 				)}
@@ -229,6 +234,13 @@ const StyledForm = styled.form`
 			border: solid 1px #a3a3a3;
 			outline-width: 0;
 		}
+		input[type='number'] {
+			-moz-appearance: textfield;
+		}
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+		}
 		textarea#comments {
 			resize: none;
 			overflow: scroll;
@@ -240,6 +252,11 @@ const StyledForm = styled.form`
 		input#reserved {
 			display: inline;
 			width: auto;
+		}
+
+		input:focus,
+		textarea:focus {
+			border: solid 1px black;
 		}
 	}
 	.form-control.inline {

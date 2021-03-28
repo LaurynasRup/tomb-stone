@@ -63,7 +63,7 @@ const StyledOuter = styled.div`
 	svg {
 		cursor: pointer;
 		position: absolute;
-		color: rgba(0, 0, 0, 0.7);
+		color: rgba(0, 0, 0, 0.8);
 	}
 	svg.left {
 		left: 10px;
