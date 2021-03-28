@@ -9,7 +9,6 @@ const ProductDetails = ({
 	modalHandler,
 	inputs,
 	inputHandler,
-	checkBoxHandler,
 	selectHandler,
 }) => {
 	const types = Object.values(useSelector((state) => state.types.types));
@@ -133,7 +132,7 @@ const ProductDetails = ({
 					<input
 						type="checkbox"
 						checked={inputs.reserved}
-						onChange={checkBoxHandler}
+						onChange={inputHandler}
 						id="reserved"
 						disabled={editable ? false : true}
 						readOnly={editable ? false : true}

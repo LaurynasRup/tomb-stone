@@ -21,5 +21,6 @@ export const useModalHandler = () => {
 			});
 		}
 	};
+
 	return { imgOpen, setImgOpen, modalHandler };
 };

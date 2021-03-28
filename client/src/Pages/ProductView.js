@@ -9,6 +9,7 @@ import { Wrapper, ButtonsWrapper } from '../StyledComps/styledComponents';
 // Hooks
 import { useFindByUrl } from '../hooks/useFindByUrl';
 import { useModalHandler } from '../hooks/useModalHandler';
+import { useProductInputs } from '../hooks/useProductInputs';
 // Icons
 import { BsArrowLeft } from 'react-icons/bs';
 const ProductView = () => {
@@ -18,35 +19,11 @@ const ProductView = () => {
 	// Find current product object
 	const currentProduct = useFindByUrl();
 
-	// State for product inputs
-	const [inputs, setInputs] = useState({
-		product: {
-			product_type: currentProduct.product.product_type,
-			type_img: currentProduct.product.type_img,
-		},
-		barcode: currentProduct.barcode,
-		length: currentProduct.dimensions.short,
-		height: currentProduct.dimensions.long,
-		width: currentProduct.dimensions.width,
-		location: currentProduct.warehouse_location,
-		editedBy: currentProduct.edited_by,
-		comments: currentProduct.comments,
-		reserved: currentProduct.reserved.isReserved,
-		reserveId: currentProduct.reserved.id,
-	});
+	// Grab user inputs
+	const { inputs, inputHandler, selectHandler } = useProductInputs(
+		currentProduct
+	);
 
-	const inputHandler = (e) => {
-		setInputs({
-			...inputs,
-			[e.target.id]: e.target.value,
-		});
-	};
-	const checkBoxHandler = (e) => {
-		setInputs({
-			...inputs,
-			[e.target.id]: e.target.ckecked,
-		});
-	};
 	return (
 		<>
 			{imgOpen.open && <ImageModal modalHandler={modalHandler} img={imgOpen} />}
@@ -57,7 +34,6 @@ const ProductView = () => {
 					<ProductDetails
 						inputs={inputs}
 						inputHandler={inputHandler}
-						checkBoxHandler={checkBoxHandler}
 						currentProduct={currentProduct}
 						editable={editable}
 						modalHandler={modalHandler}
