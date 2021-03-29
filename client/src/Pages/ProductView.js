@@ -15,7 +15,7 @@ import { BsArrowLeft } from 'react-icons/bs';
 const ProductView = () => {
 	const [editable] = useState(false);
 	// Image modal handling
-	const { imgOpen, setImgOpen, modalHandler } = useModalHandler();
+	const { imgOpen, modalHandler } = useModalHandler();
 	// Find current product object
 	const currentProduct = useFindByUrl();
 
@@ -35,10 +35,9 @@ const ProductView = () => {
 						inputs={inputs}
 						inputHandler={inputHandler}
 						currentProduct={currentProduct}
+						selectHandler={selectHandler}
 						editable={editable}
 						modalHandler={modalHandler}
-						imgOpen={imgOpen}
-						setImgOpen={setImgOpen}
 					/>
 					<ImageCarousel
 						modalHandler={modalHandler}

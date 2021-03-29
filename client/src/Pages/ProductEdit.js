@@ -17,7 +17,7 @@ const ProductEdit = () => {
 	const currentProduct = useFindByUrl();
 
 	// Image modal handling
-	const { imgOpen, setImgOpen, modalHandler } = useModalHandler();
+	const { imgOpen, modalHandler } = useModalHandler();
 
 	// Grab user inputs
 	const { inputs, inputHandler, selectHandler } = useProductInputs(
@@ -38,8 +38,6 @@ const ProductEdit = () => {
 						currentProduct={currentProduct}
 						editable={editable}
 						modalHandler={modalHandler}
-						imgOpen={imgOpen}
-						setImgOpen={setImgOpen}
 					/>
 					<EditImages images={JSON.parse(currentProduct.product_img)} />
 					<ButtonsWrapper>

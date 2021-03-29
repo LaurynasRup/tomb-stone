@@ -11,8 +11,8 @@ const ProductDetails = ({
 	inputHandler,
 	selectHandler,
 }) => {
+	// Grab product types from redux state
 	const types = Object.values(useSelector((state) => state.types.types));
-	// Find selected image src
 
 	return (
 		<StyledForm>
@@ -45,7 +45,12 @@ const ProductDetails = ({
 					</div>
 				</div>
 				<div className="form-control">
-					<label htmlFor="barcode">Barcode</label>
+					<div className="input-top">
+						<label htmlFor="barcode">Barcode</label>
+						{editable && (
+							<small className="error-msg">* Barcode is required</small>
+						)}
+					</div>
 					<input
 						type="number"
 						id="barcode"
@@ -58,7 +63,12 @@ const ProductDetails = ({
 			</div>
 			<div className="form-row">
 				<div className="form-control third">
-					<label htmlFor="length">Length</label>
+					<div className="input-top">
+						<label htmlFor="length">Length</label>
+						{editable && (
+							<small className="error-msg">* Length is required</small>
+						)}
+					</div>
 					<input
 						type="number"
 						id="length"
@@ -69,7 +79,12 @@ const ProductDetails = ({
 					/>
 				</div>
 				<div className="form-control third">
-					<label htmlFor="height">Height</label>
+					<div className="input-top">
+						<label htmlFor="height">Height</label>
+						{editable && (
+							<small className="error-msg">* Height is required</small>
+						)}
+					</div>
 					<input
 						type="number"
 						id="height"
@@ -80,7 +95,12 @@ const ProductDetails = ({
 					/>
 				</div>
 				<div className="form-control third">
-					<label htmlFor="width">Width</label>
+					<div className="input-top">
+						<label htmlFor="width">Width</label>
+						{editable && (
+							<small className="error-msg">* Width is required</small>
+						)}
+					</div>
 					<input
 						type="number"
 						id="width"
@@ -93,7 +113,14 @@ const ProductDetails = ({
 			</div>
 			<div className="form-row">
 				<div className="form-control">
-					<label htmlFor="warehouse_location">Warehouse location</label>
+					<div className="input-top">
+						<label htmlFor="warehouse_location">Warehouse location</label>
+						{editable && (
+							<small className="error-msg">
+								* Warehouse location is required
+							</small>
+						)}
+					</div>
 					<input
 						type="text"
 						id="location"
@@ -104,7 +131,12 @@ const ProductDetails = ({
 					/>
 				</div>
 				<div className="form-control">
-					<label htmlFor="last_edited">Edited by</label>
+					<div className="input-top">
+						<label htmlFor="last_edited">Edited by</label>
+						{editable && (
+							<small className="error-msg">* Edited by is required</small>
+						)}
+					</div>
 					<input
 						type="text"
 						id="editedBy"
@@ -141,7 +173,14 @@ const ProductDetails = ({
 				</div>
 				{inputs.reserved && (
 					<div className="form-control inline">
-						<label htmlFor="reserved_id">Reservation ID</label>
+						<div className="input-top">
+							{editable && (
+								<small className="error-msg">
+									* Reservation ID is required
+								</small>
+							)}
+							<label htmlFor="reserved_id">Reservation ID</label>
+						</div>
 						<input
 							type="text"
 							id="reserveId"
@@ -220,6 +259,10 @@ const StyledForm = styled.form`
 		label {
 			padding: 0 0 0.3rem 0.2rem;
 			font-size: 1.2rem;
+		}
+		.error-msg {
+			color: red;
+			padding-left: 1rem;
 		}
 		input,
 		textarea,
