@@ -22,6 +22,7 @@ export const useProductInputs = (obj) => {
 			setInputs({
 				...inputs,
 				reserved: !inputs.reserved,
+				reserveId: inputs.reserved ? inputs.reserveId : '',
 			});
 			return;
 		}

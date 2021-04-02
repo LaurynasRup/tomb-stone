@@ -75,8 +75,8 @@ router.patch('/update_product/:id', verify, async (req, res) => {
 		comments: rBody.comments,
 		edited_by: detailOrNull(rBody.edited_by, nullItems),
 		reserved: {
-			isReserved: detailOrNull(req.body.reserved.isReserved),
-			id: detailOrNull(req.body.reserved.id),
+			isReserved: req.body.reserved.isReserved,
+			id: req.body.reserved.id,
 		},
 	};
 	if (nullItems.length === 0) {
@@ -87,7 +87,9 @@ router.patch('/update_product/:id', verify, async (req, res) => {
 					$set: updatedDetails,
 				}
 			);
-			return res.status(200).send('Product has been updated succesfully');
+			return res
+				.status(200)
+				.json({ msg: 'Product has been updated succesfully' });
 		} catch (err) {
 			return res.status(400).json({ msg: 'Cannot update product details' });
 		}

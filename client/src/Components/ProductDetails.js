@@ -3,6 +3,8 @@ import React from 'react';
 import styled from 'styled-components';
 // Redux
 import { useSelector } from 'react-redux';
+// Fn to display error
+import { displayError } from '../functions/displayErrorString';
 
 const ProductDetails = ({
 	editable,
@@ -10,6 +12,7 @@ const ProductDetails = ({
 	inputs,
 	inputHandler,
 	selectHandler,
+	inputErrors,
 }) => {
 	// Grab product types from redux state
 	const types = Object.values(useSelector((state) => state.types.types));
@@ -48,7 +51,13 @@ const ProductDetails = ({
 					<div className="input-top">
 						<label htmlFor="barcode">Barcode</label>
 						{editable && (
-							<small className="error-msg">* Barcode is required</small>
+							<small className="error-msg">
+								{displayError(
+									inputErrors.errors,
+									'barcode',
+									'* Barcode is required'
+								)}
+							</small>
 						)}
 					</div>
 					<input
@@ -66,7 +75,13 @@ const ProductDetails = ({
 					<div className="input-top">
 						<label htmlFor="length">Length</label>
 						{editable && (
-							<small className="error-msg">* Length is required</small>
+							<small className="error-msg">
+								{displayError(
+									inputErrors.errors,
+									'length',
+									'* Length is required'
+								)}
+							</small>
 						)}
 					</div>
 					<input
@@ -82,7 +97,13 @@ const ProductDetails = ({
 					<div className="input-top">
 						<label htmlFor="height">Height</label>
 						{editable && (
-							<small className="error-msg">* Height is required</small>
+							<small className="error-msg">
+								{displayError(
+									inputErrors.errors,
+									'height',
+									'* height is required'
+								)}
+							</small>
 						)}
 					</div>
 					<input
@@ -98,7 +119,13 @@ const ProductDetails = ({
 					<div className="input-top">
 						<label htmlFor="width">Width</label>
 						{editable && (
-							<small className="error-msg">* Width is required</small>
+							<small className="error-msg">
+								{displayError(
+									inputErrors.errors,
+									'width',
+									'* Width is required'
+								)}
+							</small>
 						)}
 					</div>
 					<input
@@ -117,7 +144,11 @@ const ProductDetails = ({
 						<label htmlFor="warehouse_location">Warehouse location</label>
 						{editable && (
 							<small className="error-msg">
-								* Warehouse location is required
+								{displayError(
+									inputErrors.errors,
+									'location',
+									'* Location is required'
+								)}
 							</small>
 						)}
 					</div>
@@ -134,7 +165,13 @@ const ProductDetails = ({
 					<div className="input-top">
 						<label htmlFor="last_edited">Edited by</label>
 						{editable && (
-							<small className="error-msg">* Edited by is required</small>
+							<small className="error-msg">
+								{displayError(
+									inputErrors.errors,
+									'editedBy',
+									'* Edited by is required'
+								)}
+							</small>
 						)}
 					</div>
 					<input
@@ -176,7 +213,11 @@ const ProductDetails = ({
 						<div className="input-top">
 							{editable && (
 								<small className="error-msg">
-									* Reservation ID is required
+									{displayError(
+										inputErrors.errors,
+										'reserveId',
+										'* Reserveation ID is required'
+									)}
 								</small>
 							)}
 							<label htmlFor="reserved_id">Reservation ID</label>

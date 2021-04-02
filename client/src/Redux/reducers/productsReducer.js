@@ -24,6 +24,23 @@ const productsReducer = (state = initialState, action) => {
 				isLoading: false,
 				error: action.payload.response.data.msg,
 			};
+		case 'UPDATE_PRODUCT_REQUEST':
+			return {
+				...state,
+				isLoading: true,
+			};
+		case 'UPDATE_PRODUCT_SUCCESS':
+			return {
+				...state,
+				isLoading: false,
+				error: '',
+			};
+		case 'UPDATE_PRODUCT_FAILURE':
+			return {
+				...state,
+				isLoading: false,
+				error: action.payload.response.data.msg,
+			};
 		default:
 			return {
 				...state,

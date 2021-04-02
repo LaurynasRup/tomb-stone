@@ -41,12 +41,16 @@ function App() {
 				<Route path="/home">
 					<Home />
 				</Route>
-				<Route path="/product_view/">
-					<ProductView />
-				</Route>
-				<Route path="/product_edit/">
-					<ProductEdit />
-				</Route>
+				{loggedIn && (
+					<>
+						<Route path="/product_view/">
+							<ProductView />
+						</Route>
+						<Route path="/product_edit/">
+							<ProductEdit />
+						</Route>
+					</>
+				)}
 			</Switch>
 		</div>
 	);

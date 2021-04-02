@@ -2,23 +2,23 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const BtnLink = ({ link, children }) => {
+export const BtnLink = ({ link, children, handler }) => {
 	return (
 		<Link to={link} style={{ textDecoration: 'none' }}>
-			<StyledButton>{children}</StyledButton>
+			<StyledButton onClick={handler}>{children}</StyledButton>
 		</Link>
 	);
 };
 
-export const Btn = ({ children }) => {
-	return <StyledButton>{children}</StyledButton>;
+export const Btn = ({ children, handler }) => {
+	return <StyledButton onClick={handler}>{children}</StyledButton>;
 };
 
-export const BtnRed = ({ children }) => {
-	return <StyledButtonRed>{children}</StyledButtonRed>;
+export const BtnRed = ({ children, handler }) => {
+	return <StyledButtonRed onClick={handler}>{children}</StyledButtonRed>;
 };
-export const BtnGreen = ({ children }) => {
-	return <StyledButtonGreen>{children}</StyledButtonGreen>;
+export const BtnGreen = ({ children, handler }) => {
+	return <StyledButtonGreen onClick={handler}>{children}</StyledButtonGreen>;
 };
 
 const StyledButton = styled.button`
