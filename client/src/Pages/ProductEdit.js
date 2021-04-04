@@ -14,6 +14,7 @@ import { useModalHandler } from '../hooks/useModalHandler';
 import { useProductInputs } from '../hooks/useProductInputs';
 // Custom functions
 import { consctructObj } from '../functions/constructDispatchObj';
+import { removeFromArray } from '../functions/removeFromArray';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { updateProductAction } from '../Redux/actions/productsAction';
@@ -59,10 +60,12 @@ const ProductEdit = () => {
 		}
 		// grab input object entries
 		const inputsArray = Object.entries(inputs);
-		let pureInputs = inputsArray.filter((el) => el[0] !== 'reserved');
-		pureInputs = pureInputs.filter((el) => el[0] !== 'reserveId');
-		pureInputs = pureInputs.filter((el) => el[0] !== 'comments');
-		pureInputs = pureInputs.filter((el) => el[0] !== 'product');
+		let pureInputs = removeFromArray(inputsArray, [
+			'reserved',
+			'reserveId',
+			'comments',
+			'product',
+		]);
 		// if input is empty - push key into errors
 		pureInputs.forEach((input) => {
 			if (!input[1]) errors.push(input[0]);

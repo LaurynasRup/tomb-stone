@@ -11,6 +11,7 @@ import { useModalHandler } from '../hooks/useModalHandler';
 // Functions
 import { emptyInputObj } from '../functions/emptyInputObj';
 import { consctructObj } from '../functions/constructDispatchObj';
+import { removeFromArray } from '../functions/removeFromArray';
 const ProductAdd = () => {
 	// Can edit form details
 	const [editable] = useState(true);
@@ -33,10 +34,12 @@ const ProductAdd = () => {
 		}
 		// grab input object entries
 		const inputsArray = Object.entries(inputs);
-		let pureInputs = inputsArray.filter((el) => el[0] !== 'reserved');
-		pureInputs = pureInputs.filter((el) => el[0] !== 'reserveId');
-		pureInputs = pureInputs.filter((el) => el[0] !== 'comments');
-		pureInputs = pureInputs.filter((el) => el[0] !== 'product');
+		let pureInputs = removeFromArray(inputsArray, [
+			'reserved',
+			'reserveId',
+			'comments',
+			'product',
+		]);
 		// if input is empty - push key into errors
 		pureInputs.forEach((input) => {
 			if (!input[1]) errors.push(input[0]);
