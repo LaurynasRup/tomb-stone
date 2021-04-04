@@ -4,7 +4,6 @@ import styled from 'styled-components';
 // React icons
 import { IoIosCloseCircle } from 'react-icons/io';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { HiOutlinePhotograph } from 'react-icons/hi';
 
 const EditImages = ({ images }) => {
 	return (
@@ -15,13 +14,6 @@ const EditImages = ({ images }) => {
 					<label htmlFor="add_img">
 						<AiOutlinePlus size={20} /> &nbsp; Add file
 					</label>
-				</div>
-				<div className="take-photo">
-					<div className="photo-inp">
-						<HiOutlinePhotograph size={20} />
-						&nbsp;
-						<span>Take photo</span>
-					</div>
 				</div>
 			</div>
 

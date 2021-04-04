@@ -5,6 +5,7 @@ import Login from './Pages/Login';
 import Home from './Pages/Home';
 import ProductView from './Pages/ProductView';
 import ProductEdit from './Pages/ProductEdit';
+import ProductAdd from './Pages/ProductAdd';
 // Functions
 import { autoLogin } from './functions/autoLogin';
 // React router
@@ -41,16 +42,19 @@ function App() {
 				<Route path="/home">
 					<Home />
 				</Route>
-				{loggedIn && (
-					<>
-						<Route path="/product_view/">
-							<ProductView />
-						</Route>
-						<Route path="/product_edit/">
-							<ProductEdit />
-						</Route>
-					</>
-				)}
+				{/* {loggedIn && ( */}
+				<>
+					<Route path="/product_view/">
+						<ProductView />
+					</Route>
+					<Route path="/product_edit/">
+						<ProductEdit />
+					</Route>
+					<Route path="/product_add">
+						<ProductAdd />
+					</Route>
+				</>
+				{/* )} */}
 			</Switch>
 		</div>
 	);

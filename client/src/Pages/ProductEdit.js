@@ -30,6 +30,7 @@ const ProductEdit = () => {
 	const { inputs, inputHandler, selectHandler } = useProductInputs(
 		currentProduct
 	);
+	console.log(currentProduct);
 	// Manage errors
 	const [inputErrors, setInputErrors] = useState({
 		show: false,
@@ -73,7 +74,6 @@ const ProductEdit = () => {
 				show: true,
 				errors,
 			});
-			console.log(errors);
 		} else {
 			// clear errors
 			setInputErrors({
