@@ -8,6 +8,7 @@ import ImageModal from '../Components/ImageModal';
 import { useProductInputs } from '../hooks/useProductInputs';
 import { BtnLink, BtnGreen } from '../Components/Button';
 import { useModalHandler } from '../hooks/useModalHandler';
+import { useInputErrors } from '../hooks/useInputErrors';
 // Functions
 import { emptyInputObj } from '../functions/emptyInputObj';
 import { consctructObj } from '../functions/constructDispatchObj';
@@ -19,10 +20,7 @@ const ProductAdd = () => {
 	const emptyObj = emptyInputObj;
 	const { inputs, inputHandler, selectHandler } = useProductInputs(emptyObj);
 	// Manage errors
-	const [inputErrors, setInputErrors] = useState({
-		show: false,
-		errors: [],
-	});
+	const { inputErrors, inputErrorHandler } = useInputErrors();
 	// Image modal
 	const { imgOpen, modalHandler } = useModalHandler();
 
@@ -44,23 +42,12 @@ const ProductAdd = () => {
 		pureInputs.forEach((input) => {
 			if (!input[1]) errors.push(input[0]);
 		});
-		// If errors array > 1 - set state to show & set array
-		if (errors.length > 0) {
-			setInputErrors({
-				show: true,
-				errors,
-			});
-		} else {
-			// clear errors
-			setInputErrors({
-				show: false,
-				errors,
-			});
-			// construct the obj
-			const objDispatch = consctructObj(inputs, emptyInputObj);
-			// dispatch edit product action
+		// check for errors
+		const pass = () => {
+			const objDispatch = consctructObj(inputs, emptyObj);
 			console.log(objDispatch);
-		}
+		};
+		inputErrorHandler(errors, pass);
 	};
 	return (
 		<>
