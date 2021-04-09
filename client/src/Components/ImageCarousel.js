@@ -18,31 +18,35 @@ const ImageCarousel = ({ modalHandler, images }) => {
 		}
 	};
 	return (
-		<StyledOuter>
-			<img
-				src={JSON.parse(images)[count]}
-				alt="Marble Texture"
-				onClick={modalHandler}
-			/>
-			{count !== 0 && (
-				<FaChevronLeft
-					count={count}
-					arr={JSON.parse(images)}
-					size={40}
-					className="chevron left"
-					onClick={changeImgHandler}
-				/>
+		<>
+			{JSON.parse(images).length > 0 && (
+				<StyledOuter>
+					<img
+						src={JSON.parse(images)[count]}
+						alt="Marble Texture"
+						onClick={modalHandler}
+					/>
+					{count !== 0 && (
+						<FaChevronLeft
+							count={count}
+							arr={JSON.parse(images)}
+							size={40}
+							className="chevron left"
+							onClick={changeImgHandler}
+						/>
+					)}
+					{count !== JSON.parse(images).length - 1 && (
+						<FaChevronRight
+							count={count}
+							arr={JSON.parse(images)}
+							size={40}
+							className="chevron right"
+							onClick={changeImgHandler}
+						/>
+					)}
+				</StyledOuter>
 			)}
-			{count !== JSON.parse(images).length - 1 && (
-				<FaChevronRight
-					count={count}
-					arr={JSON.parse(images)}
-					size={40}
-					className="chevron right"
-					onClick={changeImgHandler}
-				/>
-			)}
-		</StyledOuter>
+		</>
 	);
 };
 

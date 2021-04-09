@@ -41,7 +41,7 @@ router.post('/add_product', verify, async (req, res) => {
 		const savedProduct = await newProduct.save();
 		return res.status(201).send(savedProduct);
 	} catch (err) {
-		return res.status(400).json({ msg: 'Unable to add product' });
+		return res.status(400).json({ msg: 'Unable to add product', err });
 	}
 });
 
@@ -51,7 +51,7 @@ router.delete('/delete_product/:id', verify, async (req, res) => {
 		const removedProduct = await product.deleteOne({ _id: req.params.id });
 		return res.status(200).send('Product has been removed');
 	} catch (err) {
-		return res.status(400).json({ msg: 'Unable to remove the product' });
+		return res.status(400).json({ msg: 'Unable to remove the product', err });
 	}
 });
 
@@ -91,7 +91,9 @@ router.patch('/update_product/:id', verify, async (req, res) => {
 				.status(200)
 				.json({ msg: 'Product has been updated succesfully' });
 		} catch (err) {
-			return res.status(400).json({ msg: 'Cannot update product details' });
+			return res
+				.status(400)
+				.json({ msg: 'Cannot update product details', err });
 		}
 	} else {
 		return res.status(400).json({ msg: 'Please enter all details' });
@@ -125,7 +127,7 @@ router.post('/add_historical', verify, async (req, res) => {
 		const savedProduct = await newProduct.save();
 		return res.status(201).send(savedProduct);
 	} catch (err) {
-		return res.status(400).json({ msg: 'Cannot add historical product' });
+		return res.status(400).json({ msg: 'Cannot add historical product', err });
 	}
 });
 

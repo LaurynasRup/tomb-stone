@@ -3,7 +3,7 @@ export const emptyInputObj = {
 		product_type: '',
 		type_img: '',
 	},
-	product_img: [],
+	product_img: '[]',
 	warehouse_location: '',
 	dimensions: {
 		short: '',

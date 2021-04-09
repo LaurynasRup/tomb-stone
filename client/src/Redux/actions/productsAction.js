@@ -81,3 +81,42 @@ export const updateProductAction = (token, id, obj, fn) => async (dispatch) => {
 		dispatch(updateProductFailure(error));
 	}
 };
+
+/* ADD NEW PRODUCT */
+
+const ADD_PRODUCT_REQUEST = 'ADD_PRODUCT_REQUEST';
+const ADD_PRODUCT_SUCCESS = 'ADD_PRODUCT_SUCCESS';
+const ADD_PRODUCT_FAILURE = 'ADD_PRODUCT_FAILURE';
+
+const addProductRequest = () => {
+	return {
+		type: ADD_PRODUCT_REQUEST,
+	};
+};
+
+const addProductSuccess = () => {
+	return {
+		type: ADD_PRODUCT_SUCCESS,
+	};
+};
+
+const addProductFailure = (error) => {
+	return {
+		type: ADD_PRODUCT_FAILURE,
+		payload: error,
+	};
+};
+
+export const addProductAction = (token, obj) => async (dispatch) => {
+	try {
+		dispatch(addProductRequest());
+		const response = await axios.post('/api/products/add_product', obj, {
+			headers: {
+				'auth-token': token,
+			},
+		});
+		dispatch(addProductSuccess());
+	} catch (err) {
+		dispatch(addProductFailure(err));
+	}
+};

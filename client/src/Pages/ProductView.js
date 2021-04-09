@@ -18,7 +18,6 @@ const ProductView = () => {
 	const { imgOpen, modalHandler } = useModalHandler();
 	// Find current product object
 	const currentProduct = useFindByUrl();
-
 	// Grab user inputs
 	const { inputs, inputHandler, selectHandler } = useProductInputs(
 		currentProduct

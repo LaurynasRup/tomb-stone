@@ -4,15 +4,19 @@ import { Wrapper, ButtonsWrapper } from '../StyledComps/styledComponents';
 import ProductDetails from '../Components/ProductDetails';
 import EditImages from '../Components/EditImages';
 import ImageModal from '../Components/ImageModal';
+import { BtnLink, BtnGreen } from '../Components/Button';
+import PageLoading from '../Components/PageLoading';
 // Hooks
 import { useProductInputs } from '../hooks/useProductInputs';
-import { BtnLink, BtnGreen } from '../Components/Button';
 import { useModalHandler } from '../hooks/useModalHandler';
 import { useInputErrors } from '../hooks/useInputErrors';
 // Functions
 import { emptyInputObj } from '../functions/emptyInputObj';
 import { consctructObj } from '../functions/constructDispatchObj';
 import { removeFromArray } from '../functions/removeFromArray';
+// Redux
+import { useSelector, useDispatch } from 'react-redux';
+import { addProductAction } from '../Redux/actions/productsAction';
 const ProductAdd = () => {
 	// Can edit form details
 	const [editable] = useState(true);
@@ -24,6 +28,13 @@ const ProductAdd = () => {
 	// Image modal
 	const { imgOpen, modalHandler } = useModalHandler();
 
+	// Grab token
+	const { token } = useSelector((state) => state.user);
+	// See if loading
+	const { isLoading } = useSelector((state) => state.products);
+
+	const dispatch = useDispatch();
+	// Handle submit
 	const submitHandler = () => {
 		const errors = [];
 		// if reserved - if no reserve id, push error
@@ -46,11 +57,13 @@ const ProductAdd = () => {
 		const pass = () => {
 			const objDispatch = consctructObj(inputs, emptyObj);
 			console.log(objDispatch);
+			dispatch(addProductAction(token, objDispatch));
 		};
 		inputErrorHandler(errors, pass);
 	};
 	return (
 		<>
+			{isLoading && <PageLoading />}
 			{imgOpen.open && <ImageModal modalHandler={modalHandler} img={imgOpen} />}
 			<Wrapper>
 				<h1>Add New Product</h1>
@@ -64,7 +77,7 @@ const ProductAdd = () => {
 					inputErrors={inputErrors}
 					modalHandler={modalHandler}
 				/>
-				<EditImages images={emptyObj.product_img} />
+				<EditImages images={JSON.parse(emptyObj.product_img)} />
 				<ButtonsWrapper>
 					<BtnLink link="/home">Cancel</BtnLink>
 					<div className="btns-right">
