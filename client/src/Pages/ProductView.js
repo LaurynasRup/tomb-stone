@@ -48,7 +48,6 @@ const ProductView = () => {
 							<span style={{ paddingLeft: '0.2rem' }}>Back</span>
 						</BtnLink>
 						<div className="btns-right">
-							<BtnLink link="#">Split</BtnLink>
 							<BtnLink link={`/product_edit/${currentProduct._id}`}>
 								Edit
 							</BtnLink>

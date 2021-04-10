@@ -32,8 +32,8 @@ const ProductTable = () => {
 				<StyledTable>
 					<thead>
 						<tr>
-							<th>Type</th>
 							<th>Barcode</th>
+							<th>Type</th>
 							<th>Length</th>
 							<th>Height</th>
 							<th>Width</th>
@@ -56,8 +56,8 @@ const ProductTable = () => {
 								id={prod._id}
 								onClick={() => openProductHandler(prod._id)}
 							>
-								<td>{prod.product.product_type} </td>
 								<td>{prod.barcode}</td>
+								<td>{prod.product.product_type} </td>
 								<td>{prod.dimensions.short}</td>
 								<td>{prod.dimensions.long}</td>
 								<td>{prod.dimensions.width}</td>

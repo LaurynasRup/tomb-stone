@@ -12,12 +12,18 @@ import { Wrapper, ButtonsWrapper } from '../StyledComps/styledComponents';
 import { useFindByUrl } from '../hooks/useFindByUrl';
 import { useModalHandler } from '../hooks/useModalHandler';
 import { useProductInputs } from '../hooks/useProductInputs';
+import { useProductUpdated } from '../hooks/useProductUpdated';
+import { useProductDeleted } from '../hooks/useProductDeleted';
+import { useInputErrors } from '../hooks/useInputErrors';
 // Custom functions
-import { consctructObj } from '../functions/constructDispatchObj';
+import { constructObj } from '../functions/constructDispatchObj';
 import { removeFromArray } from '../functions/removeFromArray';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { updateProductAction } from '../Redux/actions/productsAction';
+import {
+	updateProductAction,
+	deleteProductAction,
+} from '../Redux/actions/productsAction';
 
 const ProductEdit = () => {
 	const [editable] = useState(true);
@@ -32,10 +38,7 @@ const ProductEdit = () => {
 		currentProduct
 	);
 	// Manage errors
-	const [inputErrors, setInputErrors] = useState({
-		show: false,
-		errors: [],
-	});
+	const { inputErrors, inputErrorHandler } = useInputErrors();
 
 	// Retrieve token
 	const { token } = useSelector((state) => state.user);
@@ -44,11 +47,9 @@ const ProductEdit = () => {
 	const dispatch = useDispatch();
 
 	// has updated succesfully
-	const [updated, setUpdated] = useState(false);
-
-	const updatedHandler = () => {
-		setUpdated(true);
-	};
+	const { updated, updatedHandler } = useProductUpdated();
+	// was deleted succesfully
+	const { deleted, deleteHandler } = useProductDeleted();
 
 	// Handle submit button
 	const submitHandler = async () => {
@@ -69,21 +70,10 @@ const ProductEdit = () => {
 		pureInputs.forEach((input) => {
 			if (!input[1]) errors.push(input[0]);
 		});
-
-		// If errors array > 1 - set state to show & set array
-		if (errors.length > 0) {
-			setInputErrors({
-				show: true,
-				errors,
-			});
-		} else {
-			// clear errors
-			setInputErrors({
-				show: false,
-				errors,
-			});
+		// Check for errors
+		const pass = () => {
 			// construct the obj
-			const objDispatch = consctructObj(inputs, currentProduct);
+			const objDispatch = constructObj(inputs, currentProduct);
 			// dispatch edit product action
 			dispatch(
 				updateProductAction(
@@ -93,12 +83,46 @@ const ProductEdit = () => {
 					updatedHandler
 				)
 			);
-		}
+		};
+		inputErrorHandler(errors, pass);
+	};
+
+	// Handle delete button
+	const productDeleteHandler = () => {
+		console.log(currentProduct._id);
+		dispatch(deleteProductAction(currentProduct._id, token, deleteHandler));
 	};
 
 	return (
 		<>
-			{updated && <SuccessModal />}
+			{updated.success && (
+				<SuccessModal
+					msg="Item has been updated succesfully"
+					link="/home"
+					linkTxt="Go back"
+				/>
+			)}
+			{updated.error && (
+				<SuccessModal
+					msg="Something went wrong"
+					link="/home"
+					linkTxt="Go back"
+				/>
+			)}
+			{deleted.success && (
+				<SuccessModal
+					msg="Item has been deleted succesfully"
+					link="/home"
+					linkTxt="Go back"
+				/>
+			)}
+			{deleted.error && (
+				<SuccessModal
+					msg="Something went wrong"
+					link="/home"
+					linkTxt="Go back"
+				/>
+			)}
 			{isLoading && <PageLoading />}
 			{imgOpen.open && <ImageModal modalHandler={modalHandler} img={imgOpen} />}
 			{currentProduct && (
@@ -120,7 +144,7 @@ const ProductEdit = () => {
 							Cancel
 						</BtnLink>
 						<div className="btns-right">
-							<BtnRed>Delete Product</BtnRed>
+							<BtnRed handler={productDeleteHandler}>Delete Product</BtnRed>
 							<BtnGreen handler={submitHandler}>Save Changes</BtnGreen>
 						</div>
 					</ButtonsWrapper>

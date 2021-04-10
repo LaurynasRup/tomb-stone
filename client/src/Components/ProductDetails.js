@@ -21,7 +21,14 @@ const ProductDetails = ({
 		<StyledForm>
 			<div className="form-row">
 				<div className="form-control">
-					<label htmlFor="type">Type</label>
+					<div className="input-top">
+						<label htmlFor="type">Type</label>
+						{editable && (
+							<small className="error-msg">
+								{displayError(inputErrors.errors, 'type', '* Type is required')}
+							</small>
+						)}
+					</div>
 					<div className="select-control">
 						<select
 							id="type"
@@ -31,20 +38,27 @@ const ProductDetails = ({
 							disabled={editable ? false : true}
 							readOnly={editable ? false : true}
 						>
+							<option value="" id="" imgsrc="">
+								--- Select Type ---
+							</option>
 							{types.map((type) => (
 								<option
 									key={type._id}
-									id={type._id}
-									value={type.name}
+									id={type.type_id}
+									value={type.type_id}
 									imgsrc={type.image}
 								>
-									{type.name}
+									{type.name} - {type.type_id}
 								</option>
 							))}
 						</select>
-						<div className="texture" onClick={modalHandler}>
-							<img src={inputs.product.type_img} alt="texture" />
-						</div>
+						{inputs.product.type_img !== '' ? (
+							<div className="texture" onClick={modalHandler}>
+								<img src={inputs.product.type_img} alt="texture" />
+							</div>
+						) : (
+							''
+						)}
 					</div>
 				</div>
 				<div className="form-control">

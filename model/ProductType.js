@@ -10,6 +10,10 @@ const productTypeSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
+		type_id: {
+			type: String,
+			required: true,
+		},
 	},
 	{
 		collection: 'product_types',

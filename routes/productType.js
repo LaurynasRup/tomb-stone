@@ -11,6 +11,7 @@ router.get('/all_types', async (req, res) => {
 	} catch (err) {
 		return res.status(404).json({
 			msg: 'No items found',
+			err,
 		});
 	}
 });
@@ -20,6 +21,7 @@ router.post('/add_type', async (req, res) => {
 	const newType = new productType({
 		name: req.body.name,
 		image: req.body.image,
+		type_id: req.body.type_id,
 	});
 	try {
 		const savedType = await newType.save();
@@ -27,6 +29,7 @@ router.post('/add_type', async (req, res) => {
 	} catch (err) {
 		return res.status(400).json({
 			msg: 'Could not add a new type',
+			err,
 		});
 	}
 });

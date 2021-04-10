@@ -1,4 +1,4 @@
-export const consctructObj = (obj, obj2) => {
+export const constructObj = (obj, obj2) => {
 	return {
 		barcode: obj.barcode,
 		comments: obj.comments,

@@ -4,12 +4,12 @@ import { BtnLink } from './Button';
 // Styled
 import styled from 'styled-components';
 
-const SuccessModal = () => {
+const SuccessModal = ({ msg, link, linkTxt }) => {
 	return (
 		<ModalOuter>
 			<div className="inner">
-				<p>Item has been updated succesfully</p>
-				<BtnLink link="/home">Go Back</BtnLink>
+				<p>{msg}</p>
+				<BtnLink link={link}>{linkTxt}</BtnLink>
 			</div>
 		</ModalOuter>
 	);

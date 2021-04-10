@@ -6,13 +6,15 @@ import EditImages from '../Components/EditImages';
 import ImageModal from '../Components/ImageModal';
 import { BtnLink, BtnGreen } from '../Components/Button';
 import PageLoading from '../Components/PageLoading';
+import SuccessModal from '../Components/SuccessModal';
 // Hooks
 import { useProductInputs } from '../hooks/useProductInputs';
 import { useModalHandler } from '../hooks/useModalHandler';
 import { useInputErrors } from '../hooks/useInputErrors';
+import { useProductUpdated } from '../hooks/useProductUpdated';
 // Functions
 import { emptyInputObj } from '../functions/emptyInputObj';
-import { consctructObj } from '../functions/constructDispatchObj';
+import { constructObj } from '../functions/constructDispatchObj';
 import { removeFromArray } from '../functions/removeFromArray';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -34,6 +36,10 @@ const ProductAdd = () => {
 	const { isLoading } = useSelector((state) => state.products);
 
 	const dispatch = useDispatch();
+
+	// has updated succesfully
+	const { updated, updatedHandler } = useProductUpdated();
+
 	// Handle submit
 	const submitHandler = () => {
 		const errors = [];
@@ -41,6 +47,8 @@ const ProductAdd = () => {
 		if (inputs.reserved && !inputs.reserveId) {
 			errors.push('reserveId');
 		}
+		// If no type selected, push error
+		if (!inputs.product.product_type) errors.push('type');
 		// grab input object entries
 		const inputsArray = Object.entries(inputs);
 		let pureInputs = removeFromArray(inputsArray, [
@@ -55,14 +63,27 @@ const ProductAdd = () => {
 		});
 		// check for errors
 		const pass = () => {
-			const objDispatch = consctructObj(inputs, emptyObj);
-			console.log(objDispatch);
-			dispatch(addProductAction(token, objDispatch));
+			const objDispatch = constructObj(inputs, emptyObj);
+			dispatch(addProductAction(token, objDispatch, updatedHandler));
 		};
 		inputErrorHandler(errors, pass);
 	};
 	return (
 		<>
+			{updated.success && (
+				<SuccessModal
+					msg="Item has been added succesfully"
+					link="/home"
+					linkTxt="Go back"
+				/>
+			)}
+			{updated.error && (
+				<SuccessModal
+					msg="Something went wrong"
+					link="/home"
+					linkTxt="Go back"
+				/>
+			)}
 			{isLoading && <PageLoading />}
 			{imgOpen.open && <ImageModal modalHandler={modalHandler} img={imgOpen} />}
 			<Wrapper>

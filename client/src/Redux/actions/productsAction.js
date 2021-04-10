@@ -76,9 +76,10 @@ export const updateProductAction = (token, id, obj, fn) => async (dispatch) => {
 			}
 		);
 		dispatch(updateProductSuccess());
-		fn();
+		fn('success');
 	} catch (error) {
 		dispatch(updateProductFailure(error));
+		fn('error');
 	}
 };
 
@@ -107,7 +108,7 @@ const addProductFailure = (error) => {
 	};
 };
 
-export const addProductAction = (token, obj) => async (dispatch) => {
+export const addProductAction = (token, obj, fn) => async (dispatch) => {
 	try {
 		dispatch(addProductRequest());
 		const response = await axios.post('/api/products/add_product', obj, {
@@ -116,7 +117,50 @@ export const addProductAction = (token, obj) => async (dispatch) => {
 			},
 		});
 		dispatch(addProductSuccess());
+		fn('success');
 	} catch (err) {
 		dispatch(addProductFailure(err));
+		fn('error');
+	}
+};
+
+/* DELETE PRODUCT */
+
+const DELETE_PRODUCT_REQUEST = 'DELETE_PRODUCT_REQUEST';
+const DELETE_PRODUCT_SUCCESS = 'DELETE_PRODUCT_SUCCESS';
+const DELETE_PRODUCT_FAILURE = 'DELETE_PRODUCT_FAILURE';
+
+const deleteProductRequest = () => {
+	return {
+		type: DELETE_PRODUCT_REQUEST,
+	};
+};
+
+const deleteProductSuccess = () => {
+	return {
+		type: DELETE_PRODUCT_SUCCESS,
+	};
+};
+
+const deleteProductFailure = (err) => {
+	return {
+		type: DELETE_PRODUCT_FAILURE,
+		payload: err,
+	};
+};
+
+export const deleteProductAction = (id, token, fn) => async (dispatch) => {
+	try {
+		dispatch(deleteProductRequest());
+		const response = await axios.delete(`/api/products/delete_product/${id}`, {
+			headers: {
+				'auth-token': token,
+			},
+		});
+		dispatch(deleteProductSuccess());
+		fn('success');
+	} catch (error) {
+		dispatch(deleteProductFailure(error));
+		fn('error');
 	}
 };
