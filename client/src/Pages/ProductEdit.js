@@ -5,16 +5,17 @@ import ProductDetails from '../Components/ProductDetails';
 import EditImages from '../Components/EditImages';
 import { BtnLink, BtnRed, BtnGreen } from '../Components/Button';
 import PageLoading from '../Components/PageLoading';
-import SuccessModal from '../Components/SuccessModal';
+import MessageModal from '../Components/MessageModal';
+import ConfirmMessageModal from '../Components/ConfirmMessageModal';
 // Styled comps
 import { Wrapper, ButtonsWrapper } from '../StyledComps/styledComponents';
 // Hooks
 import { useFindByUrl } from '../hooks/useFindByUrl';
 import { useModalHandler } from '../hooks/useModalHandler';
 import { useProductInputs } from '../hooks/useProductInputs';
-import { useProductUpdated } from '../hooks/useProductUpdated';
-import { useProductDeleted } from '../hooks/useProductDeleted';
 import { useInputErrors } from '../hooks/useInputErrors';
+import { useShowMsgModal } from '../hooks/useShowMsgModal';
+import { useConfirmMsgModal } from '../hooks/useConfirmMsgModal';
 // Custom functions
 import { constructObj } from '../functions/constructDispatchObj';
 import { removeFromArray } from '../functions/removeFromArray';
@@ -29,27 +30,23 @@ const ProductEdit = () => {
 	const [editable] = useState(true);
 	// Find current product object
 	const currentProduct = useFindByUrl();
-
 	// Image modal handling
 	const { imgOpen, modalHandler } = useModalHandler();
-
 	// Grab user inputs
 	const { inputs, inputHandler, selectHandler } = useProductInputs(
 		currentProduct
 	);
 	// Manage errors
 	const { inputErrors, inputErrorHandler } = useInputErrors();
-
 	// Retrieve token
 	const { token } = useSelector((state) => state.user);
 	// See if loading
 	const { isLoading } = useSelector((state) => state.products);
 	const dispatch = useDispatch();
-
-	// has updated succesfully
-	const { updated, updatedHandler } = useProductUpdated();
-	// was deleted succesfully
-	const { deleted, deleteHandler } = useProductDeleted();
+	// Display modal message
+	const { showMsg, showModalMsgHandler } = useShowMsgModal();
+	// Display Confirm Modal
+	const { showConfirmModal, confirmModalhandler } = useConfirmMsgModal();
 
 	// Handle submit button
 	const submitHandler = async () => {
@@ -80,7 +77,7 @@ const ProductEdit = () => {
 					token,
 					currentProduct._id,
 					objDispatch,
-					updatedHandler
+					showModalMsgHandler
 				)
 			);
 		};
@@ -89,38 +86,34 @@ const ProductEdit = () => {
 
 	// Handle delete button
 	const productDeleteHandler = () => {
-		console.log(currentProduct._id);
-		dispatch(deleteProductAction(currentProduct._id, token, deleteHandler));
+		// Display confirmation modal
+		confirmModalhandler();
+	};
+
+	// Handle delete confirmation
+	const confirmDeleteHandler = () => {
+		// Remove confirm modal
+		confirmModalhandler();
+		// dispatch delete action
+		dispatch(
+			deleteProductAction(currentProduct._id, token, showModalMsgHandler)
+		);
 	};
 
 	return (
 		<>
-			{updated.success && (
-				<SuccessModal
-					msg="Item has been updated succesfully"
-					link="/home"
-					linkTxt="Go back"
+			{showConfirmModal && (
+				<ConfirmMessageModal
+					msg={`Delete product ${currentProduct.barcode} ?`}
+					cancelHandler={confirmModalhandler}
+					confirmHandler={confirmDeleteHandler}
 				/>
 			)}
-			{updated.error && (
-				<SuccessModal
-					msg="Something went wrong"
-					link="/home"
-					linkTxt="Go back"
-				/>
-			)}
-			{deleted.success && (
-				<SuccessModal
-					msg="Item has been deleted succesfully"
-					link="/home"
-					linkTxt="Go back"
-				/>
-			)}
-			{deleted.error && (
-				<SuccessModal
-					msg="Something went wrong"
-					link="/home"
-					linkTxt="Go back"
+			{showMsg.display && (
+				<MessageModal
+					msg={showMsg.msg}
+					link={showMsg.link}
+					linkTxt={showMsg.linkTxt}
 				/>
 			)}
 			{isLoading && <PageLoading />}

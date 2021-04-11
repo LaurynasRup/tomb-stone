@@ -68,18 +68,14 @@ const updateProductFailure = (error) => {
 export const updateProductAction = (token, id, obj, fn) => async (dispatch) => {
 	try {
 		dispatch(updateProductRequest());
-		const response = await axios.patch(
-			`/api/products/update_product/${id}`,
-			obj,
-			{
-				headers: { 'auth-token': token },
-			}
-		);
+		await axios.patch(`/api/products/update_product/${id}`, obj, {
+			headers: { 'auth-token': token },
+		});
 		dispatch(updateProductSuccess());
-		fn('success');
+		fn('update success');
 	} catch (error) {
 		dispatch(updateProductFailure(error));
-		fn('error');
+		fn('update error');
 	}
 };
 
@@ -111,16 +107,16 @@ const addProductFailure = (error) => {
 export const addProductAction = (token, obj, fn) => async (dispatch) => {
 	try {
 		dispatch(addProductRequest());
-		const response = await axios.post('/api/products/add_product', obj, {
+		await axios.post('/api/products/add_product', obj, {
 			headers: {
 				'auth-token': token,
 			},
 		});
 		dispatch(addProductSuccess());
-		fn('success');
+		fn('add success');
 	} catch (err) {
 		dispatch(addProductFailure(err));
-		fn('error');
+		fn('add error');
 	}
 };
 
@@ -152,15 +148,15 @@ const deleteProductFailure = (err) => {
 export const deleteProductAction = (id, token, fn) => async (dispatch) => {
 	try {
 		dispatch(deleteProductRequest());
-		const response = await axios.delete(`/api/products/delete_product/${id}`, {
+		await axios.delete(`/api/products/delete_product/${id}`, {
 			headers: {
 				'auth-token': token,
 			},
 		});
 		dispatch(deleteProductSuccess());
-		fn('success');
+		fn('delete success');
 	} catch (error) {
 		dispatch(deleteProductFailure(error));
-		fn('error');
+		fn('delete error');
 	}
 };

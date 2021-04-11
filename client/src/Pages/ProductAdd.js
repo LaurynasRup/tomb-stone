@@ -6,12 +6,12 @@ import EditImages from '../Components/EditImages';
 import ImageModal from '../Components/ImageModal';
 import { BtnLink, BtnGreen } from '../Components/Button';
 import PageLoading from '../Components/PageLoading';
-import SuccessModal from '../Components/SuccessModal';
+import MessageModal from '../Components/MessageModal';
 // Hooks
 import { useProductInputs } from '../hooks/useProductInputs';
 import { useModalHandler } from '../hooks/useModalHandler';
 import { useInputErrors } from '../hooks/useInputErrors';
-import { useProductUpdated } from '../hooks/useProductUpdated';
+import { useShowMsgModal } from '../hooks/useShowMsgModal';
 // Functions
 import { emptyInputObj } from '../functions/emptyInputObj';
 import { constructObj } from '../functions/constructDispatchObj';
@@ -37,8 +37,8 @@ const ProductAdd = () => {
 
 	const dispatch = useDispatch();
 
-	// has updated succesfully
-	const { updated, updatedHandler } = useProductUpdated();
+	// display modal message
+	const { showMsg, showModalMsgHandler } = useShowMsgModal();
 
 	// Handle submit
 	const submitHandler = () => {
@@ -64,24 +64,17 @@ const ProductAdd = () => {
 		// check for errors
 		const pass = () => {
 			const objDispatch = constructObj(inputs, emptyObj);
-			dispatch(addProductAction(token, objDispatch, updatedHandler));
+			dispatch(addProductAction(token, objDispatch, showModalMsgHandler));
 		};
 		inputErrorHandler(errors, pass);
 	};
 	return (
 		<>
-			{updated.success && (
-				<SuccessModal
-					msg="Item has been added succesfully"
-					link="/home"
-					linkTxt="Go back"
-				/>
-			)}
-			{updated.error && (
-				<SuccessModal
-					msg="Something went wrong"
-					link="/home"
-					linkTxt="Go back"
+			{showMsg.display && (
+				<MessageModal
+					msg={showMsg.msg}
+					link={showMsg.link}
+					linkTxt={showMsg.linkTxt}
 				/>
 			)}
 			{isLoading && <PageLoading />}
