@@ -5,7 +5,7 @@ const AdminMenu = () => {
 	return (
 		<StyledMenu>
 			<li>
-				<a href="/">Products</a>
+				<a href="/">Types</a>
 			</li>
 			<li>
 				<a href="/">Users</a>

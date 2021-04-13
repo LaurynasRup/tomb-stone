@@ -1,4 +1,4 @@
-export const constructObj = (obj, obj2) => {
+export const constructObj = (obj) => {
 	return {
 		barcode: obj.barcode,
 		comments: obj.comments,
@@ -12,7 +12,7 @@ export const constructObj = (obj, obj2) => {
 			product_type: obj.product.product_type,
 			type_img: obj.product.type_img,
 		},
-		product_img: obj2.product_img,
+		product_img: obj.productImg,
 		reserved: {
 			isReserved: obj.reserved,
 			id: obj.reserveId,

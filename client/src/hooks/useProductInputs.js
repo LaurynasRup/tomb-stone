@@ -15,6 +15,7 @@ export const useProductInputs = (obj) => {
 		comments: obj.comments,
 		reserved: obj.reserved.isReserved,
 		reserveId: obj.reserved.id,
+		productImg: obj.product_img,
 	});
 
 	const inputHandler = (e) => {
@@ -46,5 +47,11 @@ export const useProductInputs = (obj) => {
 		});
 	};
 
-	return { inputs, inputHandler, selectHandler };
+	const imageUploadInputHandler = (arr) => {
+		setInputs({
+			...inputs,
+			productImg: JSON.stringify(arr),
+		});
+	};
+	return { inputs, inputHandler, selectHandler, imageUploadInputHandler };
 };

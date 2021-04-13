@@ -33,9 +33,12 @@ const ProductEdit = () => {
 	// Image modal handling
 	const { imgOpen, modalHandler } = useModalHandler();
 	// Grab user inputs
-	const { inputs, inputHandler, selectHandler } = useProductInputs(
-		currentProduct
-	);
+	const {
+		inputs,
+		inputHandler,
+		selectHandler,
+		imageUploadInputHandler,
+	} = useProductInputs(currentProduct);
 	// Manage errors
 	const { inputErrors, inputErrorHandler } = useInputErrors();
 	// Retrieve token
@@ -70,7 +73,7 @@ const ProductEdit = () => {
 		// Check for errors
 		const pass = () => {
 			// construct the obj
-			const objDispatch = constructObj(inputs, currentProduct);
+			const objDispatch = constructObj(inputs);
 			// dispatch edit product action
 			dispatch(
 				updateProductAction(
@@ -131,7 +134,10 @@ const ProductEdit = () => {
 						editable={editable}
 						modalHandler={modalHandler}
 					/>
-					<EditImages images={JSON.parse(currentProduct.product_img)} />
+					<EditImages
+						images={JSON.parse(inputs.productImg)}
+						imageUploadInputHandler={imageUploadInputHandler}
+					/>
 					<ButtonsWrapper>
 						<BtnLink link={`/product_view/${currentProduct._id}`}>
 							Cancel

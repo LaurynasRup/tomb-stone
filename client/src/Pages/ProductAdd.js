@@ -24,7 +24,12 @@ const ProductAdd = () => {
 	const [editable] = useState(true);
 	// Create en empty obj
 	const emptyObj = emptyInputObj;
-	const { inputs, inputHandler, selectHandler } = useProductInputs(emptyObj);
+	const {
+		inputs,
+		inputHandler,
+		selectHandler,
+		imageUploadInputHandler,
+	} = useProductInputs(emptyObj);
 	// Manage errors
 	const { inputErrors, inputErrorHandler } = useInputErrors();
 	// Image modal
@@ -91,7 +96,10 @@ const ProductAdd = () => {
 					inputErrors={inputErrors}
 					modalHandler={modalHandler}
 				/>
-				<EditImages images={JSON.parse(emptyObj.product_img)} />
+				<EditImages
+					images={JSON.parse(inputs.productImg)}
+					imageUploadInputHandler={imageUploadInputHandler}
+				/>
 				<ButtonsWrapper>
 					<BtnLink link="/home">Cancel</BtnLink>
 					<div className="btns-right">
