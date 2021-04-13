@@ -42,14 +42,6 @@ const ProductTable = () => {
 						</tr>
 					</thead>
 					<tbody>
-						{/* <tr>
-					<td>Plokste 1</td>
-					<td>123456789</td>
-					<td>100</td>
-					<td>200</td>
-					<td>10</td>
-					<td>Vieta 1</td>
-				</tr> */}
 						{products.map((prod) => (
 							<tr
 								key={prod._id}

@@ -1,21 +1,21 @@
 import React from 'react';
+// Styled
 import styled from 'styled-components';
+// Router
+import { useHistory } from 'react-router-dom';
 
-const AdminMenu = () => {
+const AdminMenu = ({ showAdminMenu, setShowAdminMenu }) => {
+	const history = useHistory();
+	const hideMenuHandler = (str) => {
+		setShowAdminMenu(!showAdminMenu);
+		history.push(str);
+	};
 	return (
 		<StyledMenu>
-			<li>
-				<a href="/">Types</a>
-			</li>
-			<li>
-				<a href="/">Users</a>
-			</li>
-			<li>
-				<a href="/">Historical</a>
-			</li>
-			<li>
-				<a href="/">Log out</a>
-			</li>
+			<li onClick={() => hideMenuHandler('/all_types')}>Types</li>
+			<li>Users</li>
+			<li>Historical</li>
+			<li>Log out</li>
 		</StyledMenu>
 	);
 };
@@ -47,6 +47,8 @@ const StyledMenu = styled.ul`
 		a {
 			text-decoration: none;
 			color: black;
+			background: red;
+			width: 100%;
 		}
 	}
 	:not(li:last-of-type) {

@@ -46,7 +46,12 @@ const Navbar = () => {
 					</ul>
 				)}
 			</StyledNav>
-			{showAdminMenu && <AdminMenu />}
+			{showAdminMenu && (
+				<AdminMenu
+					showAdminMenu={showAdminMenu}
+					setShowAdminMenu={setShowAdminMenu}
+				/>
+			)}
 		</>
 	);
 };

@@ -55,7 +55,7 @@ function App() {
 							<ProductAdd />
 						</Route>
 						<Route path="/all_types">
-							<Types />
+							<TypesPage />
 						</Route>
 					</>
 				)}
