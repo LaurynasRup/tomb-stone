@@ -20,7 +20,6 @@ const EditImages = ({ images, imageUploadInputHandler }) => {
 			// get file name
 			const filesArray = Array.from(fileInputRef.current.files);
 			uploadFiles(filesArray);
-			console.log(filesArray);
 			const fileNames = filesArray.map((file) => `${file.name};  `);
 			setCustomText(fileNames);
 		} else {
@@ -39,13 +38,13 @@ const EditImages = ({ images, imageUploadInputHandler }) => {
 		setPreviewSource(imgArr);
 	};
 	const uploadImage = async (encodedImgArray) => {
-		console.log(encodedImgArray);
 		let imgArray = [];
 		await encodedImgArray.forEach(async (image) => {
 			setIsLoading(true);
 			try {
 				const response = await axios.post('/api/upload_images', {
 					data: image,
+					upload_preset: 'product_images',
 				});
 				const data = await response;
 				imgArray.push(data.data.data);

@@ -9,7 +9,6 @@ import { RiDeleteBin6Line } from 'react-icons/ri';
 const AllTypesTable = () => {
 	const { types } = useSelector((state) => state.types);
 	const typesArray = Object.values(types);
-	console.log(typesArray);
 	return (
 		<StyledTable>
 			<thead>
@@ -26,7 +25,7 @@ const AllTypesTable = () => {
 						<td>{type.name}</td>
 						<td>{type.type_id}</td>
 						<td>
-							<img src={type.image} alt="Type Image" />
+							<img src={type.image} alt="Product Texture" />
 						</td>
 						<td>
 							<RiDeleteBin6Line size={23} />
