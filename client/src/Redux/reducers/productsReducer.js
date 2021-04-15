@@ -47,6 +47,10 @@ const productsReducer = (state = initialState, action) => {
 				isLoading: false,
 				error: action.payload.response.data.msg,
 			};
+		case 'CLEAR_PRODUCTS_STATE':
+			return {
+				...initialState,
+			};
 		default:
 			return {
 				...state,

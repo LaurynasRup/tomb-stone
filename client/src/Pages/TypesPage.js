@@ -6,11 +6,19 @@ import styled from 'styled-components';
 import AllTypesTable from '../Components/AllTypesTable';
 import { Btn } from '../Components/Button';
 import AddTypeModal from '../Components/AddTypeModal';
+import MessageModal from '../Components/MessageModal';
+import ConfirmMessageModal from '../Components/ConfirmMessageModal';
+// Hooks
+import { useShowMsgModal } from '../hooks/useShowMsgModal';
+import { useConfirmMsgModal } from '../hooks/useConfirmMsgModal';
 // Icons
 import { AiOutlinePlus } from 'react-icons/ai';
 // Redux
 import { useDispatch } from 'react-redux';
-import { addNewTypeAction } from '../Redux/actions/typesAction';
+import {
+	addNewTypeAction,
+	removeTypeAction,
+} from '../Redux/actions/typesAction';
 const TypesPage = () => {
 	// Control Add type modal display
 	const [displayAddTypeModal, setDisplayAddTypeModal] = useState(false);
@@ -20,7 +28,14 @@ const TypesPage = () => {
 		type_id: '',
 		image: '',
 	});
-
+	// Display modal message
+	const { showMsg, showModalMsgHandler } = useShowMsgModal();
+	// Display Confirm Modal
+	const { showConfirmModal, confirmModalhandler } = useConfirmMsgModal();
+	const [typeToDeleteID, setTypeToDeleteId] = useState({
+		name_id: '',
+		id: '',
+	});
 	// Input handler
 	const typeInputHandler = (e) => {
 		setTypeInputs({
@@ -29,15 +44,27 @@ const TypesPage = () => {
 		});
 	};
 
+	// Image inputs handler
 	const typeImgInputHandler = (imgStr) => {
 		setTypeInputs({
 			...typeInputs,
 			image: imgStr,
 		});
 	};
-
+	// Clear all inputs
+	const clearAllInputs = () => {
+		setTypeInputs({ name: '', type_id: '', image: '' });
+	};
+	// Open Add Type Modal
 	const openModalHandler = () => {
 		setDisplayAddTypeModal(!displayAddTypeModal);
+	};
+	// Close modal on outer div click
+	const closeModalhandler = (e) => {
+		if (e.target.classList.contains('outer')) {
+			clearAllInputs();
+			openModalHandler();
+		}
 	};
 	const dispatch = useDispatch();
 	// Submit data
@@ -48,26 +75,56 @@ const TypesPage = () => {
 			typeInputs.image !== ''
 		) {
 			console.log('dipatching');
-			dispatch(addNewTypeAction(typeInputs));
-		} else {
-			console.log('not dispatching');
+			dispatch(addNewTypeAction(typeInputs, showModalMsgHandler));
+			openModalHandler();
 		}
 	};
+
+	// Handle delete button
+	const productDeleteHandler = (name_id, id) => {
+		// Set id of type to be deleted
+		setTypeToDeleteId({ name_id, id });
+		// Display confirmation modal
+		confirmModalhandler();
+	};
+	// Handle delete confirmation
+	const confirmDeleteHandler = () => {
+		// Remove confirm modal
+		confirmModalhandler();
+		// dispatch delete action
+		dispatch(removeTypeAction(typeToDeleteID.id, showModalMsgHandler));
+		setTypeToDeleteId({ name_id: '', id: '' });
+	};
+
 	return (
 		<>
+			{showConfirmModal && (
+				<ConfirmMessageModal
+					msg={`Delete Type ${typeToDeleteID.name_id} ?`}
+					cancelHandler={confirmModalhandler}
+					confirmHandler={confirmDeleteHandler}
+				/>
+			)}
+			{showMsg.display && (
+				<MessageModal
+					msg={showMsg.msg}
+					link={showMsg.link}
+					linkTxt={showMsg.linkTxt}
+				/>
+			)}
 			{displayAddTypeModal && (
 				<AddTypeModal
-					openModalHandler={openModalHandler}
 					typeInputs={typeInputs}
 					typeInputHandler={typeInputHandler}
 					typeImgInputHandler={typeImgInputHandler}
 					submitType={submitType}
+					closeModalhandler={closeModalhandler}
 				/>
 			)}
 			<Wrapper>
 				<h1>All types</h1>
 				<div className="line"></div>
-				<AllTypesTable />
+				<AllTypesTable productDeleteHandler={productDeleteHandler} />
 				<BtnWrapper>
 					<Btn handler={openModalHandler}>
 						{' '}

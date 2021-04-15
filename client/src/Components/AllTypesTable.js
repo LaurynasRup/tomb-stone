@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 // Icons
 import { RiDeleteBin6Line } from 'react-icons/ri';
 
-const AllTypesTable = () => {
+const AllTypesTable = ({ productDeleteHandler }) => {
 	const { types } = useSelector((state) => state.types);
 	const typesArray = Object.values(types);
 	return (
@@ -28,7 +28,10 @@ const AllTypesTable = () => {
 							<img src={type.image} alt="Product Texture" />
 						</td>
 						<td>
-							<RiDeleteBin6Line size={23} />
+							<RiDeleteBin6Line
+								size={23}
+								onClick={() => productDeleteHandler(type.type_id, type._id)}
+							/>
 						</td>
 					</tr>
 				))}

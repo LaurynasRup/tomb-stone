@@ -34,6 +34,10 @@ const userReducer = (state = initialState, action) => {
 				loading: false,
 				error: action.payload.response.data.msg,
 			};
+		case 'CLEAR_USER_STATE':
+			return {
+				...initialState,
+			};
 		default:
 			return { ...state };
 	}

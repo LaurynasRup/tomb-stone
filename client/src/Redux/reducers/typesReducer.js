@@ -25,21 +25,28 @@ const typesReducer = (state = initialState, action) => {
 				error: action.payload.response.data.msg,
 			};
 		case 'ADD_TYPE_REQUEST':
+		case 'REMOVE_TYPE_REQUEST':
 			return {
 				...state,
 				isLoading: true,
 			};
 		case 'ADD_TYPE_SUCCESS':
+		case 'REMOVE_TYPE_SUCCESS':
 			return {
 				...state,
 				isLoading: false,
 				error: '',
 			};
 		case 'ADD_TYPE_FAILURE':
+		case 'REMOVE_TYPE_FAILURE':
 			return {
 				...state,
 				isLoading: false,
 				error: action.payload.response.data.msg,
+			};
+		case 'CLEAR_TYPES_STATE':
+			return {
+				...initialState,
 			};
 		default:
 			return { ...state };

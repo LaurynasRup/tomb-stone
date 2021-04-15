@@ -58,6 +58,38 @@ export const useShowMsgModal = () => {
 					link: '/home',
 					linkTxt: 'Go Back',
 				});
+			case 'add type success':
+				return setShowMsg({
+					...showMsg,
+					display: true,
+					msg: 'Type has been added succesfully',
+					link: '/home',
+					linkTxt: 'Go Back',
+				});
+			case 'add type error':
+				return setShowMsg({
+					...setShowMsg,
+					display: true,
+					msg: 'Could not add new type',
+					link: '/home',
+					linkTxt: 'Go Back',
+				});
+			case 'delete type success':
+				return setShowMsg({
+					...showMsg,
+					display: true,
+					msg: 'Item deleted succesfully',
+					link: '/home',
+					linkTxt: 'Go Back',
+				});
+			case 'delete type error':
+				return setShowMsg({
+					...showMsg,
+					display: true,
+					msg: 'Could not delete item',
+					link: '/home',
+					linkTxt: 'Go Back',
+				});
 			default:
 				return setShowMsg({
 					...showMsg,

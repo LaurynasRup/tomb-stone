@@ -53,7 +53,6 @@ const EditImages = ({ images, imageUploadInputHandler }) => {
 			}
 			// All images uploaded ?
 			if (encodedImgArray.length === imgArray.length) {
-				console.log(imgArray);
 				imageUploadInputHandler(imgArray);
 				setIsLoading(false);
 				setCustomText(['Images uploaded succesfully!']);

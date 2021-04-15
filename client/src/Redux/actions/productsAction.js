@@ -160,3 +160,17 @@ export const deleteProductAction = (id, token, fn) => async (dispatch) => {
 		fn('delete error');
 	}
 };
+
+/* CLEAR PRODUCTS STATE */
+
+const CLEAR_PRODUCTS_STATE = 'CLEAR_PRODUCTS_STATE';
+
+const clearProductsState = () => {
+	return {
+		type: CLEAR_PRODUCTS_STATE,
+	};
+};
+
+export const clearProductsAction = () => (dispatch) => {
+	dispatch(clearProductsState());
+};

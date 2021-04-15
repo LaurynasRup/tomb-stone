@@ -10,7 +10,7 @@ const ConfirmMessageModal = ({ msg, cancelHandler, confirmHandler }) => {
 			<div className="inner">
 				<p>{msg}</p>
 				<div className="btns">
-					<BtnRed handler={cancelHandler}>Cancel</BtnRed>
+					<BtnRed handler={cancelHandler}>Cancel</BtnRed> <span>&nbsp;</span>
 					<BtnGreen handler={confirmHandler}>Confirm</BtnGreen>
 				</div>
 			</div>
@@ -46,6 +46,10 @@ const Wrapper = styled.div`
 		width: 100%;
 		display: flex;
 		justify-content: space-around;
+
+		.second {
+			margin-left: 1rem;
+		}
 	}
 `;
 

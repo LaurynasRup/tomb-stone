@@ -8,11 +8,11 @@ import { BtnGreen, Btn } from '../Components/Button';
 import axios from 'axios';
 
 const AddTypeModal = ({
-	openModalHandler,
 	typeInputs,
 	typeInputHandler,
 	typeImgInputHandler,
 	submitType,
+	closeModalhandler,
 }) => {
 	// state to track file input name
 	const [customText, setCustomtext] = useState('No file chosen...');
@@ -21,10 +21,6 @@ const AddTypeModal = ({
 	// State to track if is loading
 	const [isLoading, setIsLoading] = useState(false);
 
-	// Close modal on outer div click
-	const closeModalhandler = (e) => {
-		if (e.target.classList.contains('outer')) openModalHandler();
-	};
 	// Handle upload file custom button
 	const uploadFilRef = useRef();
 	const openFileInput = () => {

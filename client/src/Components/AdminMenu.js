@@ -3,6 +3,11 @@ import React from 'react';
 import styled from 'styled-components';
 // Router
 import { useHistory } from 'react-router-dom';
+// Redux
+import { clearProductsAction } from '../Redux/actions/productsAction';
+import { clearTypesAction } from '../Redux/actions/typesAction';
+import { clearUserAction } from '../Redux/actions/userAction';
+import { useDispatch } from 'react-redux';
 
 const AdminMenu = ({ showAdminMenu, setShowAdminMenu }) => {
 	const history = useHistory();
@@ -10,12 +15,20 @@ const AdminMenu = ({ showAdminMenu, setShowAdminMenu }) => {
 		setShowAdminMenu(!showAdminMenu);
 		history.push(str);
 	};
+	const dispatch = useDispatch();
+	const logOut = () => {
+		dispatch(clearUserAction());
+		dispatch(clearTypesAction());
+		dispatch(clearProductsAction());
+		localStorage.clear();
+		hideMenuHandler('/');
+	};
 	return (
 		<StyledMenu>
 			<li onClick={() => hideMenuHandler('/all_types')}>Types</li>
 			<li>Users</li>
 			<li>Historical</li>
-			<li>Log out</li>
+			<li onClick={logOut}>Log out</li>
 		</StyledMenu>
 	);
 };

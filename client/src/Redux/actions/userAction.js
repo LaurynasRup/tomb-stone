@@ -49,3 +49,17 @@ export const loginByIdAction = (userId, token) => async (dispacth) => {
 		dispacth(loginUserFailure(err));
 	}
 };
+
+/* CLEAR USER STATE */
+
+const CLEAR_USER_STATE = 'CLEAR_USER_STATE';
+
+const clearUserState = () => {
+	return {
+		type: CLEAR_USER_STATE,
+	};
+};
+
+export const clearUserAction = () => (dispatch) => {
+	dispatch(clearUserState());
+};
