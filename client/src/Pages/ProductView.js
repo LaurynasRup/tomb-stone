@@ -20,7 +20,8 @@ const ProductView = () => {
 	const currentProduct = useFindByUrl();
 	// Grab user inputs
 	const { inputs, inputHandler, selectHandler } = useProductInputs(
-		currentProduct
+		currentProduct,
+		currentProduct.edited_by
 	);
 
 	return (

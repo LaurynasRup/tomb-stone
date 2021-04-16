@@ -16,6 +16,12 @@ const ProductDetails = ({
 }) => {
 	// Grab product types from redux state
 	const types = Object.values(useSelector((state) => state.types.types));
+	const errors = () => {
+		if (inputErrors === undefined) return false;
+		if (inputErrors.errors.includes('dimensions_error')) return true;
+	};
+
+	errors();
 
 	return (
 		<StyledForm>
@@ -101,6 +107,7 @@ const ProductDetails = ({
 					<input
 						type="number"
 						id="length"
+						className={errors() ? 'red_border' : ''}
 						value={inputs.length}
 						onChange={inputHandler}
 						disabled={editable ? false : true}
@@ -123,6 +130,7 @@ const ProductDetails = ({
 					<input
 						type="number"
 						id="height"
+						className={errors() ? 'red_border' : ''}
 						value={inputs.height}
 						onChange={inputHandler}
 						disabled={editable ? false : true}
@@ -193,8 +201,8 @@ const ProductDetails = ({
 						id="editedBy"
 						value={inputs.editedBy}
 						onChange={inputHandler}
-						disabled={editable ? false : true}
-						readOnly={editable ? false : true}
+						disabled={true}
+						readOnly={true}
 					/>
 				</div>
 			</div>
@@ -349,6 +357,9 @@ const StyledForm = styled.form`
 		input#reserved {
 			display: inline;
 			width: auto;
+		}
+		input.red_border {
+			border: solid 1px red;
 		}
 
 		input:focus,

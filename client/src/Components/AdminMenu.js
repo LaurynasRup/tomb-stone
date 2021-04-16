@@ -20,7 +20,7 @@ const AdminMenu = ({ showAdminMenu, setShowAdminMenu }) => {
 		dispatch(clearUserAction());
 		dispatch(clearTypesAction());
 		dispatch(clearProductsAction());
-		localStorage.clear();
+		sessionStorage.clear();
 		hideMenuHandler('/');
 	};
 	return (

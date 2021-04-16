@@ -32,13 +32,15 @@ const ProductEdit = () => {
 	const currentProduct = useFindByUrl();
 	// Image modal handling
 	const { imgOpen, modalHandler } = useModalHandler();
+	// Grab Current User
+	const { name } = useSelector((state) => state.user);
 	// Grab user inputs
 	const {
 		inputs,
 		inputHandler,
 		selectHandler,
 		imageUploadInputHandler,
-	} = useProductInputs(currentProduct);
+	} = useProductInputs(currentProduct, name);
 	// Manage errors
 	const { inputErrors, inputErrorHandler } = useInputErrors();
 	// Retrieve token
@@ -58,6 +60,8 @@ const ProductEdit = () => {
 		if (inputs.reserved && !inputs.reserveId) {
 			errors.push('reserveId');
 		}
+		// If length < height - error
+		if (inputs.length < inputs.height) errors.push('dimensions_error');
 		// grab input object entries
 		const inputsArray = Object.entries(inputs);
 		let pureInputs = removeFromArray(inputsArray, [
@@ -70,6 +74,7 @@ const ProductEdit = () => {
 		pureInputs.forEach((input) => {
 			if (!input[1]) errors.push(input[0]);
 		});
+
 		// Check for errors
 		const pass = () => {
 			// construct the obj

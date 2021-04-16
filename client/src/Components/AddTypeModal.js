@@ -4,7 +4,7 @@ import styled from 'styled-components';
 // React icons
 import { AiOutlineCloudUpload } from 'react-icons/ai';
 // Components
-import { BtnGreen, Btn } from '../Components/Button';
+import { BtnGreen } from '../Components/Button';
 import axios from 'axios';
 
 const AddTypeModal = ({

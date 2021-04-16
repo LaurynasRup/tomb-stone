@@ -24,12 +24,14 @@ const ProductAdd = () => {
 	const [editable] = useState(true);
 	// Create en empty obj
 	const emptyObj = emptyInputObj;
+	// Grab Current User
+	const { name } = useSelector((state) => state.user);
 	const {
 		inputs,
 		inputHandler,
 		selectHandler,
 		imageUploadInputHandler,
-	} = useProductInputs(emptyObj);
+	} = useProductInputs(emptyObj, name);
 	// Manage errors
 	const { inputErrors, inputErrorHandler } = useInputErrors();
 	// Image modal
@@ -54,6 +56,8 @@ const ProductAdd = () => {
 		}
 		// If no type selected, push error
 		if (!inputs.product.product_type) errors.push('type');
+		// If length < height - error
+		if (inputs.length < inputs.height) errors.push('dimensions_error');
 		// grab input object entries
 		const inputsArray = Object.entries(inputs);
 		let pureInputs = removeFromArray(inputsArray, [
@@ -66,6 +70,7 @@ const ProductAdd = () => {
 		pureInputs.forEach((input) => {
 			if (!input[1]) errors.push(input[0]);
 		});
+		console.log(pureInputs);
 		// check for errors
 		const pass = () => {
 			const objDispatch = constructObj(inputs, emptyObj);

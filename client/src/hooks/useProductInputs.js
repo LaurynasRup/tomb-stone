@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const useProductInputs = (obj) => {
+export const useProductInputs = (obj, userName) => {
 	const [inputs, setInputs] = useState({
 		product: {
 			product_type: obj.product.product_type,
@@ -11,7 +11,7 @@ export const useProductInputs = (obj) => {
 		height: obj.dimensions.long,
 		width: obj.dimensions.width,
 		location: obj.warehouse_location,
-		editedBy: obj.edited_by,
+		editedBy: userName,
 		comments: obj.comments,
 		reserved: obj.reserved.isReserved,
 		reserveId: obj.reserved.id,
