@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// Compenents
+// Components
 import ImageModal from '../Components/ImageModal';
 import ImageCarousel from '../Components/ImageCarousel';
 import ProductDetails from '../Components/ProductDetails';
@@ -12,6 +12,9 @@ import { useModalHandler } from '../hooks/useModalHandler';
 import { useProductInputs } from '../hooks/useProductInputs';
 // Icons
 import { BsArrowLeft } from 'react-icons/bs';
+// Redux
+import { useSelector } from 'react-redux';
+
 const ProductView = () => {
 	const [editable] = useState(false);
 	// Image modal handling
@@ -23,6 +26,9 @@ const ProductView = () => {
 		currentProduct,
 		currentProduct.edited_by
 	);
+	// Grab user type
+	const { userType } = useSelector((state) => state.user);
+	console.log(userType);
 
 	return (
 		<>
@@ -48,11 +54,13 @@ const ProductView = () => {
 							<BsArrowLeft size={20} />
 							<span style={{ paddingLeft: '0.2rem' }}>Back</span>
 						</BtnLink>
-						<div className="btns-right">
-							<BtnLink link={`/product_edit/${currentProduct._id}`}>
-								Edit
-							</BtnLink>
-						</div>
+						{userType === 'admin' && (
+							<div className="btns-right">
+								<BtnLink link={`/product_edit/${currentProduct._id}`}>
+									Edit
+								</BtnLink>
+							</div>
+						)}
 					</ButtonsWrapper>
 				</Wrapper>
 			)}

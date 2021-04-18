@@ -74,7 +74,6 @@ const TypesPage = () => {
 			typeInputs.type_id !== '' &&
 			typeInputs.image !== ''
 		) {
-			console.log('dipatching');
 			dispatch(addNewTypeAction(typeInputs, showModalMsgHandler));
 			openModalHandler();
 		}

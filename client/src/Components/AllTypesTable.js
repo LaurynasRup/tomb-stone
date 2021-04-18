@@ -13,9 +13,9 @@ const AllTypesTable = ({ productDeleteHandler }) => {
 		<StyledTable>
 			<thead>
 				<tr>
-					<th>Type Name</th>
-					<th>Type Code</th>
-					<th>Type Image</th>
+					<th>Name</th>
+					<th>Code</th>
+					<th>Image</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -43,6 +43,8 @@ const AllTypesTable = ({ productDeleteHandler }) => {
 const StyledTable = styled.table`
 	border-collapse: collapse;
 	width: 100%;
+	min-width: 400px;
+	overflow-y: scroll;
 	th {
 		border-top: solid 1px #5c5c5c;
 		border-bottom: solid 1px #5c5c5c;

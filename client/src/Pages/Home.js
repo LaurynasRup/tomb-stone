@@ -5,18 +5,24 @@ import ProductTable from '../Components/ProductTable';
 import { BtnLink } from '../Components/Button';
 // Icons
 import { AiOutlinePlus } from 'react-icons/ai';
+// Redux
+import { useSelector } from 'react-redux';
 
 const Home = () => {
+	// Grab user type
+	const { userType } = useSelector((state) => state.user);
 	return (
 		<StyledWrapper>
 			<h1>Products</h1>
 			<div className="filter"></div>
 			<ProductTable />
 			<div className="btn-cont">
-				<BtnLink link="/product_add">
-					<AiOutlinePlus />
-					&nbsp; Add new product
-				</BtnLink>
+				{userType === 'admin' && (
+					<BtnLink link="/product_add">
+						<AiOutlinePlus />
+						&nbsp; Add new product
+					</BtnLink>
+				)}
 			</div>
 		</StyledWrapper>
 	);
@@ -24,11 +30,17 @@ const Home = () => {
 
 const StyledWrapper = styled.div`
 	width: 100%;
-	height: 92vh;
 	padding: 3rem;
+	overflow: scroll;
+	@media (max-width: 600px) {
+		padding: 3rem 1.5rem;
+	}
 	h1 {
 		font-weight: 400;
 		margin-bottom: 2rem;
+		@media (max-width: 600px) {
+			font-size: 1.6rem;
+		}
 	}
 	.btn-cont {
 		padding-top: 1.5rem;

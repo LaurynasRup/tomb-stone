@@ -148,8 +148,8 @@ const ProductEdit = () => {
 							Cancel
 						</BtnLink>
 						<div className="btns-right">
-							<BtnRed handler={productDeleteHandler}>Delete Product</BtnRed>
-							<BtnGreen handler={submitHandler}>Save Changes</BtnGreen>
+							<BtnRed handler={productDeleteHandler}>Delete</BtnRed>
+							<BtnGreen handler={submitHandler}>Save</BtnGreen>
 						</div>
 					</ButtonsWrapper>
 				</Wrapper>

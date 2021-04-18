@@ -37,7 +37,7 @@ const ProductTable = () => {
 							<th>Length</th>
 							<th>Height</th>
 							<th>Width</th>
-							<th>Place</th>
+							<th className="location">Place</th>
 							<th>Reserved</th>
 						</tr>
 					</thead>
@@ -77,6 +77,9 @@ const StyledTable = styled.table`
 		font-weight: 600;
 		background: #d6d6d6;
 		min-width: 100px;
+	}
+	th.location {
+		min-width: 180px;
 	}
 	tbody {
 		tr {

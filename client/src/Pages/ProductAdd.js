@@ -70,7 +70,6 @@ const ProductAdd = () => {
 		pureInputs.forEach((input) => {
 			if (!input[1]) errors.push(input[0]);
 		});
-		console.log(pureInputs);
 		// check for errors
 		const pass = () => {
 			const objDispatch = constructObj(inputs, emptyObj);

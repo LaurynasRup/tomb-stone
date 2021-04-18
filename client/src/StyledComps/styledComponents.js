@@ -8,6 +8,9 @@ export const Wrapper = styled.div`
 	h1 {
 		font-weight: 400;
 		margin-bottom: 1rem;
+		@media (max-width: 600px) {
+			font-size: 1.5rem;
+		}
 	}
 	.line {
 		width: 100%;
@@ -15,11 +18,15 @@ export const Wrapper = styled.div`
 		background: #32394d;
 		margin-bottom: 1rem;
 	}
+	@media (max-width: 600px) {
+		padding: 1.5rem;
+	}
 `;
 
 export const ButtonsWrapper = styled.div`
 	display: flex;
 	justify-content: space-between;
+	margin-bottom: 1rem;
 	.btns-right {
 		display: inherit;
 		button {

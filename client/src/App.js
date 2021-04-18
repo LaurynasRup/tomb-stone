@@ -7,6 +7,7 @@ import ProductView from './Pages/ProductView';
 import ProductEdit from './Pages/ProductEdit';
 import ProductAdd from './Pages/ProductAdd';
 import TypesPage from './Pages/TypesPage';
+import CustomRoute from './Components/CustomRoute';
 // Functions
 import { autoLogin } from './functions/autoLogin';
 // React router
@@ -37,28 +38,12 @@ function App() {
 		<div className="App">
 			<Navbar />
 			<Switch>
-				<Route path="/" exact>
-					<Login />
-				</Route>
-				<Route path="/home">
-					<Home />
-				</Route>
-				{loggedIn && (
-					<>
-						<Route path="/product_view/">
-							<ProductView />
-						</Route>
-						<Route path="/product_edit/">
-							<ProductEdit />
-						</Route>
-						<Route path="/product_add">
-							<ProductAdd />
-						</Route>
-						<Route path="/all_types">
-							<TypesPage />
-						</Route>
-					</>
-				)}
+				<Route path="/" exact render={() => <Login />} />
+				<Route path="/home" render={() => <Home />} />
+				<CustomRoute path="/product_view/" render={() => <ProductView />} />
+				<CustomRoute path="/product_edit/" render={() => <ProductEdit />} />
+				<CustomRoute path="/product_add" render={() => <ProductAdd />} />
+				<CustomRoute path="/all_types" render={() => <TypesPage />} />
 			</Switch>
 		</div>
 	);

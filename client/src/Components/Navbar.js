@@ -5,6 +5,10 @@ import { BsChevronDown } from 'react-icons/bs';
 import AdminMenu from '../Components/AdminMenu';
 // Redux
 import { useSelector } from 'react-redux';
+import { clearProductsAction } from '../Redux/actions/productsAction';
+import { clearTypesAction } from '../Redux/actions/typesAction';
+import { clearUserAction } from '../Redux/actions/userAction';
+import { useDispatch } from 'react-redux';
 // Router
 import { useHistory } from 'react-router-dom';
 
@@ -16,7 +20,24 @@ const Navbar = () => {
 	const adminMenuHandler = () => setShowAdminMenu(!showAdminMenu);
 	const history = useHistory();
 	const redirectHomeHandler = () => {
-		history.push('/home');
+		if (loggedIn) {
+			history.push('/home');
+		} else {
+			history.push('/');
+		}
+	};
+	const hideMenuHandler = (str) => {
+		setShowAdminMenu(!showAdminMenu);
+		history.push(str);
+	};
+	const dispatch = useDispatch();
+	const logOut = () => {
+		dispatch(clearUserAction());
+		dispatch(clearTypesAction());
+		dispatch(clearProductsAction());
+		sessionStorage.clear();
+		hideMenuHandler('/');
+		setShowAdminMenu(false);
 	};
 	return (
 		<>
@@ -32,12 +53,13 @@ const Navbar = () => {
 						{userType === 'admin' && (
 							<li>
 								<p className="admin-menu" onClick={adminMenuHandler}>
-									<span>Admin Menu</span> <BsChevronDown />
+									<span className="admin-menu-text">Admin Menu</span>{' '}
+									<BsChevronDown />
 								</p>
 							</li>
 						)}
 						{userType === 'regular' && (
-							<li>
+							<li onClick={logOut}>
 								<p className="regular-menu">
 									<span>Log out</span>
 								</p>
@@ -50,6 +72,8 @@ const Navbar = () => {
 				<AdminMenu
 					showAdminMenu={showAdminMenu}
 					setShowAdminMenu={setShowAdminMenu}
+					hideMenuHandler={hideMenuHandler}
+					logOut={logOut}
 				/>
 			)}
 		</>
@@ -59,7 +83,7 @@ const Navbar = () => {
 const StyledNav = styled.nav`
 	height: 8vh;
 	width: 100%;
-	min-width: 600px;
+	min-width: 350px;
 	display: flex;
 	padding: 0.5rem 3rem;
 	align-items: center;
@@ -67,6 +91,10 @@ const StyledNav = styled.nav`
 	background: #32394d;
 	color: #e2e2e2;
 	font-size: 1.2rem;
+	@media (max-width: 600px) {
+		font-size: 1rem;
+		padding: 0.5rem 1.5rem;
+	}
 	.logo {
 		cursor: pointer;
 	}
@@ -76,6 +104,9 @@ const StyledNav = styled.nav`
 		li {
 			list-style: none;
 			padding: 0 1rem;
+			@media (max-width: 600px) {
+				padding: 0 0.5rem;
+			}
 			.username {
 				color: #c9c9c9;
 			}
@@ -85,8 +116,12 @@ const StyledNav = styled.nav`
 				cursor: pointer;
 				span {
 					padding: 0 0.5rem;
+					@media (max-width: 600px) {
+						display: none;
+					}
 				}
 			}
+
 			.regular-menu {
 				cursor: pointer;
 			}

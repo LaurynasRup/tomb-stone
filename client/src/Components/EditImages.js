@@ -82,11 +82,6 @@ const EditImages = ({ images, imageUploadInputHandler }) => {
 						<button type="button" id="file-input-btn" onClick={fileBtnHandler}>
 							Select File
 						</button>
-						{customText.map((text, idx) => (
-							<span id="custom-text" key={idx}>
-								{text}
-							</span>
-						))}
 					</div>
 					<button
 						type="button"
@@ -96,7 +91,13 @@ const EditImages = ({ images, imageUploadInputHandler }) => {
 						<AiOutlineCloudUpload /> &nbsp; Upload
 					</button>
 				</div>
-
+				<div className="custom-text-cont">
+					{customText.map((text, idx) => (
+						<span id="custom-text" key={idx}>
+							{text}
+						</span>
+					))}
+				</div>
 				<div className="img-btns">
 					{images.map((image, idx) => (
 						<button className="img-btn" key={idx}>
@@ -118,9 +119,12 @@ const Outer = styled.div`
 		align-items: center;
 		margin-bottom: 1rem;
 	}
-	.inputs .file-inp #custom-text {
-		font-size: 0.95rem;
-		color: #888888;
+	.custom-text-cont {
+		margin: 0.5rem 0rem;
+		#custom-text {
+			font-size: 0.95rem;
+			color: #888888;
+		}
 	}
 
 	.img-btn,

@@ -16,9 +16,9 @@ const ProductDetails = ({
 }) => {
 	// Grab product types from redux state
 	const types = Object.values(useSelector((state) => state.types.types));
-	const errors = () => {
+	const errors = (errStr) => {
 		if (inputErrors === undefined) return false;
-		if (inputErrors.errors.includes('dimensions_error')) return true;
+		if (inputErrors.errors.includes(errStr)) return true;
 	};
 
 	errors();
@@ -107,7 +107,7 @@ const ProductDetails = ({
 					<input
 						type="number"
 						id="length"
-						className={errors() ? 'red_border' : ''}
+						className={errors('dimensions_error') ? 'red_border' : ''}
 						value={inputs.length}
 						onChange={inputHandler}
 						disabled={editable ? false : true}
@@ -130,7 +130,7 @@ const ProductDetails = ({
 					<input
 						type="number"
 						id="height"
-						className={errors() ? 'red_border' : ''}
+						className={errors('dimensions_error') ? 'red_border' : ''}
 						value={inputs.height}
 						onChange={inputHandler}
 						disabled={editable ? false : true}
@@ -231,22 +231,14 @@ const ProductDetails = ({
 					<label htmlFor="comments">Reserved</label>
 				</div>
 				{inputs.reserved && (
-					<div className="form-control inline">
+					<div className="form-control inline second">
 						<div className="input-top">
-							{editable && (
-								<small className="error-msg">
-									{displayError(
-										inputErrors.errors,
-										'reserveId',
-										'* Reserveation ID is required'
-									)}
-								</small>
-							)}
 							<label htmlFor="reserved_id">Reservation ID</label>
 						</div>
 						<input
 							type="text"
 							id="reserveId"
+							className={errors('reserveId') ? 'red_border' : ''}
 							disabled={editable ? false : true}
 							readOnly={editable ? false : true}
 							value={inputs.reserveId}
@@ -373,9 +365,16 @@ const StyledForm = styled.form`
 		width: auto;
 		label {
 			padding: 0 1rem;
+			@media (max-width: 600px) {
+				padding: 0 0rem;
+			}
 		}
 		input {
 			width: auto;
+		}
+		&.second {
+			flex-direction: column;
+			align-items: flex-start;
 		}
 	}
 `;

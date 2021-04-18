@@ -1,33 +1,18 @@
 import React from 'react';
 // Styled
 import styled from 'styled-components';
-// Router
-import { useHistory } from 'react-router-dom';
-// Redux
-import { clearProductsAction } from '../Redux/actions/productsAction';
-import { clearTypesAction } from '../Redux/actions/typesAction';
-import { clearUserAction } from '../Redux/actions/userAction';
-import { useDispatch } from 'react-redux';
 
-const AdminMenu = ({ showAdminMenu, setShowAdminMenu }) => {
-	const history = useHistory();
-	const hideMenuHandler = (str) => {
-		setShowAdminMenu(!showAdminMenu);
-		history.push(str);
-	};
-	const dispatch = useDispatch();
-	const logOut = () => {
-		dispatch(clearUserAction());
-		dispatch(clearTypesAction());
-		dispatch(clearProductsAction());
-		sessionStorage.clear();
-		hideMenuHandler('/');
-	};
+const AdminMenu = ({
+	showAdminMenu,
+	setShowAdminMenu,
+	hideMenuHandler,
+	logOut,
+}) => {
 	return (
 		<StyledMenu>
 			<li onClick={() => hideMenuHandler('/all_types')}>Types</li>
-			<li>Users</li>
-			<li>Historical</li>
+			{/* <li>Users</li>
+			<li>Historical</li> */}
 			<li onClick={logOut}>Log out</li>
 		</StyledMenu>
 	);

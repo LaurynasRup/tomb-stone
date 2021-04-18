@@ -18,9 +18,6 @@ const AddTypeModal = ({
 	const [customText, setCustomtext] = useState('No file chosen...');
 	// State to track uploaded file
 	const [previewSource, setPreviewSource] = useState(null);
-	// State to track if is loading
-	const [isLoading, setIsLoading] = useState(false);
-
 	// Handle upload file custom button
 	const uploadFilRef = useRef();
 	const openFileInput = () => {
@@ -50,8 +47,6 @@ const AddTypeModal = ({
 	};
 	// Image upload async function
 	const uploadImage = async (file) => {
-		// Set loading screen
-		setIsLoading(true);
 		try {
 			//upload image
 			const response = await axios.post('/api/upload_images', {
@@ -61,13 +56,9 @@ const AddTypeModal = ({
 			const data = await response;
 			// Store data in the inputs object
 			typeImgInputHandler(data.data.data);
-			// unset loading screen
-			setIsLoading(false);
 			// set custom text to success
 			setCustomtext('File uploaded');
 		} catch (error) {
-			// unset loading screen
-			setIsLoading(false);
 			// set custom text to error
 			setCustomtext("Can't upload file");
 		}
@@ -112,12 +103,12 @@ const AddTypeModal = ({
 						<button type="button" id="file-input-btn" onClick={openFileInput}>
 							Select File
 						</button>
-						<span className="custom_text">{customText}</span>
 					</div>
 					<button type="button" id="upload_file_btn" onClick={uploadBtnHandler}>
 						<AiOutlineCloudUpload /> &nbsp; Upload
 					</button>
 				</div>
+				<span className="custom_text">{customText}</span>
 				<BtnGreen handler={submitType}>Store new type</BtnGreen>
 			</div>
 		</Wrapper>
@@ -135,6 +126,8 @@ const Wrapper = styled.div`
 	justify-content: center;
 	background-color: rgba(0, 0, 0, 0.7);
 	.inner {
+		width: 40%;
+		min-width: 400px;
 		padding: 1.5rem;
 		border-radius: 10px;
 		background-color: rgba(255, 255, 255);
@@ -187,7 +180,7 @@ const Wrapper = styled.div`
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			margin-bottom: 1.5rem;
+			margin-bottom: 0.5rem;
 
 			button {
 				cursor: pointer;
@@ -208,12 +201,12 @@ const Wrapper = styled.div`
 					color: #fff;
 				}
 			}
-
-			.custom_text {
-				font-size: 0.95rem;
-				color: #888888;
-			}
 		}
+	}
+	.custom_text {
+		margin: 1rem 0;
+		font-size: 0.95rem;
+		color: #888888;
 	}
 `;
 
