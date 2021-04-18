@@ -60,9 +60,10 @@ const StyledOuter = styled.div`
 	display: flex;
 	align-items: center;
 	img {
+		background: #414141;
 		width: 100%;
 		height: 100%;
-		object-fit: cover;
+		object-fit: contain;
 	}
 	svg {
 		cursor: pointer;

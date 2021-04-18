@@ -149,7 +149,7 @@ const Wrapper = styled.div`
 		form {
 			display: flex;
 			justify-content: space-between;
-			margin-bottom: 2rem;
+			margin-bottom: 1rem;
 
 			.form-control {
 				display: flex;
@@ -180,7 +180,6 @@ const Wrapper = styled.div`
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			margin-bottom: 0.5rem;
 
 			button {
 				cursor: pointer;
@@ -199,6 +198,10 @@ const Wrapper = styled.div`
 				&:hover {
 					background: #32394d;
 					color: #fff;
+				}
+				@media (max-width: 600px) {
+					font-size: 0.9rem;
+					padding: 0.1rem 1.3rem;
 				}
 			}
 		}

@@ -40,6 +40,10 @@ const StyledButton = styled.button`
 		color: white;
 		background: #32394d;
 	}
+	@media (max-width: 600px) {
+		font-size: 0.9rem;
+		padding: 0.1rem 1.3rem;
+	}
 `;
 
 const StyledButtonRed = styled(StyledButton)`

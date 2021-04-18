@@ -40,6 +40,7 @@ const Wrapper = styled.div`
 		p {
 			font-size: 1.3rem;
 			margin-bottom: 1.5rem;
+			text-align: center;
 		}
 	}
 	.btns {

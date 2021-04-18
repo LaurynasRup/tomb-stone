@@ -228,7 +228,7 @@ const ProductDetails = ({
 						disabled={editable ? false : true}
 						readOnly={editable ? false : true}
 					/>
-					<label htmlFor="comments">Reserved</label>
+					<label htmlFor="comments">&nbsp; Reserved</label>
 				</div>
 				{inputs.reserved && (
 					<div className="form-control inline second">
@@ -253,6 +253,7 @@ const ProductDetails = ({
 
 const StyledForm = styled.form`
 	width: 100%;
+	max-width: 1200px;
 	.form-row {
 		display: flex;
 		width: 100%;

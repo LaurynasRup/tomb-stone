@@ -24,9 +24,9 @@ const ModalOuter = styled.div`
 	justify-content: center;
 	align-items: center;
 	img {
-		width: 90%;
-		height: 75%;
-		object-fit: cover;
+		width: 75%;
+		height: 90%;
+		object-fit: contain;
 	}
 	.close-btn {
 		position: absolute;

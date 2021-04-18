@@ -147,6 +147,10 @@ const Outer = styled.div`
 			background: #32394d;
 			color: #fff;
 		}
+		@media (max-width: 600px) {
+			font-size: 0.9rem;
+			padding: 0.1rem 1.3rem;
+		}
 	}
 	.line {
 		margin-bottom: 2rem;

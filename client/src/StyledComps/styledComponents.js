@@ -2,9 +2,11 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
 	width: 100%;
+	max-width: 1200px;
 	height: 92vh;
 	padding: 3rem;
 	overflow: ${(props) => (props.imgOpen ? 'hidden' : 'auto')};
+	margin: 0 auto;
 	h1 {
 		font-weight: 400;
 		margin-bottom: 1rem;
@@ -14,6 +16,7 @@ export const Wrapper = styled.div`
 	}
 	.line {
 		width: 100%;
+		max-width: 1200px;
 		height: 1px;
 		background: #32394d;
 		margin-bottom: 1rem;

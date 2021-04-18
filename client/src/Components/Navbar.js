@@ -42,31 +42,33 @@ const Navbar = () => {
 	return (
 		<>
 			<StyledNav>
-				<div className="logo" onClick={redirectHomeHandler}>
-					Company <strong>Name</strong>
-				</div>
-				{loggedIn && (
-					<ul>
-						<li>
-							<p className="username">{name.split(' ')[0]}</p>
-						</li>
-						{userType === 'admin' && (
+				<div className="inner">
+					<div className="logo" onClick={redirectHomeHandler}>
+						Don <strong>Stone</strong>
+					</div>
+					{loggedIn && (
+						<ul>
 							<li>
-								<p className="admin-menu" onClick={adminMenuHandler}>
-									<span className="admin-menu-text">Admin Menu</span>{' '}
-									<BsChevronDown />
-								</p>
+								<p className="username">{name.split(' ')[0]}</p>
 							</li>
-						)}
-						{userType === 'regular' && (
-							<li onClick={logOut}>
-								<p className="regular-menu">
-									<span>Log out</span>
-								</p>
-							</li>
-						)}
-					</ul>
-				)}
+							{userType === 'admin' && (
+								<li>
+									<p className="admin-menu" onClick={adminMenuHandler}>
+										<span className="admin-menu-text">Admin Menu</span>{' '}
+										<BsChevronDown />
+									</p>
+								</li>
+							)}
+							{userType === 'regular' && (
+								<li onClick={logOut}>
+									<p className="regular-menu">
+										<span>Log out</span>
+									</p>
+								</li>
+							)}
+						</ul>
+					)}
+				</div>
 			</StyledNav>
 			{showAdminMenu && (
 				<AdminMenu
@@ -83,18 +85,27 @@ const Navbar = () => {
 const StyledNav = styled.nav`
 	height: 8vh;
 	width: 100%;
-	min-width: 350px;
-	display: flex;
-	padding: 0.5rem 3rem;
-	align-items: center;
-	justify-content: space-between;
 	background: #32394d;
 	color: #e2e2e2;
-	font-size: 1.2rem;
-	@media (max-width: 600px) {
-		font-size: 1rem;
-		padding: 0.5rem 1.5rem;
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	.inner {
+		width: 100%;
+		max-width: 1200px;
+		padding: 0.5rem 3rem;
+		min-width: 350px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		font-size: 1.2rem;
+		@media (max-width: 600px) {
+			font-size: 1rem;
+			padding: 0.5rem 1.5rem;
+		}
 	}
+
 	.logo {
 		cursor: pointer;
 	}
