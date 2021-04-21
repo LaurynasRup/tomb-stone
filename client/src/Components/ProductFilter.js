@@ -143,7 +143,7 @@ const FilterRow = styled.div`
 	input:not(input[type='checkbox']),
 	.reserved-check {
 		width: 14.2%;
-		min-width: 150px;
+		min-width: 120px;
 		padding: 0.3rem 1rem;
 		font-family: 'Montserrat', sans-serif;
 		font-size: 1rem;

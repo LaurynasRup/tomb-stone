@@ -58,7 +58,7 @@ const StyledTable = styled.table`
 		text-align: left;
 		font-weight: 600;
 		background: #d6d6d6;
-		min-width: 150px;
+		min-width: 120px;
 	}
 	tbody {
 		tr {
