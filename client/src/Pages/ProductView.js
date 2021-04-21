@@ -28,8 +28,6 @@ const ProductView = () => {
 	);
 	// Grab user type
 	const { userType } = useSelector((state) => state.user);
-	console.log(userType);
-
 	return (
 		<>
 			{imgOpen.open && <ImageModal modalHandler={modalHandler} img={imgOpen} />}

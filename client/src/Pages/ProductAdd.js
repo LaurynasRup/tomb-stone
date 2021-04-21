@@ -57,7 +57,7 @@ const ProductAdd = () => {
 		// If no type selected, push error
 		if (!inputs.product.product_type) errors.push('type');
 		// If length < height - error
-		if (inputs.length < inputs.height) errors.push('dimensions_error');
+		if (+inputs.length < +inputs.height) errors.push('dimensions_error');
 		// grab input object entries
 		const inputsArray = Object.entries(inputs);
 		let pureInputs = removeFromArray(inputsArray, [

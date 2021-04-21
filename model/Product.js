@@ -52,6 +52,10 @@ const productObj = {
 			type: String,
 		},
 	},
+	date: {
+		type: Date,
+		default: Date.now,
+	},
 };
 
 const productSchema = new mongoose.Schema(productObj, {

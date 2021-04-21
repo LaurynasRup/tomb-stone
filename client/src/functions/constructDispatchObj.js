@@ -3,8 +3,8 @@ export const constructObj = (obj) => {
 		barcode: obj.barcode,
 		comments: obj.comments,
 		dimensions: {
-			dimensions_short: obj.length,
-			dimensions_long: obj.height,
+			dimensions_long: obj.length,
+			dimensions_short: obj.height,
 			dimensions_width: obj.width,
 		},
 		edited_by: obj.editedBy,

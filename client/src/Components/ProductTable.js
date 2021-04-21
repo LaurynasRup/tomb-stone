@@ -1,31 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
-import { productsAction } from '../Redux/actions/productsAction';
-import { typesAction } from '../Redux/actions/typesAction';
 import { useHistory } from 'react-router-dom';
 // Icons
 import { MdDone } from 'react-icons/md';
-const ProductTable = () => {
-	// Retrieve token
-	const { token } = useSelector((state) => state.user);
-	const { products, isLoading } = useSelector((state) => state.products);
-	// Fetch products
-	const dispatch = useDispatch();
-	useEffect(() => {
-		if (token) {
-			// fetch products
-			dispatch(productsAction(token));
-			//fetch product types
-			dispatch(typesAction());
-		}
-		// fetchTypes();
-	}, [token, dispatch]);
+const ProductTable = ({ products, isLoading }) => {
 	const history = useHistory();
 	const openProductHandler = (id) => {
 		history.push(`product_view/${id}`);
 	};
-
 	return (
 		<>
 			{!isLoading && (
@@ -50,8 +32,8 @@ const ProductTable = () => {
 							>
 								<td>{prod.barcode}</td>
 								<td>{prod.product.product_type} </td>
-								<td>{prod.dimensions.short}</td>
 								<td>{prod.dimensions.long}</td>
+								<td>{prod.dimensions.short}</td>
 								<td>{prod.dimensions.width}</td>
 								<td>{prod.warehouse_location}</td>
 								<td className="mid">
@@ -76,10 +58,7 @@ const StyledTable = styled.table`
 		text-align: left;
 		font-weight: 600;
 		background: #d6d6d6;
-		min-width: 100px;
-	}
-	th.location {
-		min-width: 180px;
+		min-width: 150px;
 	}
 	tbody {
 		tr {
