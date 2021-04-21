@@ -78,7 +78,7 @@ const Home = () => {
 
 const StyledWrapper = styled.div`
 	width: 100%;
-	/* max-width: 1200px; */
+	max-width: 1200px;
 	padding: 3rem;
 	overflow: scroll;
 	margin: 0 auto;
