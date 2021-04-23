@@ -85,6 +85,7 @@ const Navbar = () => {
 const StyledNav = styled.nav`
 	height: 8vh;
 	width: 100%;
+	min-width: 400px;
 	background: #32394d;
 	color: #e2e2e2;
 	margin: 0 auto;
@@ -94,6 +95,7 @@ const StyledNav = styled.nav`
 	.inner {
 		width: 100%;
 		max-width: 1200px;
+		/* min-width: 400px; */
 		padding: 0.5rem 3rem;
 		min-width: 350px;
 		display: flex;
@@ -135,6 +137,9 @@ const StyledNav = styled.nav`
 
 			.regular-menu {
 				cursor: pointer;
+			}
+			&:last-of-type {
+				padding: 0 0 0 1rem;
 			}
 		}
 	}

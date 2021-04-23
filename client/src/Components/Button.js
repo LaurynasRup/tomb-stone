@@ -13,9 +13,15 @@ export const BtnLink = ({ link, children, handler }) => {
 export const Btn = ({ children, handler }) => {
 	return <StyledButton onClick={handler}>{children}</StyledButton>;
 };
+export const BtnSm = ({ children, handler }) => {
+	return <StyledButtonSm onClick={handler}>{children}</StyledButtonSm>;
+};
 
 export const BtnRed = ({ children, handler }) => {
 	return <StyledButtonRed onClick={handler}>{children}</StyledButtonRed>;
+};
+export const BtnRedSm = ({ children, handler }) => {
+	return <StyledButtonRedSm onClick={handler}>{children}</StyledButtonRedSm>;
 };
 export const BtnGreen = ({ children, handler }) => {
 	return <StyledButtonGreen onClick={handler}>{children}</StyledButtonGreen>;
@@ -54,6 +60,15 @@ const StyledButtonRed = styled(StyledButton)`
 		background: #8b240a;
 	}
 `;
+const StyledButtonRedSm = styled(StyledButton)`
+	border: solid 1px #8b240a;
+	color: #8b240a;
+	padding: 0.3rem 0.3rem;
+	&:hover {
+		color: white;
+		background: #8b240a;
+	}
+`;
 const StyledButtonGreen = styled(StyledButton)`
 	border: solid 1px #2e6429;
 	color: #2e6429;
@@ -61,4 +76,7 @@ const StyledButtonGreen = styled(StyledButton)`
 		color: white;
 		background: #2e6429;
 	}
+`;
+const StyledButtonSm = styled(StyledButton)`
+	padding: 0.3rem 0.3rem;
 `;

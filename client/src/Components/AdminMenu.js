@@ -9,48 +9,60 @@ const AdminMenu = ({
 	logOut,
 }) => {
 	return (
-		<StyledMenu>
-			<li onClick={() => hideMenuHandler('/all_types')}>Types</li>
-			{/* <li>Users</li>
-			<li>Historical</li> */}
-			<li onClick={logOut}>Log out</li>
-		</StyledMenu>
+		<ListWrapper>
+			<StyledMenu>
+				<li onClick={() => hideMenuHandler('/all_types')}>Types</li>
+				<li onClick={() => hideMenuHandler('/all_users')}>Users</li>
+
+				{/* <li>Historical</li> */}
+				<li onClick={logOut}>Log out</li>
+			</StyledMenu>
+		</ListWrapper>
 	);
 };
 
+const ListWrapper = styled.div`
+	width: 100%;
+	min-width: 400px;
+	background: #32394d;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #e2e2e2;
+`;
+
 const StyledMenu = styled.ul`
 	display: flex;
-	flex-direction: column;
-	position: absolute;
-	right: 3.4%;
-	top: 10%;
-	border: solid 1px #a3a3a3;
-	border-radius: 10px;
+	justify-content: space-between;
+	width: 100%;
+	padding: 0 3rem;
+	min-width: 400px;
+	font-size: 1rem;
+	font-weight: 300;
 	li {
+		text-align: center;
 		cursor: pointer;
 		list-style: none;
-		padding: 0.5rem 3.5rem;
-		background-color: #ffffff;
-		border-bottom: solid 1px #a3a3a3;
-		transition: background 0.3s ease;
-		&:hover {
-			background: #e2e2e2;
+		padding: 1rem 0;
+		&:first-of-type {
+			text-align: left;
 		}
 		&:last-of-type {
-			border-radius: 0 0 10px 10px;
+			text-align: right;
 		}
-		&:first-of-type {
-			border-radius: 10px 10px 0 0;
+		&:hover {
+			color: #c9c9c9;
 		}
-		a {
-			text-decoration: none;
-			color: black;
-			background: red;
-			width: 100%;
+		@media (max-width: 600px) {
+			padding: 0.5rem 0;
 		}
 	}
 	:not(li:last-of-type) {
 		border-bottom: none;
+	}
+	@media (max-width: 600px) {
+		font-size: 1rem;
+		padding: 0rem 1.5rem;
 	}
 `;
 

@@ -108,4 +108,14 @@ router.post('/login_id', async (req, res) => {
 	});
 });
 
+// Fetch all users
+router.get('/all_users', async (req, res) => {
+	try {
+		const allUsers = await User.find().sort({ date: -1 });
+		res.status(200).json({ ...allUsers });
+	} catch (error) {
+		return res.status(404).json({ msg: 'No users found', error });
+	}
+});
+
 module.exports = router;

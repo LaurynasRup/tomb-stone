@@ -8,6 +8,7 @@ import ProductEdit from './Pages/ProductEdit';
 import ProductAdd from './Pages/ProductAdd';
 import TypesPage from './Pages/TypesPage';
 import CustomRoute from './Components/CustomRoute';
+import Users from './Pages/Users';
 // Functions
 import { autoLogin } from './functions/autoLogin';
 // React router
@@ -44,6 +45,7 @@ function App() {
 				<CustomRoute path="/product_edit/" render={() => <ProductEdit />} />
 				<CustomRoute path="/product_add" render={() => <ProductAdd />} />
 				<CustomRoute path="/all_types" render={() => <TypesPage />} />
+				<CustomRoute path="/all_users" render={() => <Users />} />
 			</Switch>
 		</div>
 	);

@@ -10,7 +10,7 @@ router.get('/all_products', verify, async (req, res) => {
 		const allItems = await product.find().sort({ date: -1 });
 		return res.status(200).json({ ...allItems });
 	} catch (err) {
-		return res.status(404).json({ msg: 'No items found' });
+		return res.status(404).json({ msg: 'No items found', err });
 	}
 });
 

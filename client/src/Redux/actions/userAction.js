@@ -63,3 +63,41 @@ const clearUserState = () => {
 export const clearUserAction = () => (dispatch) => {
 	dispatch(clearUserState());
 };
+
+/* FETCH ALL USERS */
+
+const FETCH_USERS_REQUEST = 'FETCH_USERS_REQUEST';
+const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
+const FETCH_USERS_ERROR = 'FETCH_USERS_ERROR';
+
+const fetchAllUsersRequest = () => {
+	return {
+		type: FETCH_USERS_REQUEST,
+	};
+};
+
+const fetchAllUsersSuccess = (users) => {
+	return {
+		type: FETCH_USERS_SUCCESS,
+		payload: {
+			users,
+		},
+	};
+};
+
+const fetchAllUsersFailure = (error) => {
+	return {
+		type: FETCH_USERS_ERROR,
+		payload: error,
+	};
+};
+
+export const getAllUsersAction = () => async (dispatch) => {
+	dispatch(fetchAllUsersRequest());
+	try {
+		const allUsers = await axios.get('/api/user/all_users');
+		dispatch(fetchAllUsersSuccess(allUsers.data));
+	} catch (error) {
+		dispatch(fetchAllUsersFailure(error));
+	}
+};

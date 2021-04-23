@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 // Icons
 import { MdDone } from 'react-icons/md';
+// Styled Comps
+import { StyledTable } from '../StyledComps/styledComponents';
 const ProductTable = ({ products, isLoading }) => {
 	const history = useHistory();
 	const openProductHandler = (id) => {
@@ -47,32 +47,5 @@ const ProductTable = ({ products, isLoading }) => {
 		</>
 	);
 };
-
-const StyledTable = styled.table`
-	border-collapse: collapse;
-	width: 100%;
-	th {
-		border-top: solid 1px #5c5c5c;
-		border-bottom: solid 1px #5c5c5c;
-		padding: 0.4rem;
-		text-align: left;
-		font-weight: 600;
-		background: #d6d6d6;
-		min-width: 120px;
-	}
-	tbody {
-		tr {
-			transition: background 0.2s ease;
-			&:hover {
-				background: #eeeeee;
-			}
-		}
-	}
-	td {
-		border-bottom: solid 1px #5c5c5c;
-		padding: 0.4rem;
-		cursor: pointer;
-	}
-`;
 
 export default ProductTable;

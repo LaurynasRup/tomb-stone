@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+// Styled Comp
+import { BtnContCntr } from '../StyledComps/styledComponents';
 // Components
 import ProductTable from '../Components/ProductTable';
 import { BtnLink } from '../Components/Button';
@@ -64,14 +66,14 @@ const Home = () => {
 				clearInputs={clearInputs}
 			/>
 			<ProductTable products={displayProducts} isLoading={isLoading} />
-			<div className="btn-cont">
+			<BtnContCntr>
 				{userType === 'admin' && (
 					<BtnLink link="/product_add">
 						<AiOutlinePlus />
 						&nbsp; Add new product
 					</BtnLink>
 				)}
-			</div>
+			</BtnContCntr>
 		</StyledWrapper>
 	);
 };
@@ -91,12 +93,6 @@ const StyledWrapper = styled.div`
 		@media (max-width: 600px) {
 			font-size: 1.6rem;
 		}
-	}
-	.btn-cont {
-		padding-top: 1.5rem;
-		width: 100%;
-		display: flex;
-		justify-content: center;
 	}
 `;
 
