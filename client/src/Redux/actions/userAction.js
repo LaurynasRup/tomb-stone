@@ -130,15 +130,21 @@ const addNewUserFailure = (error) => {
 	};
 };
 
-export const addNewUserAction = (token, userObj) => async (dispatch) => {
+export const addNewUserAction = (token, userObj, fn, fn2, errStr) => async (
+	dispatch
+) => {
 	dispatch(addNewUserRequest());
 	try {
 		const user = await axios.post('/api/user/register', userObj, {
 			headers: { 'auth-token': token },
 		});
 		dispatch(addNewUserSuccess(user));
+		fn();
+		fn2('add user success');
 	} catch (error) {
-		console.log(error);
 		dispatch(addNewUserFailure(error));
+		console.log(error);
+		fn();
+		fn2('add user error');
 	}
 };

@@ -14,6 +14,9 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 // Components
 import AddUserModal from '../Components/AddUserModal';
+import MessageModal from '../Components/MessageModal';
+// Hooks
+import { useShowMsgModal } from '../hooks/useShowMsgModal';
 const Users = () => {
 	// Display add user modal
 	const [displayAddUser, setDisplayAddUser] = useState(false);
@@ -23,12 +26,21 @@ const Users = () => {
 	};
 	// Close modal on outer div click
 	const closeAddUserModal = (e) => {
-		if (e.target.classList.contains('outer')) {
+		if (e) {
+			if (e.target.classList.contains('outer')) {
+				// clear inputs
+				setUserDetails({ ...emptyUserObj });
+				showAddUserModal();
+			}
+		} else {
 			// clear inputs
 			setUserDetails({ ...emptyUserObj });
 			showAddUserModal();
 		}
 	};
+
+	const { showMsg, showModalMsgHandler } = useShowMsgModal();
+
 	const dispatch = useDispatch();
 	// Grab All Users from state
 	const { users } = useSelector((state) => state.users);
@@ -68,6 +80,15 @@ const Users = () => {
 					closeAddUserModal={closeAddUserModal}
 					userDetails={userDetails}
 					userDetailsHandler={userDetailsHandler}
+					showAddUserModal={showAddUserModal}
+					showModalMsgHandler={showModalMsgHandler}
+				/>
+			)}
+			{showMsg.display && (
+				<MessageModal
+					msg={showMsg.msg}
+					link={showMsg.link}
+					linkTxt={showMsg.linkTxt}
 				/>
 			)}
 			<Wrapper>

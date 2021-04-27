@@ -12,6 +12,8 @@ const AddUserModal = ({
 	closeAddUserModal,
 	userDetails,
 	userDetailsHandler,
+	showAddUserModal,
+	showModalMsgHandler,
 }) => {
 	// Grab token
 	const { token } = useSelector((state) => state.user);
@@ -44,83 +46,92 @@ const AddUserModal = ({
 				admin: userDetails.admin,
 			};
 			// dispatch
-			dispatch(addNewUserAction(token, userObjDispatch));
+			dispatch(
+				addNewUserAction(
+					token,
+					userObjDispatch,
+					showAddUserModal,
+					showModalMsgHandler
+				)
+			);
 		};
 		inputErrorHandler(errors, pass);
 	};
 	return (
-		<ModalWrapper className="outer" onClick={closeAddUserModal}>
-			<div className="inner">
-				<h1>Add new user</h1>
-				<div className="line"></div>
+		<>
+			<ModalWrapper className="outer" onClick={closeAddUserModal}>
+				<div className="inner">
+					<h1>Add new user</h1>
+					<div className="line"></div>
 
-				<StyledForm>
-					<div className="form-row">
-						<div className="form-control">
-							<label htmlFor="name">Full Name</label>
-							<small style={{ color: 'red' }}>&nbsp;</small>
-							<input
-								type="text"
-								id="name"
-								placeholder="Enter full name..."
-								value={userDetails.name}
-								onChange={userDetailsHandler}
-							/>
-						</div>
-						<div className="form-control">
-							<label htmlFor="username">Username</label>
-							<small style={{ color: 'red' }}>&nbsp;</small>
-							<input
-								type="text"
-								id="username"
-								placeholder="Enter username..."
-								value={userDetails.username}
-								onChange={userDetailsHandler}
-							/>
-						</div>
-					</div>
-					<div className="form-row">
-						<div className="form-control">
-							<label htmlFor="password">Password</label>
-							<small style={{ color: 'red' }}>&nbsp;</small>
-							<input
-								type="password"
-								id="password"
-								placeholder="Enter password..."
-								value={userDetails.password}
-								onChange={userDetailsHandler}
-							/>
-						</div>
-						<div className="form-control">
-							<label htmlFor="password_confirm">Confirm Password</label>
-							<small style={{ color: 'red' }}>&nbsp;</small>
-							<input
-								type="password"
-								id="confirmPass"
-								placeholder="Confirm password..."
-								value={userDetails.confirmPass}
-								onChange={userDetailsHandler}
-							/>
-						</div>
-					</div>
-					<div className="form-row">
-						<div className="form-control">
-							<div className="form-control-inline">
+					<StyledForm>
+						<div className="form-row">
+							<div className="form-control">
+								<label htmlFor="name">Full Name</label>
+								<small style={{ color: 'red' }}>&nbsp;</small>
 								<input
-									type="checkbox"
-									id="is_admin"
-									value={userDetails.admin}
+									type="text"
+									id="name"
+									placeholder="Enter full name..."
+									value={userDetails.name}
 									onChange={userDetailsHandler}
 								/>
-								&nbsp;
-								<label htmlFor="is_admin">Make admin</label>
+							</div>
+							<div className="form-control">
+								<label htmlFor="username">Username</label>
+								<small style={{ color: 'red' }}>&nbsp;</small>
+								<input
+									type="text"
+									id="username"
+									placeholder="Enter username..."
+									value={userDetails.username}
+									onChange={userDetailsHandler}
+								/>
 							</div>
 						</div>
-					</div>
-				</StyledForm>
-				<BtnGreen handler={submitHandler}>Store new user</BtnGreen>
-			</div>
-		</ModalWrapper>
+						<div className="form-row">
+							<div className="form-control">
+								<label htmlFor="password">Password</label>
+								<small style={{ color: 'red' }}>&nbsp;</small>
+								<input
+									type="password"
+									id="password"
+									placeholder="Enter password..."
+									value={userDetails.password}
+									onChange={userDetailsHandler}
+								/>
+							</div>
+							<div className="form-control">
+								<label htmlFor="password_confirm">Confirm Password</label>
+								<small style={{ color: 'red' }}>&nbsp;</small>
+								<input
+									type="password"
+									id="confirmPass"
+									placeholder="Confirm password..."
+									value={userDetails.confirmPass}
+									onChange={userDetailsHandler}
+								/>
+							</div>
+						</div>
+						<div className="form-row">
+							<div className="form-control">
+								<div className="form-control-inline">
+									<input
+										type="checkbox"
+										id="is_admin"
+										value={userDetails.admin}
+										onChange={userDetailsHandler}
+									/>
+									&nbsp;
+									<label htmlFor="is_admin">Make admin</label>
+								</div>
+							</div>
+						</div>
+					</StyledForm>
+					<BtnGreen handler={submitHandler}>Store new user</BtnGreen>
+				</div>
+			</ModalWrapper>
+		</>
 	);
 };
 

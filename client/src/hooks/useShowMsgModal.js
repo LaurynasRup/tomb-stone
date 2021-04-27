@@ -90,6 +90,22 @@ export const useShowMsgModal = () => {
 					link: '/home',
 					linkTxt: 'Go Back',
 				});
+			case 'add user success':
+				return setShowMsg({
+					...showMsg,
+					display: true,
+					msg: 'User has been added succesfully',
+					link: '/home',
+					linkTxt: 'Go Back',
+				});
+			case 'add user error':
+				return setShowMsg({
+					...showMsg,
+					display: true,
+					msg: 'Could not add new user',
+					link: '/home',
+					linkTxt: 'Go Back',
+				});
 			default:
 				return setShowMsg({
 					...showMsg,
