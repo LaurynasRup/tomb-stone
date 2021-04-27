@@ -130,7 +130,7 @@ const addNewUserFailure = (error) => {
 	};
 };
 
-export const addNewUserAction = (token, userObj, fn, fn2, errStr) => async (
+export const addNewUserAction = (token, userObj, fn, fn2) => async (
 	dispatch
 ) => {
 	dispatch(addNewUserRequest());
@@ -146,5 +146,42 @@ export const addNewUserAction = (token, userObj, fn, fn2, errStr) => async (
 		console.log(error);
 		fn();
 		fn2('add user error');
+	}
+};
+
+/* DELETE USER */
+
+const DELETE_USER_REQUEST = 'DELETE_USER_REQUEST';
+const DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS';
+const DELETE_USER_ERROR = 'DELETE_USER_ERROR';
+
+const deleteUserRequest = () => {
+	return {
+		type: DELETE_USER_REQUEST,
+	};
+};
+
+const deleteUserSuccess = () => {
+	return {
+		type: DELETE_USER_SUCCESS,
+	};
+};
+
+const deleteUserFailure = (error) => {
+	return {
+		type: DELETE_USER_ERROR,
+		payload: error,
+	};
+};
+
+export const deleteUserAction = (token, id) => async (dispatch) => {
+	dispatch(deleteUserRequest());
+	try {
+		await axios.delete(`/api/user/delete/${id}`, {
+			headers: { 'auth-token': token },
+		});
+		dispatch(deleteUserSuccess());
+	} catch (error) {
+		dispatch(deleteUserFailure(error));
 	}
 };

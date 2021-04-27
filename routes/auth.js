@@ -35,10 +35,10 @@ router.post('/register', verify, async (req, res) => {
 router.delete('/delete/:id', verify, async (req, res) => {
 	try {
 		// remove user
-		const removedUser = await User.deleteOne({ _id: req.params.id });
-		return res.status(200).send('User removed succesfully');
+		await User.deleteOne({ _id: req.params.id });
+		return res.status(200).json({ msg: 'User removed succesfully' });
 	} catch (err) {
-		return res.status(404).send('User not found');
+		return res.status(404).json({ msg: 'User not found' });
 	}
 });
 

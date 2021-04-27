@@ -3,6 +3,8 @@ import { ModalWrapper, StyledForm } from '../StyledComps/styledComponents';
 import { BtnGreen } from '../Components/Button';
 // Hooks
 import { useInputErrors } from '../hooks/useInputErrors';
+// functions
+import { displayError } from '../functions/displayErrorString';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
 // Redux Action
@@ -63,12 +65,18 @@ const AddUserModal = ({
 				<div className="inner">
 					<h1>Add new user</h1>
 					<div className="line"></div>
-
 					<StyledForm>
 						<div className="form-row">
 							<div className="form-control">
 								<label htmlFor="name">Full Name</label>
-								<small style={{ color: 'red' }}>&nbsp;</small>
+								<small style={{ color: 'red' }}>
+									{displayError(
+										inputErrors.errors,
+										'name',
+										'* Name is required'
+									)}
+									&nbsp;
+								</small>
 								<input
 									type="text"
 									id="name"
@@ -79,7 +87,14 @@ const AddUserModal = ({
 							</div>
 							<div className="form-control">
 								<label htmlFor="username">Username</label>
-								<small style={{ color: 'red' }}>&nbsp;</small>
+								<small style={{ color: 'red' }}>
+									{displayError(
+										inputErrors.errors,
+										'username',
+										'* Username is required'
+									)}
+									&nbsp;
+								</small>
 								<input
 									type="text"
 									id="username"
@@ -92,7 +107,14 @@ const AddUserModal = ({
 						<div className="form-row">
 							<div className="form-control">
 								<label htmlFor="password">Password</label>
-								<small style={{ color: 'red' }}>&nbsp;</small>
+								<small style={{ color: 'red' }}>
+									{displayError(
+										inputErrors.errors,
+										'password',
+										'* Password is required'
+									)}
+									&nbsp;
+								</small>
 								<input
 									type="password"
 									id="password"
@@ -103,7 +125,19 @@ const AddUserModal = ({
 							</div>
 							<div className="form-control">
 								<label htmlFor="password_confirm">Confirm Password</label>
-								<small style={{ color: 'red' }}>&nbsp;</small>
+								<small style={{ color: 'red' }}>
+									{displayError(
+										inputErrors.errors,
+										'confirmPass',
+										'* Password is required'
+									)}
+									{displayError(
+										inputErrors.errors,
+										'passwordMatch',
+										'* Passwords do not match'
+									)}
+									&nbsp;
+								</small>
 								<input
 									type="password"
 									id="confirmPass"

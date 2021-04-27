@@ -1,6 +1,9 @@
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllUsersAction } from '../Redux/actions/userAction';
+import {
+	getAllUsersAction,
+	deleteUserAction,
+} from '../Redux/actions/userAction';
 // Styled Comp
 import {
 	Wrapper,
@@ -15,8 +18,10 @@ import { useEffect, useState } from 'react';
 // Components
 import AddUserModal from '../Components/AddUserModal';
 import MessageModal from '../Components/MessageModal';
+import ConfirmMessageModal from '../Components/ConfirmMessageModal';
 // Hooks
 import { useShowMsgModal } from '../hooks/useShowMsgModal';
+import { useConfirmMsgModal } from '../hooks/useConfirmMsgModal';
 const Users = () => {
 	// Display add user modal
 	const [displayAddUser, setDisplayAddUser] = useState(false);
@@ -46,6 +51,8 @@ const Users = () => {
 	const { users } = useSelector((state) => state.users);
 	// Grab current user
 	const currentUser = useSelector((state) => state.user);
+	// Grab token
+	const { token } = useSelector((state) => state.user);
 	// Dispatch get all users action
 	useEffect(() => {
 		dispatch(getAllUsersAction());
@@ -73,8 +80,33 @@ const Users = () => {
 			});
 		}
 	};
+	// State to track user to be deleted
+	const [userToDelete, setUserToDelete] = useState(null);
+	// State to handle delete confirm modal
+	const { showConfirmModal, confirmModalhandler } = useConfirmMsgModal();
+
+	// Handle delete button click
+	const deleteUserHandler = (e) => {
+		const target = e.target.closest('button').parentNode;
+		const userId = target.getAttribute('userid');
+		const userToDel = users.filter((user) => user._id === userId);
+		setUserToDelete(userToDel[0]);
+		confirmModalhandler();
+	};
+	// Handle delete user confirmation
+	const confirmDeleteHandler = () => {
+		confirmModalhandler();
+		dispatch(deleteUserAction(token, userToDelete._id));
+	};
 	return (
 		<>
+			{showConfirmModal && (
+				<ConfirmMessageModal
+					msg={`Delete user ${userToDelete.name} ?`}
+					cancelHandler={confirmModalhandler}
+					confirmHandler={confirmDeleteHandler}
+				/>
+			)}
 			{displayAddUser && (
 				<AddUserModal
 					closeAddUserModal={closeAddUserModal}
@@ -121,9 +153,11 @@ const Users = () => {
 								</td>
 								<td>
 									{currentUser.name === user.name || !user.admin ? (
-										<BtnRedSm>
-											<MdDelete />
-										</BtnRedSm>
+										<div userid={user._id} onClick={deleteUserHandler}>
+											<BtnRedSm>
+												<MdDelete />
+											</BtnRedSm>
+										</div>
 									) : (
 										''
 									)}
