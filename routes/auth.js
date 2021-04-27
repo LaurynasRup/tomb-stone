@@ -8,7 +8,7 @@ const verify = require('../routes/verifyToken');
 router.post('/register', verify, async (req, res) => {
 	// Check if username already exists
 	const doesExist = await User.findOne({ username: req.body.username });
-	if (doesExist) return res.status(400).send('User already exist');
+	if (doesExist) return res.status(400).json({ msg: 'User already exist' });
 
 	// Hash Password
 	const salt = await bcrypt.genSalt(10);
@@ -23,9 +23,11 @@ router.post('/register', verify, async (req, res) => {
 	});
 	try {
 		const savedUser = await user.save();
-		res.send(savedUser);
+		return res
+			.status(201)
+			.json({ user: savedUser, msg: 'User added succesfully' });
 	} catch (err) {
-		res.status(400).send(err);
+		return res.status(400).json({ msg: 'Can not add new user' });
 	}
 });
 
@@ -34,9 +36,9 @@ router.delete('/delete/:id', verify, async (req, res) => {
 	try {
 		// remove user
 		const removedUser = await User.deleteOne({ _id: req.params.id });
-		res.status(200).send('User removed succesfully');
+		return res.status(200).send('User removed succesfully');
 	} catch (err) {
-		res.status(404).send('User not found');
+		return res.status(404).send('User not found');
 	}
 });
 
@@ -63,12 +65,12 @@ router.patch('/update/:id', verify, async (req, res) => {
 					$set: updateDetails,
 				}
 			);
-			res.status(200).send('User updated succesfully');
+			return res.status(200).send('User updated succesfully');
 		} catch (err) {
-			res.send(404).send('User can not be updated');
+			return res.send(404).send('User can not be updated');
 		}
 	} else {
-		res.status(400).send('User details required');
+		return res.status(400).send('User details required');
 	}
 });
 

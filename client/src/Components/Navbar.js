@@ -85,7 +85,7 @@ const Navbar = () => {
 const StyledNav = styled.nav`
 	height: 8vh;
 	width: 100%;
-	min-width: 400px;
+	min-width: 375px;
 	background: #32394d;
 	color: #e2e2e2;
 	margin: 0 auto;
@@ -95,9 +95,7 @@ const StyledNav = styled.nav`
 	.inner {
 		width: 100%;
 		max-width: 1200px;
-		/* min-width: 400px; */
 		padding: 0.5rem 3rem;
-		min-width: 350px;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;

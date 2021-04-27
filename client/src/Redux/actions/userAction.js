@@ -101,3 +101,44 @@ export const getAllUsersAction = () => async (dispatch) => {
 		dispatch(fetchAllUsersFailure(error));
 	}
 };
+
+/* CREATE NEW USER */
+
+const ADD_USER_REQUEST = 'ADD_USER_REQUEST';
+const ADD_USER_SUCCESS = 'ADD_USER_SUCCESS';
+const ADD_USER_ERROR = 'ADD_USER_ERROR';
+
+const addNewUserRequest = () => {
+	return {
+		type: ADD_USER_REQUEST,
+	};
+};
+
+const addNewUserSuccess = (user) => {
+	return {
+		type: ADD_USER_SUCCESS,
+		payload: {
+			user,
+		},
+	};
+};
+
+const addNewUserFailure = (error) => {
+	return {
+		type: ADD_USER_ERROR,
+		payload: error,
+	};
+};
+
+export const addNewUserAction = (token, userObj) => async (dispatch) => {
+	dispatch(addNewUserRequest());
+	try {
+		const user = await axios.post('/api/user/register', userObj, {
+			headers: { 'auth-token': token },
+		});
+		dispatch(addNewUserSuccess(user));
+	} catch (error) {
+		console.log(error);
+		dispatch(addNewUserFailure(error));
+	}
+};

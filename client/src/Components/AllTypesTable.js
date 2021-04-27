@@ -1,10 +1,11 @@
-import React from 'react';
 // Styled
 import styled from 'styled-components';
+// Components
+import { BtnRedSm } from '../Components/Button';
 // Redux
 import { useSelector } from 'react-redux';
 // Icons
-import { RiDeleteBin6Line } from 'react-icons/ri';
+import { MdDelete } from 'react-icons/md';
 
 const AllTypesTable = ({ productDeleteHandler }) => {
 	const { types } = useSelector((state) => state.types);
@@ -16,7 +17,7 @@ const AllTypesTable = ({ productDeleteHandler }) => {
 					<th>Name</th>
 					<th>Code</th>
 					<th>Image</th>
-					<th></th>
+					<th>Delete</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -28,10 +29,11 @@ const AllTypesTable = ({ productDeleteHandler }) => {
 							<img src={type.image} alt="Product Texture" />
 						</td>
 						<td>
-							<RiDeleteBin6Line
-								size={23}
-								onClick={() => productDeleteHandler(type.type_id, type._id)}
-							/>
+							<BtnRedSm
+								handler={() => productDeleteHandler(type.type_id, type._id)}
+							>
+								<MdDelete />
+							</BtnRedSm>
 						</td>
 					</tr>
 				))}
@@ -54,32 +56,22 @@ const StyledTable = styled.table`
 		background: #d6d6d6;
 		min-width: 100px;
 	}
-	th:nth-of-type(3),
-	th:nth-of-type(4) {
-		text-align: center;
-	}
+
 	tbody {
 		tr {
+			cursor: default;
 			transition: background 0.2s ease;
-			&:hover {
-				background: #eeeeee;
-			}
 		}
 	}
 	td {
 		border-bottom: solid 1px #5c5c5c;
 		padding: 0.4rem;
-		cursor: pointer;
 
 		img {
 			height: 25px;
 			width: 25px;
 			border-radius: 50%;
 		}
-	}
-	td:nth-of-type(3),
-	td:nth-of-type(4) {
-		text-align: center;
 	}
 `;
 export default AllTypesTable;

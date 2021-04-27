@@ -7,6 +7,7 @@ const initialState = {
 const allUsersReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case 'FETCH_USERS_REQUEST':
+		case 'ADD_USER_REQUEST':
 			return {
 				...state,
 				isLoading: true,
@@ -19,6 +20,20 @@ const allUsersReducer = (state = initialState, action) => {
 				error: '',
 			};
 		case 'FETCH_USERS_ERROR':
+			return {
+				...state,
+				isLoading: false,
+				error: action.payload.response.data.msg,
+			};
+
+		case 'ADD_USER_SUCCESS':
+			return {
+				...state,
+				isLoading: false,
+				users: [action.payload.user.data.user, ...state.users],
+				error: '',
+			};
+		case 'ADD_USER_ERROR':
 			return {
 				...state,
 				isLoading: false,
