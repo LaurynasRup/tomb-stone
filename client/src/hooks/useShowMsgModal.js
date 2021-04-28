@@ -106,6 +106,38 @@ export const useShowMsgModal = () => {
 					link: '/home',
 					linkTxt: 'Go Back',
 				});
+			case 'delete user success':
+				return setShowMsg({
+					...showMsg,
+					display: true,
+					msg: 'User has been deleted succesfully',
+					link: '/home',
+					linkTxt: 'Go Back',
+				});
+			case 'delete user error':
+				return setShowMsg({
+					...showMsg,
+					display: true,
+					msg: 'Could not delete new user',
+					link: '/home',
+					linkTxt: 'Go Back',
+				});
+			case 'edit user success':
+				return setShowMsg({
+					...showMsg,
+					display: true,
+					msg: 'User has been updated succesfully',
+					link: '/home',
+					linkTxt: 'Go Back',
+				});
+			case 'edit user error':
+				return setShowMsg({
+					...showMsg,
+					display: true,
+					msg: 'Could not update user',
+					link: '/home',
+					linkTxt: 'Go Back',
+				});
 			default:
 				return setShowMsg({
 					...showMsg,

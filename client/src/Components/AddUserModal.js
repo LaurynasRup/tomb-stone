@@ -8,7 +8,7 @@ import { displayError } from '../functions/displayErrorString';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
 // Redux Action
-import { addNewUserAction } from '../Redux/actions/userAction';
+import { addNewUserAction, updateUserAcion } from '../Redux/actions/userAction';
 
 const AddUserModal = ({
 	closeAddUserModal,
@@ -16,6 +16,8 @@ const AddUserModal = ({
 	userDetailsHandler,
 	showAddUserModal,
 	showModalMsgHandler,
+	addOrEdit,
+	editUserId,
 }) => {
 	// Grab token
 	const { token } = useSelector((state) => state.user);
@@ -59,11 +61,49 @@ const AddUserModal = ({
 		};
 		inputErrorHandler(errors, pass);
 	};
+	const submitEditHandler = () => {
+		const errors = [];
+		// Inputs array
+		const inputsArray = Object.entries(userDetails);
+		// If empty input, add to errors array
+		inputsArray.forEach((entry) => {
+			if (entry[1] === '') {
+				errors.push(entry[0]);
+			}
+		});
+		// Do passwords match
+		if (userDetails.password !== '' && userDetails.confirmPass !== '') {
+			if (userDetails.password !== userDetails.confirmPass) {
+				errors.push('passwordMatch');
+			}
+		}
+		// Fn to dispatch
+		const pass = () => {
+			// Construct user obj
+			const userObjDispatch = {
+				name: userDetails.name,
+				username: userDetails.username,
+				password: userDetails.password,
+				admin: userDetails.admin,
+			};
+			// dispatch
+			dispatch(
+				updateUserAcion(
+					token,
+					userObjDispatch,
+					editUserId,
+					showAddUserModal,
+					showModalMsgHandler
+				)
+			);
+		};
+		inputErrorHandler(errors, pass);
+	};
 	return (
 		<>
 			<ModalWrapper className="outer" onClick={closeAddUserModal}>
 				<div className="inner">
-					<h1>Add new user</h1>
+					<h1>{addOrEdit === 'add' ? 'Add new user' : 'Edit user'}</h1>
 					<div className="line"></div>
 					<StyledForm>
 						<div className="form-row">
@@ -153,7 +193,7 @@ const AddUserModal = ({
 									<input
 										type="checkbox"
 										id="is_admin"
-										value={userDetails.admin}
+										checked={userDetails.admin}
 										onChange={userDetailsHandler}
 									/>
 									&nbsp;
@@ -162,7 +202,12 @@ const AddUserModal = ({
 							</div>
 						</div>
 					</StyledForm>
-					<BtnGreen handler={submitHandler}>Store new user</BtnGreen>
+					{addOrEdit === 'add' && (
+						<BtnGreen handler={submitHandler}>Add new user</BtnGreen>
+					)}
+					{addOrEdit === 'edit' && (
+						<BtnGreen handler={submitEditHandler}>Save changes</BtnGreen>
+					)}
 				</div>
 			</ModalWrapper>
 		</>

@@ -9,6 +9,7 @@ const allUsersReducer = (state = initialState, action) => {
 		case 'FETCH_USERS_REQUEST':
 		case 'ADD_USER_REQUEST':
 		case 'DELETE_USER_REQUEST':
+		case 'UPDATE_USER_REQUEST':
 			return {
 				...state,
 				isLoading: true,
@@ -33,6 +34,12 @@ const allUsersReducer = (state = initialState, action) => {
 				isLoading: false,
 				error: '',
 			};
+		case 'UPDATE_USER_SUCCESS':
+			return {
+				...state,
+				isLoading: false,
+				error: '',
+			};
 		case 'FETCH_USERS_ERROR':
 			return {
 				...state,
@@ -46,6 +53,12 @@ const allUsersReducer = (state = initialState, action) => {
 				error: action.payload.response.data.msg,
 			};
 		case 'DELETE_USER_ERROR':
+			return {
+				...state,
+				isLoading: false,
+				error: action.payload.response.data.msg,
+			};
+		case 'UPDATE_USER_ERROR':
 			return {
 				...state,
 				isLoading: false,

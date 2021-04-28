@@ -52,25 +52,17 @@ router.patch('/update/:id', verify, async (req, res) => {
 		password: hashedPass,
 		admin: req.body.admin,
 	};
-	if (
-		updateDetails.name &&
-		updateDetails.username &&
-		updateDetails.password &&
-		updateDetails.admin
-	) {
-		try {
-			const updatedUser = await User.updateOne(
-				{ _id: req.params.id },
-				{
-					$set: updateDetails,
-				}
-			);
-			return res.status(200).send('User updated succesfully');
-		} catch (err) {
-			return res.send(404).send('User can not be updated');
-		}
-	} else {
-		return res.status(400).send('User details required');
+
+	try {
+		const updatedUser = await User.updateOne(
+			{ _id: req.params.id },
+			{
+				$set: updateDetails,
+			}
+		);
+		return res.status(200).json({ msg: 'User updated succesfully' });
+	} catch (err) {
+		return res.send(404).json({ msg: 'User can not be updated' });
 	}
 });
 

@@ -174,14 +174,59 @@ const deleteUserFailure = (error) => {
 	};
 };
 
-export const deleteUserAction = (token, id) => async (dispatch) => {
+export const deleteUserAction = (token, id, fn) => async (dispatch) => {
 	dispatch(deleteUserRequest());
 	try {
 		await axios.delete(`/api/user/delete/${id}`, {
 			headers: { 'auth-token': token },
 		});
 		dispatch(deleteUserSuccess());
+		fn('delete user success');
 	} catch (error) {
 		dispatch(deleteUserFailure(error));
+		fn('delete user error');
+	}
+};
+
+/* UPDATE USER */
+
+const UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST';
+const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
+const UPDATE_USER_ERROR = 'UPDATE_USER_ERROR';
+
+const updateUserRequest = () => {
+	return {
+		type: UPDATE_USER_REQUEST,
+	};
+};
+
+const updateUserSuccess = () => {
+	return {
+		type: UPDATE_USER_SUCCESS,
+	};
+};
+
+const updateUserFailure = (error) => {
+	return {
+		type: UPDATE_USER_ERROR,
+		payload: error,
+	};
+};
+
+export const updateUserAcion = (token, userObj, id, fn, fn2) => async (
+	dispatch
+) => {
+	dispatch(updateUserRequest());
+	try {
+		await axios.patch(`/api/user/update/${id}`, userObj, {
+			headers: { 'auth-token': token },
+		});
+		dispatch(updateUserSuccess());
+		fn();
+		fn2('edit user success');
+	} catch (error) {
+		dispatch(updateUserFailure(error));
+		fn();
+		fn2('edit user error');
 	}
 };
