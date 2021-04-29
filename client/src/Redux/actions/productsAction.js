@@ -65,7 +65,7 @@ const updateProductFailure = (error) => {
 	};
 };
 
-export const updateProductAction = (token, id, obj, fn) => async (dispatch) => {
+export const updateProductAction = (token, obj, fn, id) => async (dispatch) => {
 	try {
 		dispatch(updateProductRequest());
 		await axios.patch(`/api/products/update_product/${id}`, obj, {

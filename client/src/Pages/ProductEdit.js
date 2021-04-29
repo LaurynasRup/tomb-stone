@@ -17,8 +17,7 @@ import { useInputErrors } from '../hooks/useInputErrors';
 import { useShowMsgModal } from '../hooks/useShowMsgModal';
 import { useConfirmMsgModal } from '../hooks/useConfirmMsgModal';
 // Custom functions
-import { constructObj } from '../functions/constructDispatchObj';
-import { removeFromArray } from '../functions/removeFromArray';
+import { addProduct } from '../functions/addProduct';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -54,42 +53,16 @@ const ProductEdit = () => {
 	const { showConfirmModal, confirmModalhandler } = useConfirmMsgModal();
 
 	// Handle submit button
-	const submitHandler = async () => {
-		const errors = [];
-		// if reserved - if no reserve id, push error
-		if (inputs.reserved && !inputs.reserveId) {
-			errors.push('reserveId');
-		}
-		// If length < height - error
-		if (inputs.length < inputs.height) errors.push('dimensions_error');
-		// grab input object entries
-		const inputsArray = Object.entries(inputs);
-		let pureInputs = removeFromArray(inputsArray, [
-			'reserved',
-			'reserveId',
-			'comments',
-			'product',
-		]);
-		// if input is empty - push key into errors
-		pureInputs.forEach((input) => {
-			if (!input[1]) errors.push(input[0]);
-		});
-
-		// Check for errors
-		const pass = () => {
-			// construct the obj
-			const objDispatch = constructObj(inputs);
-			// dispatch edit product action
-			dispatch(
-				updateProductAction(
-					token,
-					currentProduct._id,
-					objDispatch,
-					showModalMsgHandler
-				)
-			);
-		};
-		inputErrorHandler(errors, pass);
+	const submitHandler = () => {
+		addProduct(
+			inputs,
+			dispatch,
+			updateProductAction,
+			token,
+			showModalMsgHandler,
+			currentProduct._id,
+			inputErrorHandler
+		);
 	};
 
 	// Handle delete button
