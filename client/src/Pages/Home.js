@@ -24,6 +24,14 @@ const Home = () => {
 	const { token } = useSelector((state) => state.user);
 	// Grab products & loading from redux state
 	const { products, isLoading } = useSelector((state) => state.products);
+	// Sort state
+	const [sortProducts, setStoreProducts] = useState('');
+	// Change sort proucts
+	const sortHandler = (e) => {
+		const idx = e.target.selectedIndex;
+		const el = e.target.childNodes[idx].value;
+		setStoreProducts(el);
+	};
 	// Filter state
 	const {
 		filterInputs,
@@ -53,19 +61,23 @@ const Home = () => {
 
 	// Update products every time that filter is updated
 	useEffect(() => {
-		filterProducts(products, filterInputs, setDisplayProducts);
-	}, [filterInputs, products]);
+		filterProducts(products, filterInputs, sortProducts, setDisplayProducts);
+	}, [filterInputs, products, sortProducts]);
 
 	return (
 		<StyledWrapper>
 			<h1>Products</h1>
-			<div className="filter"></div>
-			<ProductFilter
-				filterValuesHandler={filterValuesHandler}
-				filterSelectHandler={filterSelectHandler}
-				clearInputs={clearInputs}
-			/>
-			<ProductTable products={displayProducts} isLoading={isLoading} />
+			<div className="filter">
+				<ProductFilter
+					filterValuesHandler={filterValuesHandler}
+					filterSelectHandler={filterSelectHandler}
+					clearInputs={clearInputs}
+					sortHandler={sortHandler}
+				/>
+			</div>
+			<div className="table-wr">
+				<ProductTable products={displayProducts} isLoading={isLoading} />
+			</div>
 			<BtnContCntr>
 				{userType === 'admin' && (
 					<BtnLink link="/product_add">
@@ -82,7 +94,7 @@ const StyledWrapper = styled.div`
 	width: 100%;
 	max-width: 1200px;
 	padding: 3rem;
-	overflow: scroll;
+	/* overflow-x: scroll; */
 	margin: 0 auto;
 	@media (max-width: 600px) {
 		padding: 3rem 1.5rem;
@@ -93,6 +105,10 @@ const StyledWrapper = styled.div`
 		@media (max-width: 600px) {
 			font-size: 1.6rem;
 		}
+	}
+
+	.table-wr {
+		overflow: scroll;
 	}
 `;
 
