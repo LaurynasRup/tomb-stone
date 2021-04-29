@@ -13,8 +13,6 @@ const AdminMenu = ({
 			<StyledMenu>
 				<li onClick={() => hideMenuHandler('/all_types')}>Types</li>
 				<li onClick={() => hideMenuHandler('/all_users')}>Users</li>
-
-				{/* <li>Historical</li> */}
 				<li onClick={logOut}>Log out</li>
 			</StyledMenu>
 		</ListWrapper>
@@ -47,15 +45,23 @@ const StyledMenu = styled.ul`
 		padding: 1rem 0;
 		&:first-of-type {
 			text-align: left;
+			@media (max-width: 600px) {
+				border-top: none;
+				text-align: center;
+			}
 		}
 		&:last-of-type {
 			text-align: right;
+			@media (max-width: 600px) {
+				text-align: center;
+			}
 		}
 		&:hover {
 			color: #c9c9c9;
 		}
 		@media (max-width: 600px) {
-			padding: 0.5rem 0;
+			padding: 1rem 0;
+			border-top: solid 1px #fff;
 		}
 	}
 	:not(li:last-of-type) {
@@ -64,6 +70,7 @@ const StyledMenu = styled.ul`
 	@media (max-width: 600px) {
 		font-size: 1rem;
 		padding: 0rem 1.5rem;
+		flex-direction: column;
 	}
 `;
 
