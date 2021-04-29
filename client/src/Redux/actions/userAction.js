@@ -213,7 +213,7 @@ const updateUserFailure = (error) => {
 	};
 };
 
-export const updateUserAcion = (token, userObj, id, fn, fn2) => async (
+export const updateUserAcion = (token, userObj, fn, fn2, id) => async (
 	dispatch
 ) => {
 	dispatch(updateUserRequest());

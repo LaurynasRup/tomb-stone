@@ -5,6 +5,7 @@ import { BtnGreen } from '../Components/Button';
 import { useInputErrors } from '../hooks/useInputErrors';
 // functions
 import { displayError } from '../functions/displayErrorString';
+import { addUser } from '../functions/addUser';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
 // Redux Action
@@ -25,79 +26,28 @@ const AddUserModal = ({
 	// Manage errors
 	const { inputErrors, inputErrorHandler } = useInputErrors();
 	const submitHandler = () => {
-		const errors = [];
-		// Inputs array
-		const inputsArray = Object.entries(userDetails);
-		// If empty input, add to errors array
-		inputsArray.forEach((entry) => {
-			if (entry[1] === '') {
-				errors.push(entry[0]);
-			}
-		});
-		// Do passwords match
-		if (userDetails.password !== '' && userDetails.confirmPass !== '') {
-			if (userDetails.password !== userDetails.confirmPass) {
-				errors.push('passwordMatch');
-			}
-		}
-		// Fn to dispatch
-		const pass = () => {
-			// Construct user obj
-			const userObjDispatch = {
-				name: userDetails.name,
-				username: userDetails.username,
-				password: userDetails.password,
-				admin: userDetails.admin,
-			};
-			// dispatch
-			dispatch(
-				addNewUserAction(
-					token,
-					userObjDispatch,
-					showAddUserModal,
-					showModalMsgHandler
-				)
-			);
-		};
-		inputErrorHandler(errors, pass);
+		addUser(
+			dispatch,
+			userDetails,
+			addNewUserAction,
+			token,
+			showAddUserModal,
+			showModalMsgHandler,
+			inputErrorHandler,
+			editUserId
+		);
 	};
 	const submitEditHandler = () => {
-		const errors = [];
-		// Inputs array
-		const inputsArray = Object.entries(userDetails);
-		// If empty input, add to errors array
-		inputsArray.forEach((entry) => {
-			if (entry[1] === '') {
-				errors.push(entry[0]);
-			}
-		});
-		// Do passwords match
-		if (userDetails.password !== '' && userDetails.confirmPass !== '') {
-			if (userDetails.password !== userDetails.confirmPass) {
-				errors.push('passwordMatch');
-			}
-		}
-		// Fn to dispatch
-		const pass = () => {
-			// Construct user obj
-			const userObjDispatch = {
-				name: userDetails.name,
-				username: userDetails.username,
-				password: userDetails.password,
-				admin: userDetails.admin,
-			};
-			// dispatch
-			dispatch(
-				updateUserAcion(
-					token,
-					userObjDispatch,
-					editUserId,
-					showAddUserModal,
-					showModalMsgHandler
-				)
-			);
-		};
-		inputErrorHandler(errors, pass);
+		addUser(
+			dispatch,
+			userDetails,
+			updateUserAcion,
+			token,
+			showAddUserModal,
+			showModalMsgHandler,
+			inputErrorHandler,
+			editUserId
+		);
 	};
 	return (
 		<>

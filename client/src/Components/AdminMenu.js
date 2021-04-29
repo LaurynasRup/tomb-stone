@@ -2,12 +2,7 @@ import React from 'react';
 // Styled
 import styled from 'styled-components';
 
-const AdminMenu = ({
-	showAdminMenu,
-	setShowAdminMenu,
-	hideMenuHandler,
-	logOut,
-}) => {
+const AdminMenu = ({ hideMenuHandler, logOut }) => {
 	return (
 		<ListWrapper>
 			<StyledMenu>

@@ -71,12 +71,7 @@ const Navbar = () => {
 				</div>
 			</StyledNav>
 			{showAdminMenu && (
-				<AdminMenu
-					showAdminMenu={showAdminMenu}
-					setShowAdminMenu={setShowAdminMenu}
-					hideMenuHandler={hideMenuHandler}
-					logOut={logOut}
-				/>
+				<AdminMenu hideMenuHandler={hideMenuHandler} logOut={logOut} />
 			)}
 		</>
 	);
