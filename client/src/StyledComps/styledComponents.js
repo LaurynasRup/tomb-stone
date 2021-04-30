@@ -24,6 +24,9 @@ export const Wrapper = styled.div`
 	@media (max-width: 600px) {
 		padding: 1.5rem;
 	}
+	.container_overflowx_scroll {
+		overflow-x: scroll;
+	}
 `;
 
 export const ButtonsWrapper = styled.div`

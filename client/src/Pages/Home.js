@@ -1,25 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-// Styled Comp
-import { BtnContCntr } from '../StyledComps/styledComponents';
 // Components
 import ProductTable from '../Components/ProductTable';
-import { BtnLink } from '../Components/Button';
 import ProductFilter from '../Components/ProductFilter';
+import FilterRow from '../Components/FilterRow';
+import Pagination from '../Components/Pagination';
 // Fns
 import { filterProducts } from '../functions/filterProducts';
+import { splitArray } from '../functions/spplitArray';
 // Hooks
 import { useFilterProducts } from '../hooks/useFilterProducts';
-// Icons
-import { AiOutlinePlus } from 'react-icons/ai';
+import { usePagination } from '../hooks/usePagination';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { productsAction } from '../Redux/actions/productsAction';
 import { typesAction } from '../Redux/actions/typesAction';
 
 const Home = () => {
-	// Grab user type from redux state
-	const { userType } = useSelector((state) => state.user);
 	// Retrieve token
 	const { token } = useSelector((state) => state.user);
 	// Grab products & loading from redux state
@@ -41,6 +38,24 @@ const Home = () => {
 	} = useFilterProducts();
 
 	const [displayProducts, setDisplayProducts] = useState([]);
+	// Show & hide filter
+	const [showFilter, setShowFilter] = useState(false);
+	const displayFilterHandler = () => {
+		if (!showFilter) {
+			setShowFilter(true);
+		} else {
+			clearInputs();
+			setShowFilter(false);
+		}
+	};
+	// Grab product types
+	const types = Object.values(useSelector((state) => state.types.types));
+
+	// Use Pagination
+	const spltArray = splitArray(displayProducts);
+	const { currentPage, setCurrentPage, countHandler } = usePagination(
+		spltArray
+	);
 
 	// Fetch products
 	const dispatch = useDispatch();
@@ -61,31 +76,39 @@ const Home = () => {
 
 	// Update products every time that filter is updated
 	useEffect(() => {
+		setCurrentPage(1);
 		filterProducts(products, filterInputs, sortProducts, setDisplayProducts);
-	}, [filterInputs, products, sortProducts]);
+	}, [filterInputs, products, sortProducts, setCurrentPage]);
 
 	return (
 		<StyledWrapper>
 			<h1>Products</h1>
 			<div className="filter">
 				<ProductFilter
-					filterValuesHandler={filterValuesHandler}
-					filterSelectHandler={filterSelectHandler}
-					clearInputs={clearInputs}
 					sortHandler={sortHandler}
+					showFilter={showFilter}
+					displayFilterHandler={displayFilterHandler}
 				/>
 			</div>
-			<div className="table-wr">
-				<ProductTable products={displayProducts} isLoading={isLoading} />
-			</div>
-			<BtnContCntr>
-				{userType === 'admin' && (
-					<BtnLink link="/product_add">
-						<AiOutlinePlus />
-						&nbsp; Add new product
-					</BtnLink>
+			<div className="filter-wrapper">
+				{showFilter && (
+					<FilterRow
+						filterValuesHandler={filterValuesHandler}
+						filterSelectHandler={filterSelectHandler}
+						types={types}
+					/>
 				)}
-			</BtnContCntr>
+
+				<ProductTable
+					products={spltArray[currentPage - 1]}
+					isLoading={isLoading}
+				/>
+			</div>
+			<Pagination
+				spltArray={spltArray}
+				currentPage={currentPage}
+				countHandler={countHandler}
+			/>
 		</StyledWrapper>
 	);
 };
@@ -94,8 +117,8 @@ const StyledWrapper = styled.div`
 	width: 100%;
 	max-width: 1200px;
 	padding: 3rem;
-	/* overflow-x: scroll; */
 	margin: 0 auto;
+
 	@media (max-width: 600px) {
 		padding: 3rem 1.5rem;
 	}
@@ -107,8 +130,8 @@ const StyledWrapper = styled.div`
 		}
 	}
 
-	.table-wr {
-		overflow: scroll;
+	.filter-wrapper {
+		overflow-x: scroll;
 	}
 `;
 

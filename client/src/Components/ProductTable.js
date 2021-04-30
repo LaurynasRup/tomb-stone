@@ -23,25 +23,27 @@ const ProductTable = ({ products, isLoading }) => {
 							<th>Reserved</th>
 						</tr>
 					</thead>
-					<tbody>
-						{products.map((prod) => (
-							<tr
-								key={prod._id}
-								id={prod._id}
-								onClick={() => openProductHandler(prod._id)}
-							>
-								<td>{prod.barcode}</td>
-								<td>{prod.product.product_type} </td>
-								<td>{prod.dimensions.long}</td>
-								<td>{prod.dimensions.short}</td>
-								<td>{prod.dimensions.width}</td>
-								<td>{prod.warehouse_location}</td>
-								<td className="mid">
-									{prod.reserved.isReserved ? <MdDone size={20} /> : ''}
-								</td>
-							</tr>
-						))}
-					</tbody>
+					{products && (
+						<tbody>
+							{products.map((prod) => (
+								<tr
+									key={prod._id}
+									id={prod._id}
+									onClick={() => openProductHandler(prod._id)}
+								>
+									<td>{prod.barcode}</td>
+									<td>{prod.product.product_type} </td>
+									<td>{prod.dimensions.long}</td>
+									<td>{prod.dimensions.short}</td>
+									<td>{prod.dimensions.width}</td>
+									<td>{prod.warehouse_location}</td>
+									<td className="mid">
+										{prod.reserved.isReserved ? <MdDone size={20} /> : ''}
+									</td>
+								</tr>
+							))}
+						</tbody>
+					)}
 				</StyledTable>
 			)}
 		</>

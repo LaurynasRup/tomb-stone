@@ -123,7 +123,9 @@ const TypesPage = () => {
 			<Wrapper>
 				<h1>All types</h1>
 				<div className="line"></div>
-				<AllTypesTable productDeleteHandler={productDeleteHandler} />
+				<div className="container_overflowx_scroll">
+					<AllTypesTable productDeleteHandler={productDeleteHandler} />
+				</div>
 				<BtnWrapper>
 					<Btn handler={openModalHandler}>
 						{' '}

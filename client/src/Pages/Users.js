@@ -158,48 +158,50 @@ const Users = () => {
 			<Wrapper>
 				<h1>Users</h1>
 				<div className="line"></div>
-				<StyledTable>
-					<thead>
-						<tr>
-							<th>Name</th>
-							<th>Username</th>
-							<th>Admin</th>
-							<th>Edit</th>
-							<th>Delete</th>
-						</tr>
-					</thead>
-					<tbody>
-						{users.map((user, idx) => (
-							<tr key={idx}>
-								<td>{user.name}</td>
-								<td>{user.username}</td>
-								<td>{user.admin && <MdDone />}</td>
-								<td>
-									{currentUser.name === user.name || !user.admin ? (
-										<div userid={user._id} onClick={editUserHandler}>
-											<BtnSm>
-												<MdEdit />
-											</BtnSm>
-										</div>
-									) : (
-										''
-									)}
-								</td>
-								<td>
-									{currentUser.name === user.name || !user.admin ? (
-										<div userid={user._id} onClick={deleteUserHandler}>
-											<BtnRedSm>
-												<MdDelete />
-											</BtnRedSm>
-										</div>
-									) : (
-										''
-									)}
-								</td>
+				<div className="container_overflowx_scroll">
+					<StyledTable>
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Username</th>
+								<th>Admin</th>
+								<th>Edit</th>
+								<th>Delete</th>
 							</tr>
-						))}
-					</tbody>
-				</StyledTable>
+						</thead>
+						<tbody>
+							{users.map((user, idx) => (
+								<tr key={idx}>
+									<td>{user.name}</td>
+									<td>{user.username}</td>
+									<td>{user.admin && <MdDone />}</td>
+									<td>
+										{currentUser.name === user.name || !user.admin ? (
+											<div userid={user._id} onClick={editUserHandler}>
+												<BtnSm>
+													<MdEdit />
+												</BtnSm>
+											</div>
+										) : (
+											''
+										)}
+									</td>
+									<td>
+										{currentUser.name === user.name || !user.admin ? (
+											<div userid={user._id} onClick={deleteUserHandler}>
+												<BtnRedSm>
+													<MdDelete />
+												</BtnRedSm>
+											</div>
+										) : (
+											''
+										)}
+									</td>
+								</tr>
+							))}
+						</tbody>
+					</StyledTable>
+				</div>
 				<BtnContCntr>
 					<Btn handler={showAddUserModal}>
 						<AiOutlinePlus />
