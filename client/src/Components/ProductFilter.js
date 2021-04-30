@@ -175,7 +175,7 @@ const FilterRow = styled.div`
 	.reserved-check {
 		width: 14.2%;
 		min-width: 120px;
-		padding: 0.3rem 1rem;
+		padding: 0.1rem 1rem;
 		font-family: 'Montserrat', sans-serif;
 		font-size: 1rem;
 		border-radius: 5px;
