@@ -23,6 +23,12 @@ const ListWrapper = styled.div`
 	justify-content: center;
 	align-items: center;
 	color: #e2e2e2;
+	@media (max-width: 600px) {
+		position: absolute;
+		top: 8vh;
+		left: 0;
+		height: 92vh;
+	}
 `;
 
 const StyledMenu = styled.ul`
@@ -33,6 +39,7 @@ const StyledMenu = styled.ul`
 	padding: 0 3rem;
 	font-size: 1rem;
 	font-weight: 300;
+
 	li {
 		text-align: center;
 		cursor: pointer;

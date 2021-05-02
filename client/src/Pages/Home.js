@@ -118,7 +118,7 @@ const StyledWrapper = styled.div`
 	max-width: 1200px;
 	padding: 3rem;
 	margin: 0 auto;
-
+	overflow: hidden;
 	@media (max-width: 600px) {
 		padding: 3rem 1.5rem;
 	}

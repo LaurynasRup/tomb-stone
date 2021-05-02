@@ -17,7 +17,15 @@ const Navbar = () => {
 	const { name, userType, loggedIn } = useSelector((state) => state.user);
 
 	const [showAdminMenu, setShowAdminMenu] = useState(false);
-	const adminMenuHandler = () => setShowAdminMenu(!showAdminMenu);
+	const adminMenuHandler = () => {
+		if (showAdminMenu) {
+			document.body.classList.remove('no_scroll');
+			setShowAdminMenu(false);
+		} else {
+			setShowAdminMenu(true);
+			document.body.classList.add('no_scroll');
+		}
+	};
 	const history = useHistory();
 	const redirectHomeHandler = () => {
 		if (loggedIn) {
@@ -28,6 +36,7 @@ const Navbar = () => {
 		setShowAdminMenu(false);
 	};
 	const hideMenuHandler = (str) => {
+		document.body.classList.remove('no_scroll');
 		setShowAdminMenu(!showAdminMenu);
 		history.push(str);
 	};
