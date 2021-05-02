@@ -81,7 +81,7 @@ const Navbar = () => {
 const StyledNav = styled.nav`
 	height: 8vh;
 	width: 100%;
-	min-width: 375px;
+	min-width: 300px;
 	background: #32394d;
 	color: #e2e2e2;
 	margin: 0 auto;

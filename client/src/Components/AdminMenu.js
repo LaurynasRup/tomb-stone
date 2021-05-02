@@ -17,7 +17,7 @@ const AdminMenu = ({ hideMenuHandler, logOut }) => {
 
 const ListWrapper = styled.div`
 	width: 100%;
-	min-width: 375px;
+	min-width: 300px;
 	background: #32394d;
 	display: flex;
 	justify-content: center;
@@ -31,7 +31,6 @@ const StyledMenu = styled.ul`
 	width: 100%;
 	max-width: 1200px;
 	padding: 0 3rem;
-	min-width: 375px;
 	font-size: 1rem;
 	font-weight: 300;
 	li {

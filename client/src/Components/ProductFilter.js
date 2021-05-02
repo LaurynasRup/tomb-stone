@@ -37,7 +37,7 @@ const FilterWrapper = styled.div`
 		justify-content: space-between;
 		align-items: flex-start;
 		width: 100%;
-		min-width: 330px;
+		/* min-width: 250px; */
 	}
 
 	.filter #product_sort {
