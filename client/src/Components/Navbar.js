@@ -19,11 +19,15 @@ const Navbar = () => {
 	const [showAdminMenu, setShowAdminMenu] = useState(false);
 	const adminMenuHandler = () => {
 		if (showAdminMenu) {
-			document.body.classList.remove('no_scroll');
+			if (window.innerWidth < 600) {
+				document.body.classList.remove('no_scroll');
+			}
 			setShowAdminMenu(false);
 		} else {
+			if (window.innerWidth < 600) {
+				document.body.classList.add('no_scroll');
+			}
 			setShowAdminMenu(true);
-			document.body.classList.add('no_scroll');
 		}
 	};
 	const history = useHistory();

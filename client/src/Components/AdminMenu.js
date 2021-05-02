@@ -6,6 +6,7 @@ const AdminMenu = ({ hideMenuHandler, logOut }) => {
 	return (
 		<ListWrapper>
 			<StyledMenu>
+				<li onClick={() => hideMenuHandler('/home')}>Home</li>
 				<li onClick={() => hideMenuHandler('/product_add')}>New Product</li>
 				<li onClick={() => hideMenuHandler('/all_types')}>Types</li>
 				<li onClick={() => hideMenuHandler('/all_users')}>Users</li>
