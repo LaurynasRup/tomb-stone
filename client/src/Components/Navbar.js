@@ -25,6 +25,7 @@ const Navbar = () => {
 		} else {
 			history.push('/');
 		}
+		setShowAdminMenu(false);
 	};
 	const hideMenuHandler = (str) => {
 		setShowAdminMenu(!showAdminMenu);
