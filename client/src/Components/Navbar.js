@@ -33,6 +33,7 @@ const Navbar = () => {
 		} else {
 			history.push('/');
 		}
+		document.body.classList.remove('no_scroll');
 		setShowAdminMenu(false);
 	};
 	const hideMenuHandler = (str) => {
