@@ -52,10 +52,9 @@ const Home = () => {
 	const types = Object.values(useSelector((state) => state.types.types));
 
 	// Use Pagination
-	const spltArray = splitArray(displayProducts);
-	const { currentPage, setCurrentPage, countHandler } = usePagination(
-		spltArray
-	);
+	const spltArray = splitArray(displayProducts, 5);
+	const { currentPage, setCurrentPage, countHandler } =
+		usePagination(spltArray);
 
 	// Fetch products
 	const dispatch = useDispatch();
@@ -104,11 +103,7 @@ const Home = () => {
 					isLoading={isLoading}
 				/>
 			</div>
-			<Pagination
-				spltArray={spltArray}
-				currentPage={currentPage}
-				countHandler={countHandler}
-			/>
+			<Pagination spltArray={spltArray} countHandler={countHandler} />
 		</StyledWrapper>
 	);
 };

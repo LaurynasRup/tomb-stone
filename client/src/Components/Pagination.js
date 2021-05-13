@@ -1,32 +1,18 @@
 import styled from 'styled-components';
-import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 
-const Pagination = ({ spltArray, currentPage, countHandler }) => {
+const Pagination = ({ spltArray, countHandler }) => {
 	return (
 		<>
 			{spltArray.length > 1 && (
 				<Wrapper>
 					<div className="inner_wrapper">
-						<BsChevronLeft
-							size={25}
-							className={currentPage === 1 ? 'dec hidden' : 'dec'}
-							onClick={countHandler}
-						/>
-						{spltArray.map((item, idx) => (
-							<p
-								key={idx + 1}
-								className={currentPage === idx + 1 ? 'active' : ''}
-							>
-								{idx + 1}
-							</p>
-						))}
-						<BsChevronRight
-							size={25}
-							onClick={countHandler}
-							className={
-								currentPage === spltArray.length ? 'inc hidden' : 'inc'
-							}
-						/>
+						<select name="pagination" id="pagination" onChange={countHandler}>
+							{spltArray.map((item, idx) => (
+								<option value={idx + 1} key={idx}>
+									Page {idx + 1}
+								</option>
+							))}
+						</select>
 					</div>
 				</Wrapper>
 			)}
@@ -43,19 +29,20 @@ const Wrapper = styled.div`
 	.inner_wrapper {
 		display: flex;
 		align-items: center;
-		p {
-			margin: 0 0.5rem;
-			color: lightgray;
-			&.active {
-				color: black;
-			}
-		}
-		svg {
-			cursor: pointer;
-			margin: 0 1rem;
-		}
-		svg.hidden {
-			visibility: hidden;
+	}
+
+	.inner_wrapper #pagination {
+		cursor: pointer;
+		padding: 0.1rem 1rem;
+		font-family: 'Montserrat', sans-serif;
+		font-size: 1rem;
+		border-radius: 10px;
+		letter-spacing: 1px;
+		border: solid 1px #32394d;
+		outline-width: 0;
+		@media (max-width: 600px) {
+			font-size: 0.9rem;
+			padding: 0.1rem 0.3rem;
 		}
 	}
 `;

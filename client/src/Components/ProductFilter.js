@@ -41,12 +41,13 @@ const FilterWrapper = styled.div`
 	}
 
 	.filter #product_sort {
+		cursor: pointer;
 		padding: 0.1rem 1rem;
 		font-family: 'Montserrat', sans-serif;
 		font-size: 1rem;
 		border-radius: 10px;
 		letter-spacing: 1px;
-		border: solid 1px #a3a3a3;
+		border: solid 1px #32394d;
 		outline-width: 0;
 		@media (max-width: 600px) {
 			font-size: 0.9rem;

@@ -4,17 +4,10 @@ export const usePagination = (splitArray) => {
 	const [currentPage, setCurrentPage] = useState(1);
 
 	const countHandler = (e) => {
-		const target = e.target.closest('svg');
-		if (target.classList.contains('inc')) {
-			if (currentPage !== splitArray.length) {
-				setCurrentPage(currentPage + 1);
-			}
-		}
-		if (target.classList.contains('dec')) {
-			if (currentPage !== 1) {
-				setCurrentPage(currentPage - 1);
-			}
-		}
+		const idx = e.target.selectedIndex;
+		const el = e.target.childNodes[idx];
+
+		setCurrentPage(+el.value);
 	};
 
 	return { currentPage, setCurrentPage, countHandler };
