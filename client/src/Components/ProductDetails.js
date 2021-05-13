@@ -268,6 +268,9 @@ const StyledForm = styled.form`
 	}
 	.form-row:last-of-type {
 		padding-bottom: 2rem;
+		@media (max-width: 600px) {
+			padding-top: 0.5rem;
+		}
 	}
 	.form-control {
 		display: flex;
@@ -364,6 +367,9 @@ const StyledForm = styled.form`
 		flex-direction: row;
 		align-items: center;
 		width: auto;
+		@media (max-width: 600px) {
+			padding: 0 0 0.3rem 0.2rem;
+		}
 		label {
 			padding: 0 1rem;
 			@media (max-width: 600px) {
@@ -373,7 +379,16 @@ const StyledForm = styled.form`
 		input {
 			width: auto;
 		}
-		&.second {
+	}
+
+	.form-control.inline.second {
+		input {
+			@media (max-width: 600px) {
+				margin-top: 0.1rem;
+				width: 100%;
+			}
+		}
+		@media (max-width: 600px) {
 			flex-direction: column;
 			align-items: flex-start;
 		}
