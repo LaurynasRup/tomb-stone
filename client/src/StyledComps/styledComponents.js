@@ -130,6 +130,11 @@ export const StyledForm = styled.form`
 			flex-direction: row;
 			align-items: center;
 		}
+		.form-control-inline {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+		}
 
 		.form-control input {
 			width: 100%;
@@ -171,6 +176,11 @@ export const StyledForm = styled.form`
 			font-size: 1.2rem;
 			@media (max-width: 600px) {
 				font-size: 0.9rem;
+			}
+		}
+		.form-control small {
+			@media (max-width: 600px) {
+				font-size: 0.7rem;
 			}
 		}
 	}
