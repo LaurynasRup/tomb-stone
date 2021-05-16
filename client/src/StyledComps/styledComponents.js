@@ -78,6 +78,7 @@ export const BtnContCntr = styled.div`
 `;
 
 export const ModalWrapper = styled.div`
+	z-index: 5;
 	position: absolute;
 	top: 0;
 	left: 0;

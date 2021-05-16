@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 // Fn to display error
 import { displayError } from '../functions/displayErrorString';
+// Icons
+import { FaCamera } from 'react-icons/fa';
 
 const ProductDetails = ({
 	editable,
@@ -13,6 +15,7 @@ const ProductDetails = ({
 	inputHandler,
 	selectHandler,
 	inputErrors,
+	barcodeModalHandler,
 }) => {
 	// Grab product types from redux state
 	const types = Object.values(useSelector((state) => state.types.types));
@@ -80,14 +83,21 @@ const ProductDetails = ({
 							</small>
 						)}
 					</div>
-					<input
-						type="number"
-						id="barcode"
-						value={inputs.barcode}
-						onChange={inputHandler}
-						disabled={editable ? false : true}
-						readOnly={editable ? false : true}
-					/>
+					<div className="select-control">
+						<input
+							type="number"
+							id="barcode"
+							value={inputs.barcode}
+							onChange={inputHandler}
+							disabled={editable ? false : true}
+							readOnly={editable ? false : true}
+						/>
+						{editable && (
+							<CameraBtn onClick={barcodeModalHandler}>
+								<FaCamera />
+							</CameraBtn>
+						)}
+					</div>
 				</div>
 			</div>
 			<div className="form-row">
@@ -280,6 +290,8 @@ const StyledForm = styled.form`
 		.select-control {
 			display: flex;
 			align-items: center;
+			position: relative;
+			z-index: 1;
 		}
 		.texture {
 			cursor: pointer;
@@ -392,6 +404,29 @@ const StyledForm = styled.form`
 			flex-direction: column;
 			align-items: flex-start;
 		}
+	}
+`;
+
+const CameraBtn = styled.button`
+	position: absolute;
+	right: 0;
+	top: 0;
+	height: 98%;
+	cursor: pointer;
+	padding: 0.25rem 0.5rem;
+	font-size: 1rem;
+	border-radius: 10px;
+	border: solid 1px #32394d;
+	background: transparent;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #32394d;
+	transition: all 0.3s ease;
+	outline-width: 0;
+	&:hover {
+		color: white;
+		background: #32394d;
 	}
 `;
 

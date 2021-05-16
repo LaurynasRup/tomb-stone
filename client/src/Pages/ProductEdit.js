@@ -7,11 +7,13 @@ import { BtnLink, BtnRed, BtnGreen } from '../Components/Button';
 import PageLoading from '../Components/PageLoading';
 import MessageModal from '../Components/MessageModal';
 import ConfirmMessageModal from '../Components/ConfirmMessageModal';
+import BarcodeModal from '../Components/BarcodeModal';
 // Styled comps
 import { Wrapper, ButtonsWrapper } from '../StyledComps/styledComponents';
 // Hooks
 import { useFindByUrl } from '../hooks/useFindByUrl';
 import { useModalHandler } from '../hooks/useModalHandler';
+import { useBarcodeModal } from '../hooks/useBarcodeModal';
 import { useProductInputs } from '../hooks/useProductInputs';
 import { useInputErrors } from '../hooks/useInputErrors';
 import { useShowMsgModal } from '../hooks/useShowMsgModal';
@@ -29,7 +31,7 @@ const ProductEdit = () => {
 	const [editable] = useState(true);
 	// Find current product object
 	const currentProduct = useFindByUrl();
-	// Image modal handling
+	// Image Modal handling
 	const { imgOpen, modalHandler } = useModalHandler();
 	// Grab Current User
 	const { name } = useSelector((state) => state.user);
@@ -39,6 +41,7 @@ const ProductEdit = () => {
 		inputHandler,
 		selectHandler,
 		imageUploadInputHandler,
+		barcodeInputHandler,
 	} = useProductInputs(currentProduct, name);
 	// Manage errors
 	const { inputErrors, inputErrorHandler } = useInputErrors();
@@ -51,6 +54,16 @@ const ProductEdit = () => {
 	const { showMsg, showModalMsgHandler } = useShowMsgModal();
 	// Display Confirm Modal
 	const { showConfirmModal, confirmModalhandler } = useConfirmMsgModal();
+	// Barcode result
+	const [result, setResult] = useState(inputs.barcode);
+	// Barcode Modal Handling
+	const { barcodeModalOpen, barcodeModalHandler } = useBarcodeModal(
+		result,
+		barcodeInputHandler
+	);
+	const onDetected = (result) => {
+		setResult(result);
+	};
 
 	// Handle submit button
 	const submitHandler = () => {
@@ -97,6 +110,13 @@ const ProductEdit = () => {
 					linkTxt={showMsg.linkTxt}
 				/>
 			)}
+			{barcodeModalOpen && (
+				<BarcodeModal
+					barcodeModalHandler={barcodeModalHandler}
+					onDetected={onDetected}
+					result={result}
+				/>
+			)}
 			{isLoading && <PageLoading />}
 			{imgOpen.open && <ImageModal modalHandler={modalHandler} img={imgOpen} />}
 			{currentProduct && (
@@ -111,6 +131,7 @@ const ProductEdit = () => {
 						currentProduct={currentProduct}
 						editable={editable}
 						modalHandler={modalHandler}
+						barcodeModalHandler={barcodeModalHandler}
 					/>
 					<EditImages
 						images={JSON.parse(inputs.productImg)}

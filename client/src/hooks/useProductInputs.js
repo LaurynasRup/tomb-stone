@@ -53,5 +53,18 @@ export const useProductInputs = (obj, userName) => {
 			productImg: JSON.stringify(arr),
 		});
 	};
-	return { inputs, inputHandler, selectHandler, imageUploadInputHandler };
+
+	const barcodeInputHandler = (barcode) => {
+		setInputs({
+			...inputs,
+			barcode,
+		});
+	};
+	return {
+		inputs,
+		inputHandler,
+		selectHandler,
+		imageUploadInputHandler,
+		barcodeInputHandler,
+	};
 };

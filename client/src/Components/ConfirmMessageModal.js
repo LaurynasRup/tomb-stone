@@ -28,6 +28,7 @@ const Wrapper = styled.div`
 	align-items: center;
 	justify-content: center;
 	background-color: rgba(0, 0, 0, 0.7);
+	z-index: 10;
 	.inner {
 		padding: 1.5rem;
 		border-radius: 10px;

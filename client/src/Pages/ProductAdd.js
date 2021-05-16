@@ -7,9 +7,11 @@ import ImageModal from '../Components/ImageModal';
 import { BtnLink, BtnGreen } from '../Components/Button';
 import PageLoading from '../Components/PageLoading';
 import MessageModal from '../Components/MessageModal';
+import BarcodeModal from '../Components/BarcodeModal';
 // Hooks
 import { useProductInputs } from '../hooks/useProductInputs';
 import { useModalHandler } from '../hooks/useModalHandler';
+import { useBarcodeModal } from '../hooks/useBarcodeModal';
 import { useInputErrors } from '../hooks/useInputErrors';
 import { useShowMsgModal } from '../hooks/useShowMsgModal';
 // Functions
@@ -30,12 +32,12 @@ const ProductAdd = () => {
 		inputHandler,
 		selectHandler,
 		imageUploadInputHandler,
+		barcodeInputHandler,
 	} = useProductInputs(emptyObj, name);
 	// Manage errors
 	const { inputErrors, inputErrorHandler } = useInputErrors();
 	// Image modal
 	const { imgOpen, modalHandler } = useModalHandler();
-
 	// Grab token
 	const { token } = useSelector((state) => state.user);
 	// See if loading
@@ -45,6 +47,17 @@ const ProductAdd = () => {
 
 	// display modal message
 	const { showMsg, showModalMsgHandler } = useShowMsgModal();
+
+	// Barcode result
+	const [result, setResult] = useState(inputs.barcode);
+	// Barcode Modal Handling
+	const { barcodeModalOpen, barcodeModalHandler } = useBarcodeModal(
+		result,
+		barcodeInputHandler
+	);
+	const onDetected = (result) => {
+		setResult(result);
+	};
 
 	// Handle submit
 	const submitHandler = () => {
@@ -69,6 +82,13 @@ const ProductAdd = () => {
 			)}
 			{isLoading && <PageLoading />}
 			{imgOpen.open && <ImageModal modalHandler={modalHandler} img={imgOpen} />}
+			{barcodeModalOpen && (
+				<BarcodeModal
+					barcodeModalHandler={barcodeModalHandler}
+					onDetected={onDetected}
+					result={result}
+				/>
+			)}
 			<Wrapper>
 				<h1>Add New Product</h1>
 				<div className="line" />
@@ -80,6 +100,7 @@ const ProductAdd = () => {
 					currentProduct={emptyObj}
 					inputErrors={inputErrors}
 					modalHandler={modalHandler}
+					barcodeModalHandler={barcodeModalHandler}
 				/>
 				<EditImages
 					images={JSON.parse(inputs.productImg)}

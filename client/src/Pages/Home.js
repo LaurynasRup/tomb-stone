@@ -16,6 +16,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { productsAction } from '../Redux/actions/productsAction';
 import { typesAction } from '../Redux/actions/typesAction';
 
+const PER_PAGE = 15;
+
 const Home = () => {
 	// Retrieve token
 	const { token } = useSelector((state) => state.user);
@@ -52,7 +54,7 @@ const Home = () => {
 	const types = Object.values(useSelector((state) => state.types.types));
 
 	// Use Pagination
-	const spltArray = splitArray(displayProducts, 5);
+	const spltArray = splitArray(displayProducts, PER_PAGE);
 	const { currentPage, setCurrentPage, countHandler } =
 		usePagination(spltArray);
 
