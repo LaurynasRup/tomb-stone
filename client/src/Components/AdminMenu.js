@@ -26,6 +26,7 @@ const ListWrapper = styled.div`
 	color: #e2e2e2;
 	@media (max-width: 600px) {
 		position: absolute;
+		z-index: 10;
 		top: 8vh;
 		left: 0;
 		height: 92vh;
@@ -40,7 +41,7 @@ const StyledMenu = styled.ul`
 	padding: 0 3rem;
 	font-size: 1rem;
 	font-weight: 300;
-
+	z-index: 10;
 	li {
 		text-align: center;
 		cursor: pointer;
