@@ -102,6 +102,7 @@ const StyledNav = styled.nav`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	z-index: 10;
 	.inner {
 		width: 100%;
 		max-width: 1200px;
