@@ -8,7 +8,14 @@ router.post('/', async (req, res) => {
 		const uploadResponse = await cloudinary.uploader.upload(fileStr, {
 			upload_preset: preset,
 		});
-		res.json({ msg: 'Image uploaded succesfully', data: uploadResponse.url });
+		const adjustedImgUrl = uploadResponse.secure_url.replace(
+			'upload/',
+			'upload/q_auto:low/'
+		);
+		res.json({
+			msg: 'Image uploaded succesfully',
+			data: adjustedImgUrl,
+		});
 	} catch (error) {
 		res.status(500).json({ msg: 'Failed to upload the image', error });
 	}

@@ -110,11 +110,6 @@ const MediaDiv = styled.div`
 		left: 0;
 	}
 
-	#interactive.viewport canvas.drawingBuffer,
-	video.drawingBuffer {
-		/* width: 300px;
-		height: 200px; */
-	}
 	@media (max-width: 600px) {
 		height: 170px;
 	}
