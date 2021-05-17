@@ -98,10 +98,13 @@ const MediaDiv = styled.div`
 	background: black;
 	margin: 1.5rem 0 1.5rem 0;
 	position: relative;
+
 	#interactive.viewport canvas,
 	video {
 		width: 100%;
 		height: 100%;
+		min-width: 250px;
+		min-height: 170px;
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -109,8 +112,8 @@ const MediaDiv = styled.div`
 
 	#interactive.viewport canvas.drawingBuffer,
 	video.drawingBuffer {
-		width: 300px;
-		height: 200px;
+		/* width: 300px;
+		height: 200px; */
 	}
 	@media (max-width: 600px) {
 		height: 170px;

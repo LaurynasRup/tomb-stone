@@ -88,6 +88,8 @@ export const ModalWrapper = styled.div`
 	align-items: center;
 	justify-content: center;
 	background-color: rgba(0, 0, 0, 0.7);
+	overflow: scroll;
+	padding: 2rem;
 	.inner {
 		width: 40%;
 		min-width: 500px;
@@ -98,7 +100,7 @@ export const ModalWrapper = styled.div`
 		flex-direction: column;
 		@media (max-width: 600px) {
 			font-size: 1rem;
-			min-width: 350px;
+			min-width: 340px;
 		}
 
 		h1 {
@@ -112,6 +114,9 @@ export const ModalWrapper = styled.div`
 			background: #32394d;
 			margin-bottom: 1.5rem;
 		}
+	}
+	@media (min-width: 500px) and (max-height: 600px) {
+		align-items: flex-start;
 	}
 `;
 
