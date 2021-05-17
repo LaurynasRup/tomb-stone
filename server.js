@@ -36,6 +36,17 @@ app.use('/api/types', productTypeRoute);
 app.use('/api/decode', decodeRoute);
 app.use('/api/upload_images', uploadImgRoute);
 
+// Redirect to https in production
+app.use((req, res, next) => {
+	if (process.env.NODE_ENV === 'production') {
+		if (req.header('x-forwarded-proto') !== 'https') {
+			res.redirect(`https://${req.header('host')}${req.url}`);
+		} else {
+			next();
+		}
+	}
+});
+
 // serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
 	// set static folder
