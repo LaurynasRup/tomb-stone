@@ -10,6 +10,7 @@ import BarcodeModal from '../Components/BarcodeModal';
 // Fns
 import { filterProducts } from '../functions/filterProducts';
 import { splitArray } from '../functions/spplitArray';
+import { onDetected } from '../functions/onDetected';
 // Hooks
 import { useFilterProducts } from '../hooks/useFilterProducts';
 import { usePagination } from '../hooks/usePagination';
@@ -95,14 +96,12 @@ const Home = () => {
 		filterBarcodeHandler,
 		setResult
 	);
-	const onDetected = (result) => {
-		setResult(result);
-	};
 	return (
 		<>
 			{barcodeModalOpen && (
 				<BarcodeModal
 					result={result}
+					setResult={setResult}
 					onDetected={onDetected}
 					barcodeModalHandler={barcodeModalHandler}
 				/>

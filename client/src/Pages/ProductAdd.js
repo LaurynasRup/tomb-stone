@@ -17,6 +17,7 @@ import { useShowMsgModal } from '../hooks/useShowMsgModal';
 // Functions
 import { emptyInputObj } from '../functions/emptyInputObj';
 import { addProduct } from '../functions/addProduct';
+import { onDetected } from '../functions/onDetected';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { addProductAction } from '../Redux/actions/productsAction';
@@ -53,11 +54,9 @@ const ProductAdd = () => {
 	// Barcode Modal Handling
 	const { barcodeModalOpen, barcodeModalHandler } = useBarcodeModal(
 		result,
-		barcodeInputHandler
+		barcodeInputHandler,
+		setResult
 	);
-	const onDetected = (result) => {
-		setResult(result);
-	};
 
 	// Handle submit
 	const submitHandler = () => {
@@ -78,6 +77,8 @@ const ProductAdd = () => {
 					msg={showMsg.msg}
 					link={showMsg.link}
 					linkTxt={showMsg.linkTxt}
+					handler={() => showModalMsgHandler('close')}
+					handlerText="Add another"
 				/>
 			)}
 			{isLoading && <PageLoading />}
@@ -87,6 +88,7 @@ const ProductAdd = () => {
 					barcodeModalHandler={barcodeModalHandler}
 					onDetected={onDetected}
 					result={result}
+					setResult={setResult}
 				/>
 			)}
 			<Wrapper>

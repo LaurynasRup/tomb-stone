@@ -22,7 +22,7 @@ export const addProduct = (
 	if (!inputs.product.product_type) errors.push('type');
 
 	// If length < height - error
-	if (inputs.length < inputs.height) errors.push('dimensions_error');
+	if (+inputs.length < +inputs.height) errors.push('dimensions_error');
 
 	// Input Object Entries - to Array
 	const inputsArray = Object.entries(inputs);

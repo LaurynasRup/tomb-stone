@@ -9,10 +9,11 @@ export default function BarcodeModal({
 	barcodeModalHandler,
 	onDetected,
 	result,
+	setResult,
 }) {
 	useEffect(() => {
 		const detected = (result) => {
-			onDetected(result.codeResult.code);
+			onDetected(result.codeResult.code, setResult);
 		};
 		Quagga.init(quaggaConfig, (err) => {
 			if (err) {

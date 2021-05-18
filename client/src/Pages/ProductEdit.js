@@ -20,6 +20,7 @@ import { useShowMsgModal } from '../hooks/useShowMsgModal';
 import { useConfirmMsgModal } from '../hooks/useConfirmMsgModal';
 // Custom functions
 import { addProduct } from '../functions/addProduct';
+import { onDetected } from '../functions/onDetected';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -59,11 +60,9 @@ const ProductEdit = () => {
 	// Barcode Modal Handling
 	const { barcodeModalOpen, barcodeModalHandler } = useBarcodeModal(
 		result,
-		barcodeInputHandler
+		barcodeInputHandler,
+		setResult
 	);
-	const onDetected = (result) => {
-		setResult(result);
-	};
 
 	// Handle submit button
 	const submitHandler = () => {
@@ -115,6 +114,7 @@ const ProductEdit = () => {
 					barcodeModalHandler={barcodeModalHandler}
 					onDetected={onDetected}
 					result={result}
+					setResult={setResult}
 				/>
 			)}
 			{isLoading && <PageLoading />}

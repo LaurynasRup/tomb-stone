@@ -130,24 +130,22 @@ const addNewUserFailure = (error) => {
 	};
 };
 
-export const addNewUserAction = (token, userObj, fn, fn2) => async (
-	dispatch
-) => {
-	dispatch(addNewUserRequest());
-	try {
-		const user = await axios.post('/api/user/register', userObj, {
-			headers: { 'auth-token': token },
-		});
-		dispatch(addNewUserSuccess(user));
-		fn();
-		fn2('add user success');
-	} catch (error) {
-		dispatch(addNewUserFailure(error));
-		console.log(error);
-		fn();
-		fn2('add user error');
-	}
-};
+export const addNewUserAction =
+	(token, userObj, fn, fn2) => async (dispatch) => {
+		dispatch(addNewUserRequest());
+		try {
+			const user = await axios.post('/api/user/register', userObj, {
+				headers: { 'auth-token': token },
+			});
+			dispatch(addNewUserSuccess(user));
+			fn();
+			fn2('add user success');
+		} catch (error) {
+			dispatch(addNewUserFailure(error));
+			fn();
+			fn2('add user error');
+		}
+	};
 
 /* DELETE USER */
 
@@ -213,20 +211,19 @@ const updateUserFailure = (error) => {
 	};
 };
 
-export const updateUserAcion = (token, userObj, fn, fn2, id) => async (
-	dispatch
-) => {
-	dispatch(updateUserRequest());
-	try {
-		await axios.patch(`/api/user/update/${id}`, userObj, {
-			headers: { 'auth-token': token },
-		});
-		dispatch(updateUserSuccess());
-		fn();
-		fn2('edit user success');
-	} catch (error) {
-		dispatch(updateUserFailure(error));
-		fn();
-		fn2('edit user error');
-	}
-};
+export const updateUserAcion =
+	(token, userObj, fn, fn2, id) => async (dispatch) => {
+		dispatch(updateUserRequest());
+		try {
+			await axios.patch(`/api/user/update/${id}`, userObj, {
+				headers: { 'auth-token': token },
+			});
+			dispatch(updateUserSuccess());
+			fn();
+			fn2('edit user success');
+		} catch (error) {
+			dispatch(updateUserFailure(error));
+			fn();
+			fn2('edit user error');
+		}
+	};

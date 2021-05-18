@@ -138,6 +138,14 @@ export const useShowMsgModal = () => {
 					link: '/home',
 					linkTxt: 'Go Back',
 				});
+			case 'close':
+				return setShowMsg({
+					...showMsg,
+					display: false,
+					msg: '',
+					link: '',
+					linkTxt: '',
+				});
 			default:
 				return setShowMsg({
 					...showMsg,
