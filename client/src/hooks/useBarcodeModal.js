@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Quagga from 'quagga';
 
-export const useBarcodeModal = (result, fn) => {
+export const useBarcodeModal = (result, fn, fn2) => {
 	const [barcodeModalOpen, setBarcodeModalOpen] = useState(false);
 
 	const barcodeModalHandler = (e) => {
@@ -12,6 +12,7 @@ export const useBarcodeModal = (result, fn) => {
 			setBarcodeModalOpen(false);
 		} else {
 			setBarcodeModalOpen(true);
+			fn2('');
 		}
 	};
 

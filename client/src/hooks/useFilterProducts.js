@@ -30,6 +30,13 @@ export const useFilterProducts = () => {
 		});
 	};
 
+	const filterBarcodeHandler = (barcode) => {
+		setFilterInputs({
+			...filterInputs,
+			barcode,
+		});
+	};
+
 	const clearInputs = () => {
 		setFilterInputs(emptyFilterInputObj);
 	};
@@ -40,5 +47,6 @@ export const useFilterProducts = () => {
 		filterValuesHandler,
 		filterSelectHandler,
 		clearInputs,
+		filterBarcodeHandler,
 	};
 };

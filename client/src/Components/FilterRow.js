@@ -1,14 +1,27 @@
 import styled from 'styled-components';
+import { FaCamera } from 'react-icons/fa';
 
-const FilterRow = ({ filterValuesHandler, filterSelectHandler, types }) => {
+const FilterRow = ({
+	filterValuesHandler,
+	filterSelectHandler,
+	types,
+	barcodeModalHandler,
+	filterInputs,
+}) => {
 	return (
 		<FilterRowCont>
-			<input
-				id="barcode"
-				type="number"
-				placeholder="Barcode..."
-				onChange={filterValuesHandler}
-			/>
+			<div className="barcode-input-cont">
+				<input
+					id="barcode"
+					type="text"
+					placeholder="Barcode..."
+					value={filterInputs.barcode}
+					onChange={filterValuesHandler}
+				/>
+				<CameraBtn onClick={barcodeModalHandler}>
+					<FaCamera />
+				</CameraBtn>
+			</div>
 			<select
 				name="types-select"
 				id="type"
@@ -75,14 +88,15 @@ const FilterRowCont = styled.div`
 	margin: 1rem 0;
 	select,
 	input:not(input[type='checkbox']),
+	input:not(input#barcode),
+	.barcode-input-cont,
 	.reserved-check {
 		width: 14.2%;
 		min-width: 120px;
-		padding: 0.1rem 1rem;
+		padding: 0.1rem 0.5rem;
 		font-family: 'Montserrat', sans-serif;
 		font-size: 1rem;
 		border-radius: 5px;
-		letter-spacing: 1px;
 		border: solid 1px #a3a3a3;
 		outline-width: 0;
 		&:focus {
@@ -103,6 +117,40 @@ const FilterRowCont = styled.div`
 		label {
 			color: grey;
 		}
+	}
+
+	.barcode-input-cont {
+		padding: 0;
+		border: none;
+		position: relative;
+	}
+
+	input#barcode {
+		height: 100%;
+		width: 100%;
+	}
+`;
+
+const CameraBtn = styled.button`
+	position: absolute;
+	right: 0;
+	top: 1px;
+	height: 95%;
+	cursor: pointer;
+	padding: 0.1rem 0.5rem;
+	border-radius: 3px;
+	border: none;
+	font-size: 0.9rem;
+	background: transparent;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #32394d;
+	transition: all 0.3s ease;
+	outline-width: 0;
+	&:hover {
+		color: white;
+		background: #32394d;
 	}
 `;
 

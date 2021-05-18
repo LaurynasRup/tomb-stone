@@ -5,16 +5,21 @@ import ProductTable from '../Components/ProductTable';
 import ProductFilter from '../Components/ProductFilter';
 import FilterRow from '../Components/FilterRow';
 import Pagination from '../Components/Pagination';
+import { BtnLink } from '../Components/Button';
+import BarcodeModal from '../Components/BarcodeModal';
 // Fns
 import { filterProducts } from '../functions/filterProducts';
 import { splitArray } from '../functions/spplitArray';
 // Hooks
 import { useFilterProducts } from '../hooks/useFilterProducts';
 import { usePagination } from '../hooks/usePagination';
+import { useBarcodeModal } from '../hooks/useBarcodeModal';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { productsAction } from '../Redux/actions/productsAction';
 import { typesAction } from '../Redux/actions/typesAction';
+// Icons
+import { BsPlus } from 'react-icons/bs';
 
 const PER_PAGE = 15;
 
@@ -37,6 +42,7 @@ const Home = () => {
 		filterValuesHandler,
 		filterSelectHandler,
 		clearInputs,
+		filterBarcodeHandler,
 	} = useFilterProducts();
 
 	const [displayProducts, setDisplayProducts] = useState([]);
@@ -81,32 +87,59 @@ const Home = () => {
 		filterProducts(products, filterInputs, sortProducts, setDisplayProducts);
 	}, [filterInputs, products, sortProducts, setCurrentPage]);
 
+	// Barcode result
+	const [result, setResult] = useState(filterInputs.barcode);
+	// Barcode Modal Handling
+	const { barcodeModalOpen, barcodeModalHandler } = useBarcodeModal(
+		result,
+		filterBarcodeHandler,
+		setResult
+	);
+	const onDetected = (result) => {
+		setResult(result);
+	};
 	return (
-		<StyledWrapper>
-			<h1>Products</h1>
-			<div className="filter">
-				<ProductFilter
-					sortHandler={sortHandler}
-					showFilter={showFilter}
-					displayFilterHandler={displayFilterHandler}
+		<>
+			{barcodeModalOpen && (
+				<BarcodeModal
+					result={result}
+					onDetected={onDetected}
+					barcodeModalHandler={barcodeModalHandler}
 				/>
-			</div>
-			<div className="filter-wrapper">
-				{showFilter && (
-					<FilterRow
-						filterValuesHandler={filterValuesHandler}
-						filterSelectHandler={filterSelectHandler}
-						types={types}
+			)}
+			<StyledWrapper>
+				<h1>Products</h1>
+				<div className="filter">
+					<ProductFilter
+						sortHandler={sortHandler}
+						showFilter={showFilter}
+						displayFilterHandler={displayFilterHandler}
 					/>
-				)}
+				</div>
+				<div className="filter-wrapper">
+					{showFilter && (
+						<FilterRow
+							filterValuesHandler={filterValuesHandler}
+							filterSelectHandler={filterSelectHandler}
+							types={types}
+							barcodeModalHandler={barcodeModalHandler}
+							filterInputs={filterInputs}
+						/>
+					)}
 
-				<ProductTable
-					products={spltArray[currentPage - 1]}
-					isLoading={isLoading}
-				/>
-			</div>
-			<Pagination spltArray={spltArray} countHandler={countHandler} />
-		</StyledWrapper>
+					<ProductTable
+						products={spltArray[currentPage - 1]}
+						isLoading={isLoading}
+					/>
+				</div>
+				<div className="btn-add-cont">
+					<BtnLink link="/product_add" className="btn_add">
+						<BsPlus /> &nbsp; Add new product
+					</BtnLink>
+				</div>
+				<Pagination spltArray={spltArray} countHandler={countHandler} />
+			</StyledWrapper>
+		</>
 	);
 };
 
@@ -129,6 +162,13 @@ const StyledWrapper = styled.div`
 
 	.filter-wrapper {
 		overflow-x: scroll;
+	}
+
+	.btn-add-cont {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		margin: 1rem auto;
 	}
 `;
 
