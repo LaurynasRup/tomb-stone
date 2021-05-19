@@ -11,15 +11,20 @@ import ConfirmMessageModal from '../Components/ConfirmMessageModal';
 // Hooks
 import { useShowMsgModal } from '../hooks/useShowMsgModal';
 import { useConfirmMsgModal } from '../hooks/useConfirmMsgModal';
+// Functions
+import { findPublicId } from '../functions/findPublicId';
 // Icons
 import { AiOutlinePlus } from 'react-icons/ai';
 // Redux
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
 	addNewTypeAction,
 	removeTypeAction,
 } from '../Redux/actions/typesAction';
+import axios from 'axios';
 const TypesPage = () => {
+	const { types } = useSelector((state) => state.types);
+	const typesArray = Object.values(types);
 	// Control Add type modal display
 	const [displayAddTypeModal, setDisplayAddTypeModal] = useState(false);
 	// Track inputs
@@ -87,12 +92,21 @@ const TypesPage = () => {
 		confirmModalhandler();
 	};
 	// Handle delete confirmation
-	const confirmDeleteHandler = () => {
+	const confirmDeleteHandler = async () => {
+		// Find type img
+		const typeImg = typesArray.find((el) => el._id === typeToDeleteID.id).image;
+		// Grab public id from img url
+		const public_id = findPublicId(typeImg);
 		// Remove confirm modal
 		confirmModalhandler();
 		// dispatch delete action
-		dispatch(removeTypeAction(typeToDeleteID.id, showModalMsgHandler));
-		setTypeToDeleteId({ name_id: '', id: '' });
+		try {
+			await axios.post(`/api/upload_images/destroy`, { public_id });
+			dispatch(removeTypeAction(typeToDeleteID.id, showModalMsgHandler));
+			setTypeToDeleteId({ name_id: '', id: '' });
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (
@@ -124,7 +138,10 @@ const TypesPage = () => {
 				<h1>All types</h1>
 				<div className="line"></div>
 				<div className="container_overflowx_scroll">
-					<AllTypesTable productDeleteHandler={productDeleteHandler} />
+					<AllTypesTable
+						productDeleteHandler={productDeleteHandler}
+						typesArray={typesArray}
+					/>
 				</div>
 				<BtnWrapper>
 					<Btn handler={openModalHandler}>

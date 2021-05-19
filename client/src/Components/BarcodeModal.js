@@ -72,7 +72,7 @@ export default function BarcodeModal({
 		return () => {
 			Quagga.stop();
 		};
-	}, [onDetected]);
+	}, [onDetected, setResult]);
 
 	return (
 		<ModalWrapper>

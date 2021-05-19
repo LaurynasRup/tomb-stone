@@ -2,14 +2,10 @@
 import styled from 'styled-components';
 // Components
 import { BtnRedSm } from '../Components/Button';
-// Redux
-import { useSelector } from 'react-redux';
 // Icons
 import { MdDelete } from 'react-icons/md';
 
-const AllTypesTable = ({ productDeleteHandler }) => {
-	const { types } = useSelector((state) => state.types);
-	const typesArray = Object.values(types);
+const AllTypesTable = ({ productDeleteHandler, typesArray }) => {
 	return (
 		<StyledTable>
 			<thead>
