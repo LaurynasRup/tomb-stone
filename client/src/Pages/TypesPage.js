@@ -21,7 +21,6 @@ import {
 	addNewTypeAction,
 	removeTypeAction,
 } from '../Redux/actions/typesAction';
-import axios from 'axios';
 const TypesPage = () => {
 	const { types } = useSelector((state) => state.types);
 	const typesArray = Object.values(types);
@@ -100,13 +99,11 @@ const TypesPage = () => {
 		// Remove confirm modal
 		confirmModalhandler();
 		// dispatch delete action
-		try {
-			await axios.post(`/api/upload_images/destroy`, { public_id });
-			dispatch(removeTypeAction(typeToDeleteID.id, showModalMsgHandler));
-			setTypeToDeleteId({ name_id: '', id: '' });
-		} catch (error) {
-			console.log(error);
-		}
+		// await axios.post(`/api/upload_images/destroy`, { public_id });
+		dispatch(
+			removeTypeAction(typeToDeleteID.id, showModalMsgHandler, public_id)
+		);
+		setTypeToDeleteId({ name_id: '', id: '' });
 	};
 
 	return (

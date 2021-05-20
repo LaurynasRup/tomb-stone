@@ -145,21 +145,27 @@ const deleteProductFailure = (err) => {
 	};
 };
 
-export const deleteProductAction = (id, token, fn) => async (dispatch) => {
-	try {
-		dispatch(deleteProductRequest());
-		await axios.delete(`/api/products/delete_product/${id}`, {
-			headers: {
-				'auth-token': token,
-			},
-		});
-		dispatch(deleteProductSuccess());
-		fn('delete success');
-	} catch (error) {
-		dispatch(deleteProductFailure(error));
-		fn('delete error');
-	}
-};
+export const deleteProductAction =
+	(id, token, fn, idsArray) => async (dispatch) => {
+		try {
+			dispatch(deleteProductRequest());
+			if (idsArray.length > 0) {
+				for (const public_id of idsArray) {
+					await axios.post(`/api/upload_images/destroy`, { public_id });
+				}
+			}
+			await axios.delete(`/api/products/delete_product/${id}`, {
+				headers: {
+					'auth-token': token,
+				},
+			});
+			dispatch(deleteProductSuccess());
+			fn('delete success');
+		} catch (error) {
+			dispatch(deleteProductFailure(error));
+			fn('delete error');
+		}
+	};
 
 /* CLEAR PRODUCTS STATE */
 

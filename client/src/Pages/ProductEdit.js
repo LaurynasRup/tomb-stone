@@ -21,6 +21,7 @@ import { useConfirmMsgModal } from '../hooks/useConfirmMsgModal';
 // Custom functions
 import { addProduct } from '../functions/addProduct';
 import { onDetected } from '../functions/onDetected';
+import { findMultiPublicId } from '../functions/findPublicId';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -87,9 +88,16 @@ const ProductEdit = () => {
 	const confirmDeleteHandler = () => {
 		// Remove confirm modal
 		confirmModalhandler();
+		// Grab public ids of each image
+		const publicIDs = findMultiPublicId(JSON.parse(currentProduct.product_img));
 		// dispatch delete action
 		dispatch(
-			deleteProductAction(currentProduct._id, token, showModalMsgHandler)
+			deleteProductAction(
+				currentProduct._id,
+				token,
+				showModalMsgHandler,
+				publicIDs
+			)
 		);
 	};
 

@@ -97,9 +97,10 @@ const removeTypeFailure = (error) => {
 	};
 };
 
-export const removeTypeAction = (id, fn) => async (dispatch) => {
+export const removeTypeAction = (id, fn, public_id) => async (dispatch) => {
 	dispatch(removeTypeRequest());
 	try {
+		await axios.post(`/api/upload_images/destroy`, { public_id });
 		await axios.delete(`/api/types/delete_type/${id}`);
 		dispatch(removeTypeSuccess());
 		fn('delete type success');
