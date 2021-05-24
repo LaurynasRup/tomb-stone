@@ -21,12 +21,12 @@ import { productsAction } from '../Redux/actions/productsAction';
 import { typesAction } from '../Redux/actions/typesAction';
 // Icons
 import { BsPlus } from 'react-icons/bs';
-
+// Products per page
 const PER_PAGE = 15;
 
 const Home = () => {
 	// Retrieve token
-	const { token } = useSelector((state) => state.user);
+	const { token, userType } = useSelector((state) => state.user);
 	// Grab products & loading from redux state
 	const { products, isLoading } = useSelector((state) => state.products);
 	// Sort state
@@ -131,11 +131,13 @@ const Home = () => {
 						isLoading={isLoading}
 					/>
 				</div>
-				<div className="btn-add-cont">
-					<BtnLink link="/product_add" className="btn_add">
-						<BsPlus /> &nbsp; Add new product
-					</BtnLink>
-				</div>
+				{userType !== 'regular' && (
+					<div className="btn-add-cont">
+						<BtnLink link="/product_add" className="btn_add">
+							<BsPlus /> &nbsp; Add new product
+						</BtnLink>
+					</div>
+				)}
 				<Pagination spltArray={spltArray} countHandler={countHandler} />
 			</StyledWrapper>
 		</>

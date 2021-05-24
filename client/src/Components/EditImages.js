@@ -47,10 +47,9 @@ const EditImages = ({ images, imageUploadInputHandler }) => {
 					upload_preset: 'product_images',
 				});
 				const data = await response;
-				console.log(response);
 				imgArray.push(data.data.data);
 			} catch (error) {
-				console.log(error);
+				throw error;
 			}
 			// All images uploaded ?
 			if (encodedImgArray.length === imgArray.length) {

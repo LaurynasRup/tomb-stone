@@ -31,7 +31,6 @@ export const typesAction = () => async (dispatch) => {
 		dispatch(fetchTypesSuccess(allTypes.data));
 	} catch (err) {
 		dispatch(fetchTypesFailure(err));
-		console.log(err.response);
 	}
 };
 

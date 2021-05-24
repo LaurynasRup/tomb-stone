@@ -10,9 +10,11 @@ export const useBarcodeModal = (result, fn, fn2) => {
 			fn(result);
 			Quagga.stop();
 			setBarcodeModalOpen(false);
+			document.body.classList.remove('no_scroll');
 		} else {
 			setBarcodeModalOpen(true);
 			fn2('');
+			document.body.classList.add('no_scroll');
 		}
 	};
 

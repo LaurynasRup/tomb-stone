@@ -13,7 +13,7 @@ const FilterRow = ({
 			<div className="barcode-input-cont">
 				<input
 					id="barcode"
-					type="text"
+					type="number"
 					placeholder="Barcode..."
 					value={filterInputs.barcode}
 					onChange={filterValuesHandler}

@@ -81,11 +81,7 @@ export default function BarcodeModal({
 				<div className="line" />
 				<StyledP>{result ? result : 'Scanning...'}</StyledP>
 				<MediaDiv>
-					<div
-						id="interactive"
-						className="viewport"
-						// style={{ width: '100px', height: '100px' }}
-					/>
+					<div id="interactive" className="viewport" />
 				</MediaDiv>
 				<Btn handler={barcodeModalHandler}>Done</Btn>
 			</div>
@@ -95,24 +91,23 @@ export default function BarcodeModal({
 
 const MediaDiv = styled.div`
 	width: 100%;
-	height: 255px;
+	height: 100px;
 	background: black;
 	margin: 1.5rem 0 1.5rem 0;
 	position: relative;
+	overflow: hidden;
+	position: relative;
 
-	#interactive.viewport canvas,
-	video {
+	#interactive.viewport video {
 		width: 100%;
-		height: 100%;
-		min-width: 250px;
-		min-height: 170px;
-		position: absolute;
-		top: 0;
-		left: 0;
+		height: 300px;
+		transform: translateY(-25%);
 	}
 
-	@media (max-width: 600px) {
-		height: 170px;
+	#interactive.viewport canvas {
+		width: 100%;
+		height: 100%;
+		position: absolute;
 	}
 `;
 

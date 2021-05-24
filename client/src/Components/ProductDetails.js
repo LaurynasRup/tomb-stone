@@ -85,7 +85,7 @@ const ProductDetails = ({
 					</div>
 					<div className="select-control">
 						<input
-							type="text"
+							type="number"
 							id="barcode"
 							value={inputs.barcode}
 							onChange={inputHandler}
