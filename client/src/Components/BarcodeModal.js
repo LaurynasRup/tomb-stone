@@ -100,8 +100,8 @@ const MediaDiv = styled.div`
 
 	#interactive.viewport video {
 		width: 100%;
-		height: 300px;
-		transform: translateY(-25%);
+		height: 400px;
+		transform: translateY(-20%);
 	}
 
 	#interactive.viewport canvas {
