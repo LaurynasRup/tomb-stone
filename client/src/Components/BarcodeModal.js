@@ -91,23 +91,34 @@ export default function BarcodeModal({
 
 const MediaDiv = styled.div`
 	width: 100%;
-	height: 100px;
+	height: 255px;
+	position: relative;
+	margin: 1rem 0;
 	background: black;
-	margin: 1.5rem 0 1.5rem 0;
-	position: relative;
-	overflow: hidden;
-	position: relative;
 
-	#interactive.viewport video {
+	#interactive.viewport {
 		width: 100%;
-		height: 300px;
-		transform: translateY(-25%);
+		height: 100%;
 	}
 
-	#interactive.viewport canvas {
+	#interactive.viewport canvas,
+	video {
 		width: 100%;
 		height: 100%;
 		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	#interactive.viewport canvas.drawingBuffer,
+	video.drawingBuffer {
+		width: 100%;
+		height: 100%;
+	}
+
+	@media (max-width: 600px) {
+		width: 100%;
+		height: 150px;
 	}
 `;
 
