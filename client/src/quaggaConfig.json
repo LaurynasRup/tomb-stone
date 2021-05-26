@@ -9,8 +9,8 @@
 		}
 	},
 	"locator": {
-		"patchSize": "large",
-		"halfSample": false
+		"patchSize": "x-small",
+		"halfSample": true
 	},
 	"numOfWorkers": 4,
 	"frequency": 10,
@@ -18,11 +18,5 @@
 		"readers": ["code_39_reader"],
 		"multiple": false
 	},
-	"locate": false,
-	"area": {
-		"top": "30%",
-		"right": "0%",
-		"left": "0%",
-		"bottom": "30%"
-	}
+	"locate": false
 }

@@ -93,6 +93,7 @@ const Navbar = () => {
 };
 
 const StyledNav = styled.nav`
+	max-height: 8vh;
 	height: 8vh;
 	width: 100%;
 	min-width: 300px;
@@ -103,6 +104,10 @@ const StyledNav = styled.nav`
 	justify-content: center;
 	align-items: center;
 	z-index: 10;
+	@media (max-height: 415px) {
+		max-height: 15vh;
+		height: 15vh;
+	}
 	.inner {
 		width: 100%;
 		max-width: 1200px;

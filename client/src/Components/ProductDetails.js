@@ -270,7 +270,7 @@ const StyledForm = styled.form`
 		justify-content: space-between;
 		padding: 1rem 0rem;
 		min-width: 600px;
-		@media (max-width: 600px) {
+		@media (max-width: 650px) {
 			flex-direction: column;
 			min-width: 100%;
 			padding: 0;
@@ -278,7 +278,7 @@ const StyledForm = styled.form`
 	}
 	.form-row:last-of-type {
 		padding-bottom: 2rem;
-		@media (max-width: 600px) {
+		@media (max-width: 650px) {
 			padding-top: 0.5rem;
 		}
 	}
@@ -306,25 +306,25 @@ const StyledForm = styled.form`
 				height: 100%;
 			}
 		}
-		@media (max-width: 600px) {
+		@media (max-width: 650px) {
 			width: 100%;
 			padding: 0.3rem 0rem;
 		}
 		&.form-control.third {
 			width: 28%;
 			min-width: 100px;
-			@media (max-width: 600px) {
+			@media (max-width: 650px) {
 				width: 100%;
 				min-width: 200px;
 			}
 		}
 		&.form-control.full {
 			width: 100%;
-			@media (max-width: 600px) {
+			@media (max-width: 650px) {
 				width: 100%;
 			}
 		}
-		@media (max-width: 600px) {
+		@media (max-width: 650px) {
 			width: 100%;
 		}
 		label {
@@ -379,12 +379,12 @@ const StyledForm = styled.form`
 		flex-direction: row;
 		align-items: center;
 		width: auto;
-		@media (max-width: 600px) {
+		@media (max-width: 650px) {
 			padding: 0 0 0.3rem 0.2rem;
 		}
 		label {
 			padding: 0 1rem;
-			@media (max-width: 600px) {
+			@media (max-width: 650px) {
 				padding: 0 0rem;
 			}
 		}
@@ -395,12 +395,12 @@ const StyledForm = styled.form`
 
 	.form-control.inline.second {
 		input {
-			@media (max-width: 600px) {
+			@media (max-width: 650px) {
 				margin-top: 0.1rem;
 				width: 100%;
 			}
 		}
-		@media (max-width: 600px) {
+		@media (max-width: 650px) {
 			flex-direction: column;
 			align-items: flex-start;
 		}

@@ -14,6 +14,7 @@ export const useBarcodeModal = (result, fn, fn2) => {
 		} else {
 			setBarcodeModalOpen(true);
 			fn2('');
+			window.scrollTo(0, 0);
 			document.body.classList.add('no_scroll');
 		}
 	};

@@ -101,20 +101,29 @@ const MediaDiv = styled.div`
 		height: 100%;
 	}
 
-	#interactive.viewport canvas,
-	video {
+	#interactive.viewport canvas {
+		width: 100%;
+		height: 50%;
+		position: absolute;
+		top: 25%;
+		left: 0;
+		border: solid 1px red;
+	}
+
+	#interactive.viewport video {
 		width: 100%;
 		height: 100%;
 		position: absolute;
 		top: 0;
 		left: 0;
+		object-fit: cover;
 	}
 
-	#interactive.viewport canvas.drawingBuffer,
+	/* #interactive.viewport canvas.drawingBuffer,
 	video.drawingBuffer {
 		width: 100%;
 		height: 100%;
-	}
+	} */
 
 	@media (max-width: 600px) {
 		width: 100%;
