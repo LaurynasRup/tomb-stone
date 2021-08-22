@@ -36,7 +36,7 @@ const ProductEdit = () => {
 	// Image Modal handling
 	const { imgOpen, modalHandler } = useModalHandler();
 	// Grab Current User
-	const { name } = useSelector((state) => state.user);
+	const { name } = useSelector(state => state.user);
 	// Grab user inputs
 	const {
 		inputs,
@@ -48,14 +48,23 @@ const ProductEdit = () => {
 	// Manage errors
 	const { inputErrors, inputErrorHandler } = useInputErrors();
 	// Retrieve token
-	const { token } = useSelector((state) => state.user);
+	const { token } = useSelector(state => state.user);
 	// See if loading
-	const { isLoading } = useSelector((state) => state.products);
+	const { isLoading } = useSelector(state => state.products);
 	const dispatch = useDispatch();
 	// Display modal message
 	const { showMsg, showModalMsgHandler } = useShowMsgModal();
 	// Display Confirm Modal
 	const { showConfirmModal, confirmModalhandler } = useConfirmMsgModal();
+	// Handle Confirm Modal Input
+	const [confirmModalInput, setConfirmModalInput] = useState({
+		value: '',
+		inputError: null,
+		lengthError: null,
+	});
+	const confirmModalInputHandler = e => {
+		setConfirmModalInput({ ...confirmModalInput, value: e.target.value });
+	};
 	// Barcode result
 	const [result, setResult] = useState(inputs.barcode);
 	// Barcode Modal Handling
@@ -80,25 +89,60 @@ const ProductEdit = () => {
 
 	// Handle delete button
 	const productDeleteHandler = () => {
+		// Clear input field
+		setConfirmModalInput({ value: '', inputError: null, lengthError: null });
 		// Display confirmation modal
 		confirmModalhandler();
 	};
 
 	// Handle delete confirmation
 	const confirmDeleteHandler = () => {
-		// Remove confirm modal
-		confirmModalhandler();
 		// Grab public ids of each image
 		const publicIDs = findMultiPublicId(JSON.parse(currentProduct.product_img));
+		// Check if reason field is empty
+		if (confirmModalInput.value === '') {
+			return setConfirmModalInput({
+				...confirmModalInput,
+				inputError: true,
+				lengthError: false,
+			});
+		}
+		// Check is reason field is less than 5 chars
+		if (confirmModalInput.value !== '' && confirmModalInput.value.length < 5) {
+			return setConfirmModalInput({
+				...confirmModalInput,
+				lengthError: true,
+				inputError: false,
+			});
+		}
+		// No input errors - clear state error state
+		setConfirmModalInput({
+			...confirmModalInput,
+			lengthError: false,
+			inputError: false,
+		});
+		// Create new product obj with a reason of deletion
+		const objToHistory = {
+			...currentProduct,
+			dimensions: {
+				dimensions_short: currentProduct.dimensions.short,
+				dimensions_long: currentProduct.dimensions.long,
+				dimensions_width: currentProduct.dimensions.width,
+			},
+			delete_reason: confirmModalInput.value,
+		};
 		// dispatch delete action
 		dispatch(
 			deleteProductAction(
 				currentProduct._id,
 				token,
 				showModalMsgHandler,
-				publicIDs
+				publicIDs,
+				objToHistory
 			)
 		);
+		// Remove confirm modal
+		confirmModalhandler();
 	};
 
 	return (
@@ -108,6 +152,9 @@ const ProductEdit = () => {
 					msg={`Delete product ${currentProduct.barcode} ?`}
 					cancelHandler={confirmModalhandler}
 					confirmHandler={confirmDeleteHandler}
+					input={true}
+					confirmModalInput={confirmModalInput}
+					confirmModalInputHandler={confirmModalInputHandler}
 				/>
 			)}
 			{showMsg.display && (

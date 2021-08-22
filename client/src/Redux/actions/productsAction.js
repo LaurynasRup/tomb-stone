@@ -12,21 +12,21 @@ const fetchProductsRequest = () => {
 	};
 };
 
-const fetchProductsSuccess = (products) => {
+const fetchProductsSuccess = products => {
 	return {
 		type: FETCH_PRODUCTS_SUCCESS,
 		payload: { products },
 	};
 };
 
-const fetchProductsFailure = (error) => {
+const fetchProductsFailure = error => {
 	return {
 		type: FETCH_PRODUCTS_FAILURE,
 		payload: error,
 	};
 };
 
-export const productsAction = (token) => async (dispatch) => {
+export const productsAction = token => async dispatch => {
 	try {
 		dispatch(fetchProductsRequest());
 		const allProducts = await axios.get('/api/products/all_products', {
@@ -52,20 +52,20 @@ const updateProductRequest = () => {
 	};
 };
 
-const updateProductSuccess = (product) => {
+const updateProductSuccess = product => {
 	return {
 		type: UPDATE_PRODUCT_SUCCESS,
 	};
 };
 
-const updateProductFailure = (error) => {
+const updateProductFailure = error => {
 	return {
 		type: UPDATE_PRODUCT_FAILURE,
 		payload: error,
 	};
 };
 
-export const updateProductAction = (token, obj, fn, id) => async (dispatch) => {
+export const updateProductAction = (token, obj, fn, id) => async dispatch => {
 	try {
 		dispatch(updateProductRequest());
 		await axios.patch(`/api/products/update_product/${id}`, obj, {
@@ -97,14 +97,14 @@ const addProductSuccess = () => {
 	};
 };
 
-const addProductFailure = (error) => {
+const addProductFailure = error => {
 	return {
 		type: ADD_PRODUCT_FAILURE,
 		payload: error,
 	};
 };
 
-export const addProductAction = (token, obj, fn) => async (dispatch) => {
+export const addProductAction = (token, obj, fn) => async dispatch => {
 	try {
 		dispatch(addProductRequest());
 		await axios.post('/api/products/add_product', obj, {
@@ -138,7 +138,7 @@ const deleteProductSuccess = () => {
 	};
 };
 
-const deleteProductFailure = (err) => {
+const deleteProductFailure = err => {
 	return {
 		type: DELETE_PRODUCT_FAILURE,
 		payload: err,
@@ -146,14 +146,22 @@ const deleteProductFailure = (err) => {
 };
 
 export const deleteProductAction =
-	(id, token, fn, idsArray) => async (dispatch) => {
+	(id, token, fn, idsArray, objHistorical) => async dispatch => {
 		try {
 			dispatch(deleteProductRequest());
+			// Destroy images
 			if (idsArray.length > 0) {
 				for (const public_id of idsArray) {
 					await axios.post(`/api/upload_images/destroy`, { public_id });
 				}
 			}
+			// Add product to historical DB
+			await axios.post('/api/products/add_historical', objHistorical, {
+				headers: {
+					'auth-token': token,
+				},
+			});
+			// Delete product
 			await axios.delete(`/api/products/delete_product/${id}`, {
 				headers: {
 					'auth-token': token,
@@ -177,6 +185,6 @@ const clearProductsState = () => {
 	};
 };
 
-export const clearProductsAction = () => (dispatch) => {
+export const clearProductsAction = () => dispatch => {
 	dispatch(clearProductsState());
 };

@@ -4,11 +4,40 @@ import styled from 'styled-components';
 // Components
 import { BtnGreen, BtnRed } from './Button';
 
-const ConfirmMessageModal = ({ msg, cancelHandler, confirmHandler }) => {
+const ConfirmMessageModal = ({
+	msg,
+	cancelHandler,
+	confirmHandler,
+	input = false,
+	confirmModalInputHandler = null,
+	confirmModalInput = null,
+}) => {
 	return (
 		<Wrapper>
 			<div className="inner">
 				<p>{msg}</p>
+				{input && (
+					<>
+						<input
+							type="text"
+							placeholder="Enter Reason"
+							className={`${'delete-reason'} ${
+								confirmModalInput.inputError || confirmModalInput.lengthError
+									? 'error'
+									: ''
+							}`}
+							onChange={
+								confirmModalInputHandler ? confirmModalInputHandler : null
+							}
+						/>
+						{confirmModalInput.inputError && (
+							<small>* Reason is required</small>
+						)}
+						{confirmModalInput.lengthError && (
+							<small>* Minimum 5 characters</small>
+						)}
+					</>
+				)}
 				<div className="btns">
 					<BtnRed handler={cancelHandler}>Cancel</BtnRed> <span>&nbsp;</span>
 					<BtnGreen handler={confirmHandler}>Confirm</BtnGreen>
@@ -40,8 +69,30 @@ const Wrapper = styled.div`
 
 		p {
 			font-size: 1.3rem;
-			margin-bottom: 1.5rem;
+			margin-bottom: 1rem;
 			text-align: center;
+		}
+
+		.delete-reason {
+			width: 100%;
+			padding: 0.3rem 1rem;
+			margin-bottom: 1rem;
+			font-size: 1rem;
+			font-family: 'Montserrat', sans-serif;
+			border-radius: 10px;
+			letter-spacing: 1px;
+			border: solid 1px #a3a3a3;
+			outline-width: 0;
+		}
+		.delete-reason.error {
+			border: solid 1px #8b240a;
+		}
+
+		small {
+			color: #8b240a;
+			margin-bottom: 1rem;
+			width: 100%;
+			padding-left: 0.5rem;
 		}
 	}
 	.btns {

@@ -102,28 +102,29 @@ router.patch('/update_product/:id', verify, async (req, res) => {
 
 // Store product historically
 router.post('/add_historical', verify, async (req, res) => {
-	// Create new product
-	const newProduct = new historical({
-		product: {
-			product_type: req.body.product.product_type,
-			type_img: req.body.product.type_img,
-		},
-		product_img: req.body.product_img,
-		warehouse_location: req.body.warehouse_location,
-		dimensions: {
-			short: req.body.dimensions.dimensions_short,
-			long: req.body.dimensions.dimensions_long,
-			width: req.body.dimensions.dimensions_width,
-		},
-		barcode: req.body.barcode,
-		comments: req.body.comments,
-		edited_by: req.body.edited_by,
-		reserved: {
-			isReserved: req.body.reserved.isReserved,
-			id: req.body.reserved.id,
-		},
-	});
 	try {
+		// Create new product
+		const newProduct = new historical({
+			product: {
+				product_type: req.body.product.product_type,
+				type_img: req.body.product.type_img,
+			},
+			product_img: req.body.product_img,
+			warehouse_location: req.body.warehouse_location,
+			dimensions: {
+				short: req.body.dimensions.dimensions_short,
+				long: req.body.dimensions.dimensions_long,
+				width: req.body.dimensions.dimensions_width,
+			},
+			barcode: req.body.barcode,
+			comments: req.body.comments,
+			edited_by: req.body.edited_by,
+			reserved: {
+				isReserved: req.body.reserved.isReserved,
+				id: req.body.reserved.id,
+			},
+			delete_reason: req.body.delete_reason,
+		});
 		const savedProduct = await newProduct.save();
 		return res.status(201).send(savedProduct);
 	} catch (err) {

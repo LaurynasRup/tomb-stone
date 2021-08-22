@@ -56,6 +56,9 @@ const productObj = {
 		type: Date,
 		default: Date.now,
 	},
+	delete_reason: {
+		type: String
+	}
 };
 
 const productSchema = new mongoose.Schema(productObj, {
