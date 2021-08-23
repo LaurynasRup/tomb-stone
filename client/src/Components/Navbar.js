@@ -14,7 +14,7 @@ import { useHistory } from 'react-router-dom';
 
 const Navbar = () => {
 	//Retrieve user details
-	const { name, userType, loggedIn } = useSelector((state) => state.user);
+	const { name, userType, loggedIn } = useSelector(state => state.user);
 
 	const [showAdminMenu, setShowAdminMenu] = useState(false);
 	const adminMenuHandler = () => {
@@ -40,7 +40,7 @@ const Navbar = () => {
 		document.body.classList.remove('no_scroll');
 		setShowAdminMenu(false);
 	};
-	const hideMenuHandler = (str) => {
+	const hideMenuHandler = str => {
 		document.body.classList.remove('no_scroll');
 		setShowAdminMenu(!showAdminMenu);
 		history.push(str);

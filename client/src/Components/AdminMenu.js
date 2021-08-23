@@ -10,6 +10,7 @@ const AdminMenu = ({ hideMenuHandler, logOut }) => {
 				<li onClick={() => hideMenuHandler('/product_add')}>New Product</li>
 				<li onClick={() => hideMenuHandler('/all_types')}>Types</li>
 				<li onClick={() => hideMenuHandler('/all_users')}>Users</li>
+				<li onClick={() => hideMenuHandler('/historical')}>Historical</li>
 				<li onClick={logOut}>Log out</li>
 			</StyledMenu>
 		</ListWrapper>
@@ -43,21 +44,12 @@ const StyledMenu = styled.ul`
 	font-weight: 300;
 	z-index: 10;
 	li {
-		text-align: center;
 		cursor: pointer;
 		list-style: none;
 		padding: 1rem 0;
 		&:first-of-type {
-			text-align: left;
 			@media (max-width: 600px) {
 				border-top: none;
-				text-align: center;
-			}
-		}
-		&:last-of-type {
-			text-align: right;
-			@media (max-width: 600px) {
-				text-align: center;
 			}
 		}
 		&:hover {
@@ -75,6 +67,7 @@ const StyledMenu = styled.ul`
 		font-size: 1rem;
 		padding: 0rem 1.5rem;
 		flex-direction: column;
+		text-align: center;
 	}
 `;
 

@@ -1,14 +1,16 @@
 import { useEffect } from 'react';
-// Components
-import Navbar from './Components/Navbar';
+// Pages
 import Login from './Pages/Login';
 import Home from './Pages/Home';
 import ProductView from './Pages/ProductView';
 import ProductEdit from './Pages/ProductEdit';
 import ProductAdd from './Pages/ProductAdd';
 import TypesPage from './Pages/TypesPage';
-import CustomRoute from './Components/CustomRoute';
 import Users from './Pages/Users';
+import Historical from './Pages/Historical';
+// Components
+import Navbar from './Components/Navbar';
+import CustomRoute from './Components/CustomRoute';
 // Functions
 import { autoLogin } from './functions/autoLogin';
 // React router
@@ -22,7 +24,7 @@ function App() {
 	const location = useLocation();
 	const history = useHistory();
 	const dispatch = useDispatch();
-	const { loggedIn } = useSelector((state) => state.user);
+	const { loggedIn } = useSelector(state => state.user);
 
 	const loginOrRedirect = () => {
 		//Auto login by id
@@ -46,6 +48,7 @@ function App() {
 				<CustomRoute path="/product_add" render={() => <ProductAdd />} />
 				<CustomRoute path="/all_types" render={() => <TypesPage />} />
 				<CustomRoute path="/all_users" render={() => <Users />} />
+				<CustomRoute path="/historical" render={() => <Historical />} />
 			</Switch>
 		</div>
 	);
