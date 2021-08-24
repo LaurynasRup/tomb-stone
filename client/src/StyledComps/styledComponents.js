@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
 	max-width: 1200px;
 	height: 92vh;
 	padding: 3rem;
-	overflow: ${(props) => (props.imgOpen ? 'hidden' : 'auto')};
+	overflow: ${props => (props.imgOpen ? 'hidden' : 'auto')};
 	margin: 0 auto;
 	h1 {
 		font-weight: 400;
@@ -66,7 +66,7 @@ export const StyledTable = styled.table`
 	td {
 		border-bottom: solid 1px #5c5c5c;
 		padding: 0.4rem;
-		cursor: pointer;
+		cursor: ${props => (props.clickable ? 'pointer' : 'default')};
 	}
 `;
 

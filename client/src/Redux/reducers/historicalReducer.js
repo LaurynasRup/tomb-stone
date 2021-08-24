@@ -14,7 +14,7 @@ const historicalProductsReducer = (state = initialState, action) => {
 		case 'FETCH_HISTORICAL_SUCCESS':
 			return {
 				...state,
-				producst: action.payload.products,
+				products: Object.values(action.payload.products.data),
 				isLoading: false,
 			};
 		case 'FETCH_HISTORICAL_ERROR':

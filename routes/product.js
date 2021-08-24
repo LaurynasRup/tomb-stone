@@ -132,4 +132,14 @@ router.post('/add_historical', verify, async (req, res) => {
 	}
 });
 
+// Get historical products
+router.get('/all_historical', verify, async (req, res) => {
+	try {
+		const allItems = await historical.find().sort({ date: -1 });
+		return res.status(200).json({ ...allItems });
+	} catch (err) {
+		return res.status(404).json({ msg: 'No items found', err });
+	}
+});
+
 module.exports = router;

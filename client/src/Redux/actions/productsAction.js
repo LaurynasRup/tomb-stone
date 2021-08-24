@@ -188,3 +188,43 @@ const clearProductsState = () => {
 export const clearProductsAction = () => dispatch => {
 	dispatch(clearProductsState());
 };
+
+/* ----- FETCH HISTORICAL PRODUCTS ----- */
+
+const FETCH_HISTORICAL_REQUEST = 'FETCH_HISTORICAL_REQUEST';
+const FETCH_HISTORICAL_SUCCESS = 'FETCH_HISTORICAL_SUCCESS';
+const FETCH_HISTORICAL_FAILURE = 'FETCH_HISTORICAL_FAILURE';
+
+const fetchHistoricalRequest = () => {
+	return {
+		type: FETCH_HISTORICAL_REQUEST,
+	};
+};
+
+const fetchHistoricalSuccess = products => {
+	return {
+		type: FETCH_HISTORICAL_SUCCESS,
+		payload: { products },
+	};
+};
+
+const fetchHistoricalFailure = error => {
+	return {
+		type: FETCH_HISTORICAL_FAILURE,
+		payload: error,
+	};
+};
+
+export const historicalAction = token => async dispatch => {
+	try {
+		dispatch(fetchHistoricalRequest());
+		const historicalProducts = await axios.get('/api/products/all_historical', {
+			headers: {
+				'auth-token': token,
+			},
+		});
+		dispatch(fetchHistoricalSuccess(historicalProducts));
+	} catch (err) {
+		dispatch(fetchHistoricalFailure(err));
+	}
+};

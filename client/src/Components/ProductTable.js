@@ -5,13 +5,13 @@ import { MdDone } from 'react-icons/md';
 import { StyledTable } from '../StyledComps/styledComponents';
 const ProductTable = ({ products, isLoading }) => {
 	const history = useHistory();
-	const openProductHandler = (id) => {
+	const openProductHandler = id => {
 		history.push(`product_view/${id}`);
 	};
 	return (
 		<>
 			{!isLoading && (
-				<StyledTable>
+				<StyledTable clickable={true}>
 					<thead>
 						<tr>
 							<th>Barcode</th>
@@ -25,7 +25,7 @@ const ProductTable = ({ products, isLoading }) => {
 					</thead>
 					{products && (
 						<tbody>
-							{products.map((prod) => (
+							{products.map(prod => (
 								<tr
 									key={prod._id}
 									id={prod._id}
