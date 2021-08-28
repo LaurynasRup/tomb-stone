@@ -11,6 +11,5 @@ export const splitArray = (array, perPage) => {
 
 		return resArray;
 	}, []);
-
 	return arr;
 };

@@ -7,10 +7,17 @@ import { historicalAction } from '../Redux/actions/productsAction';
 import { Wrapper, StyledTable } from '../StyledComps/styledComponents';
 // Components
 import PageLoading from '../Components/PageLoading';
+import Pagination from '../Components/Pagination';
+// Functions
+import { filterBarcode } from '../functions/filterBarcode';
+import { splitArray } from '../functions/spplitArray';
+// Hooks
+import { usePagination } from '../hooks/usePagination';
 // Styled
 import styled from 'styled-components';
 //Icons
 import { FaSlidersH } from 'react-icons/fa';
+const PER_PAGE = 15;
 
 const Historical = () => {
 	// State to track if filters are shown
@@ -37,6 +44,21 @@ const Historical = () => {
 	const { products, isLoading } = useSelector(
 		state => state.historical_products
 	);
+	// State to track barcode input
+	const [barcodeInput, setBarcodeInput] = useState('');
+	const barcodeInputHandler = e => {
+		setBarcodeInput(e.target.value);
+	};
+	// State for diplayng products
+	const [displayProducts, setDisplayProducts] = useState([]);
+	// Update products to display based on filter value
+	useEffect(() => {
+		setDisplayProducts(filterBarcode(products, barcodeInput));
+	}, [barcodeInput, products]);
+
+	// Use Pagination
+	const spltArray = splitArray(displayProducts, PER_PAGE);
+	const { currentPage, countHandler } = usePagination(spltArray);
 
 	return (
 		<>
@@ -49,7 +71,13 @@ const Historical = () => {
 				<div className="container_overflowx_scroll">
 					{showFilter && (
 						<BarcodeInputCont>
-							<input id="barcode" type="number" placeholder="Barcode..." />
+							<input
+								id="barcode"
+								type="number"
+								placeholder="Barcode..."
+								value={barcodeInput}
+								onChange={barcodeInputHandler}
+							/>
 						</BarcodeInputCont>
 					)}
 					<StyledTable>
@@ -63,20 +91,25 @@ const Historical = () => {
 								<th>Reason</th>
 							</tr>
 						</thead>
-						<tbody>
-							{products.map(product => (
-								<tr key={product._id}>
-									<td styles="cursor:default;">{product.barcode}</td>
-									<td>{product.product.product_type}</td>
-									<td>{product.dimensions.long}</td>
-									<td>{product.dimensions.short}</td>
-									<td>{product.dimensions.width}</td>
-									<td>{product.delete_reason ? product.delete_reason : '-'}</td>
-								</tr>
-							))}
-						</tbody>
+						{spltArray.length > 0 && (
+							<tbody>
+								{spltArray[currentPage - 1].map(product => (
+									<tr key={product._id}>
+										<td styles="cursor:default;">{product.barcode}</td>
+										<td>{product.product.product_type}</td>
+										<td>{product.dimensions.long}</td>
+										<td>{product.dimensions.short}</td>
+										<td>{product.dimensions.width}</td>
+										<td>
+											{product.delete_reason ? product.delete_reason : '-'}
+										</td>
+									</tr>
+								))}
+							</tbody>
+						)}
 					</StyledTable>
 				</div>
+				<Pagination spltArray={spltArray} countHandler={countHandler} />
 			</Wrapper>
 		</>
 	);
