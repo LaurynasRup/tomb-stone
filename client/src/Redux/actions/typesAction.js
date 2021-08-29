@@ -11,20 +11,20 @@ const fetchTypesRequest = () => {
 		type: FETCH_TYPES_REQUEST,
 	};
 };
-const fetchTypesSuccess = (types) => {
+const fetchTypesSuccess = types => {
 	return {
 		type: FETCH_TYPES_SUCCESS,
 		payload: types,
 	};
 };
-const fetchTypesFailure = (error) => {
+const fetchTypesFailure = error => {
 	return {
 		type: FETCH_TYPES_FAILURE,
 		payload: error,
 	};
 };
 
-export const typesAction = () => async (dispatch) => {
+export const typesAction = () => async dispatch => {
 	dispatch(fetchTypesRequest());
 	try {
 		const allTypes = await axios.get('/api/types/all_types');
@@ -52,14 +52,14 @@ const addTypeSuccess = () => {
 	};
 };
 
-const addTypeFailure = (error) => {
+const addTypeFailure = error => {
 	return {
 		type: ADD_TYPE_FAILURE,
 		payload: error,
 	};
 };
 
-export const addNewTypeAction = (obj, fn) => async (dispatch) => {
+export const addNewTypeAction = (obj, fn) => async dispatch => {
 	dispatch(addTypeRequest());
 	try {
 		await axios.post('/api/types/add_type', obj);
@@ -89,14 +89,14 @@ const removeTypeSuccess = () => {
 	};
 };
 
-const removeTypeFailure = (error) => {
+const removeTypeFailure = error => {
 	return {
 		type: REMOVE_TYPE_FAILURE,
 		payload: error,
 	};
 };
 
-export const removeTypeAction = (id, fn, public_id) => async (dispatch) => {
+export const removeTypeAction = (id, fn, public_id) => async dispatch => {
 	dispatch(removeTypeRequest());
 	try {
 		await axios.post(`/api/upload_images/destroy`, { public_id });
@@ -119,6 +119,6 @@ const clearTypesState = () => {
 	};
 };
 
-export const clearTypesAction = () => (dispatch) => {
+export const clearTypesAction = () => dispatch => {
 	dispatch(clearTypesState());
 };

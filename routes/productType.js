@@ -4,7 +4,7 @@ const productType = require('../model/ProductType');
 // Get all types
 router.get('/all_types', async (req, res) => {
 	try {
-		const allTypes = await productType.find();
+		const allTypes = await productType.find().sort({ name: 1 });
 		return res.status(200).json({
 			...allTypes,
 		});
