@@ -1,6 +1,4 @@
 import { useHistory } from 'react-router-dom';
-// Icons
-import { MdDone } from 'react-icons/md';
 // Styled Comps
 import { StyledTable } from '../StyledComps/styledComponents';
 // Functions
