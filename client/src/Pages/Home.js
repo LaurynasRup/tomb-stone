@@ -26,13 +26,13 @@ const PER_PAGE = 15;
 
 const Home = () => {
 	// Retrieve token
-	const { token, userType } = useSelector((state) => state.user);
+	const { token, userType } = useSelector(state => state.user);
 	// Grab products & loading from redux state
-	const { products, isLoading } = useSelector((state) => state.products);
+	const { products, isLoading } = useSelector(state => state.products);
 	// Sort state
 	const [sortProducts, setStoreProducts] = useState('');
 	// Change sort proucts
-	const sortHandler = (e) => {
+	const sortHandler = e => {
 		const idx = e.target.selectedIndex;
 		const el = e.target.childNodes[idx].value;
 		setStoreProducts(el);
@@ -58,7 +58,7 @@ const Home = () => {
 		}
 	};
 	// Grab product types
-	const types = Object.values(useSelector((state) => state.types.types));
+	const types = Object.values(useSelector(state => state.types.types));
 
 	// Use Pagination
 	const spltArray = splitArray(displayProducts, PER_PAGE);
@@ -129,6 +129,7 @@ const Home = () => {
 					<ProductTable
 						products={spltArray[currentPage - 1]}
 						isLoading={isLoading}
+						allTypes={types}
 					/>
 				</div>
 				{userType !== 'regular' && (

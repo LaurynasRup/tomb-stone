@@ -3,7 +3,9 @@ import { useHistory } from 'react-router-dom';
 import { MdDone } from 'react-icons/md';
 // Styled Comps
 import { StyledTable } from '../StyledComps/styledComponents';
-const ProductTable = ({ products, isLoading }) => {
+// Functions
+import { findProductType } from '../functions/findProductType';
+const ProductTable = ({ products, isLoading, allTypes }) => {
 	const history = useHistory();
 	const openProductHandler = id => {
 		history.push(`product_view/${id}`);
@@ -32,13 +34,15 @@ const ProductTable = ({ products, isLoading }) => {
 									onClick={() => openProductHandler(prod._id)}
 								>
 									<td>{prod.barcode}</td>
-									<td>{prod.product.product_type} </td>
+									<td>
+										{findProductType(allTypes, prod.product.product_type)}{' '}
+									</td>
 									<td>{prod.dimensions.long}</td>
 									<td>{prod.dimensions.short}</td>
 									<td>{prod.dimensions.width}</td>
 									<td>{prod.warehouse_location}</td>
 									<td className="mid">
-										{prod.reserved.isReserved ? <MdDone size={20} /> : ''}
+										{prod.reserved.isReserved ? prod.reserved.id : ''}
 									</td>
 								</tr>
 							))}
