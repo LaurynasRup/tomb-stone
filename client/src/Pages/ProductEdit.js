@@ -48,7 +48,7 @@ const ProductEdit = () => {
 	// Manage errors
 	const { inputErrors, inputErrorHandler } = useInputErrors();
 	// Retrieve token
-	const { token } = useSelector(state => state.user);
+	const { token, name: userName } = useSelector(state => state.user);
 	// See if loading
 	const { isLoading } = useSelector(state => state.products);
 	const dispatch = useDispatch();
@@ -130,6 +130,7 @@ const ProductEdit = () => {
 				dimensions_width: currentProduct.dimensions.width,
 			},
 			delete_reason: confirmModalInput.value,
+			delete_user: userName,
 		};
 		// dispatch delete action
 		dispatch(

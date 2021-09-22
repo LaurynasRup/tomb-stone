@@ -89,6 +89,7 @@ const Historical = () => {
 								<th>Height</th>
 								<th>Width</th>
 								<th>Reason</th>
+								<th>Removed by</th>
 							</tr>
 						</thead>
 						{spltArray.length > 0 && (
@@ -103,6 +104,7 @@ const Historical = () => {
 										<td>
 											{product.delete_reason ? product.delete_reason : '-'}
 										</td>
+										<td>{product.delete_user ? product.delete_user : '-'}</td>
 									</tr>
 								))}
 							</tbody>

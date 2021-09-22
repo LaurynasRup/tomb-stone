@@ -57,8 +57,11 @@ const productObj = {
 		default: Date.now,
 	},
 	delete_reason: {
-		type: String
-	}
+		type: String,
+	},
+	delete_user: {
+		type: String,
+	},
 };
 
 const productSchema = new mongoose.Schema(productObj, {

@@ -124,6 +124,7 @@ router.post('/add_historical', verify, async (req, res) => {
 				id: req.body.reserved.id,
 			},
 			delete_reason: req.body.delete_reason,
+			delete_user: req.body.delete_user,
 		});
 		const savedProduct = await newProduct.save();
 		return res.status(201).send(savedProduct);
