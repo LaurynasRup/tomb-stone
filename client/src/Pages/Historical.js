@@ -11,6 +11,7 @@ import Pagination from '../Components/Pagination';
 // Functions
 import { filterBarcode } from '../functions/filterBarcode';
 import { splitArray } from '../functions/spplitArray';
+import { findProductType } from '../functions/findProductType';
 // Hooks
 import { usePagination } from '../hooks/usePagination';
 // Styled
@@ -29,6 +30,8 @@ const Historical = () => {
 			setShowFilter(false);
 		}
 	};
+	// Grab product types
+	const types = Object.values(useSelector(state => state.types.types));
 	// Retrieve token
 	const { token } = useSelector(state => state.user);
 	// Dispatch action to get historical data
@@ -97,7 +100,9 @@ const Historical = () => {
 								{spltArray[currentPage - 1].map(product => (
 									<tr key={product._id}>
 										<td styles="cursor:default;">{product.barcode}</td>
-										<td>{product.product.product_type}</td>
+										<td>
+											{findProductType(types, product.product.product_type)}
+										</td>
 										<td>{product.dimensions.long}</td>
 										<td>{product.dimensions.short}</td>
 										<td>{product.dimensions.width}</td>

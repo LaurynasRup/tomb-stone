@@ -33,7 +33,7 @@ const ProductTable = ({ products, isLoading, allTypes }) => {
 								>
 									<td>{prod.barcode}</td>
 									<td>
-										{findProductType(allTypes, prod.product.product_type)}{' '}
+										{findProductType(allTypes, prod.product.product_type)}
 									</td>
 									<td>{prod.dimensions.long}</td>
 									<td>{prod.dimensions.short}</td>
