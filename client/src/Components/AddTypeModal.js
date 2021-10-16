@@ -14,6 +14,7 @@ const AddTypeModal = ({
 	typeImgInputHandler,
 	submitType,
 	closeModalhandler,
+	typeInputError,
 }) => {
 	// state to track file input name
 	const [customText, setCustomtext] = useState('No file chosen...');
@@ -47,7 +48,7 @@ const AddTypeModal = ({
 		uploadImage(previewSource);
 	};
 	// Image upload async function
-	const uploadImage = async (file) => {
+	const uploadImage = async file => {
 		try {
 			//upload image
 			const response = await axios.post('/api/upload_images', {
@@ -69,6 +70,7 @@ const AddTypeModal = ({
 			<div className="inner">
 				<h1>Add new type</h1>
 				<div className="line"></div>
+				{typeInputError && <StyledSmall>{typeInputError}</StyledSmall>}
 				<StyledForm>
 					<div className="form-row">
 						<div className="form-control">
@@ -151,6 +153,11 @@ const CustomText = styled.div`
 	margin: 1rem 0;
 	font-size: 0.95rem;
 	color: #888888;
+`;
+
+const StyledSmall = styled.small`
+	color: red;
+	margin-bottom: 1rem;
 `;
 
 export default AddTypeModal;

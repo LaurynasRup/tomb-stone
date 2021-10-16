@@ -22,7 +22,7 @@ import {
 	removeTypeAction,
 } from '../Redux/actions/typesAction';
 const TypesPage = () => {
-	const { types } = useSelector((state) => state.types);
+	const { types } = useSelector(state => state.types);
 	const typesArray = Object.values(types);
 	// Control Add type modal display
 	const [displayAddTypeModal, setDisplayAddTypeModal] = useState(false);
@@ -32,6 +32,8 @@ const TypesPage = () => {
 		type_id: '',
 		image: '',
 	});
+	// Set error message
+	const [typeInputError, setTypeInputError] = useState(null);
 	// Display modal message
 	const { showMsg, showModalMsgHandler } = useShowMsgModal();
 	// Display Confirm Modal
@@ -41,7 +43,7 @@ const TypesPage = () => {
 		id: '',
 	});
 	// Input handler
-	const typeInputHandler = (e) => {
+	const typeInputHandler = e => {
 		setTypeInputs({
 			...typeInputs,
 			[e.target.id]: e.target.value,
@@ -49,7 +51,7 @@ const TypesPage = () => {
 	};
 
 	// Image inputs handler
-	const typeImgInputHandler = (imgStr) => {
+	const typeImgInputHandler = imgStr => {
 		setTypeInputs({
 			...typeInputs,
 			image: imgStr,
@@ -64,19 +66,54 @@ const TypesPage = () => {
 		setDisplayAddTypeModal(!displayAddTypeModal);
 	};
 	// Close modal on outer div click
-	const closeModalhandler = (e) => {
+	const closeModalhandler = e => {
 		if (e.target.classList.contains('outer')) {
+			// Set type input error empty
+			setTypeInputError(null);
 			clearAllInputs();
 			openModalHandler();
 		}
 	};
 	const dispatch = useDispatch();
+
 	// Submit data
 	const submitType = () => {
+		// Set type input error empty
+		setTypeInputError(null);
+		// Check if the same type exists
+		if (typeInputs.name !== '' && typeInputs.type_id) {
+			const typesArray = Object.values(types);
+			// check if same name already exist
+			const matchName = typesArray.some(
+				el =>
+					el.name.trim().toLowerCase() === typeInputs.name.trim().toLowerCase()
+			);
+
+			// Check if code already exists
+			const matchCode = typesArray.some(
+				el =>
+					el.type_id.trim().toLowerCase() ===
+					typeInputs.type_id.trim().toLowerCase()
+			);
+
+			if (matchName && matchCode) {
+				return setTypeInputError('* Name & Code already exist');
+			}
+
+			if (matchName) {
+				return setTypeInputError('* Name already exist');
+			}
+
+			if (matchCode) {
+				return setTypeInputError('* Code already exist');
+			}
+		}
+
 		if (
 			typeInputs.name !== '' &&
 			typeInputs.type_id !== '' &&
-			typeInputs.image !== ''
+			typeInputs.image !== '' &&
+			typeInputError === null
 		) {
 			dispatch(addNewTypeAction(typeInputs, showModalMsgHandler));
 			openModalHandler();
@@ -93,7 +130,7 @@ const TypesPage = () => {
 	// Handle delete confirmation
 	const confirmDeleteHandler = async () => {
 		// Find type img
-		const typeImg = typesArray.find((el) => el._id === typeToDeleteID.id).image;
+		const typeImg = typesArray.find(el => el._id === typeToDeleteID.id).image;
 		// Grab public id from img url
 		const public_id = findPublicId(typeImg);
 		// Remove confirm modal
@@ -129,6 +166,7 @@ const TypesPage = () => {
 					typeImgInputHandler={typeImgInputHandler}
 					submitType={submitType}
 					closeModalhandler={closeModalhandler}
+					typeInputError={typeInputError}
 				/>
 			)}
 			<Wrapper>

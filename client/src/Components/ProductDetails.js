@@ -18,8 +18,8 @@ const ProductDetails = ({
 	barcodeModalHandler,
 }) => {
 	// Grab product types from redux state
-	const types = Object.values(useSelector((state) => state.types.types));
-	const errors = (errStr) => {
+	const types = Object.values(useSelector(state => state.types.types));
+	const errors = errStr => {
 		if (inputErrors === undefined) return false;
 		if (inputErrors.errors.includes(errStr)) return true;
 	};
@@ -50,7 +50,7 @@ const ProductDetails = ({
 							<option value="" id="" imgsrc="">
 								--- Select Type ---
 							</option>
-							{types.map((type) => (
+							{types.map(type => (
 								<option
 									key={type._id}
 									id={type.type_id}
@@ -79,6 +79,11 @@ const ProductDetails = ({
 									inputErrors.errors,
 									'barcode',
 									'* Barcode is required'
+								)}
+								{displayError(
+									inputErrors.errors,
+									'matchBarcode',
+									'* Barcode already in use'
 								)}
 							</small>
 						)}

@@ -8,7 +8,8 @@ export const addProduct = (
 	token,
 	modalhandler,
 	productId,
-	inputErrHandler
+	inputErrHandler,
+	allProducts
 ) => {
 	// Track errors
 	const errors = [];
@@ -36,9 +37,18 @@ export const addProduct = (
 	]);
 
 	// If input is empty - push key to errors
-	pureInputs.forEach((input) => {
+	pureInputs.forEach(input => {
 		if (!input[1]) errors.push(input[0]);
 	});
+
+	// if barcode not empty  check if one already exist
+	if (!errors.some(el => el === 'barcode')) {
+		// Check against same barcode
+		const matchBarcode = allProducts.find(el => el.barcode === +inputs.barcode);
+		if (matchBarcode) {
+			errors.push('matchBarcode');
+		}
+	}
 
 	// Function to dispatch
 	const pass = () => {

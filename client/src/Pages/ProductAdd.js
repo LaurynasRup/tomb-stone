@@ -27,7 +27,9 @@ const ProductAdd = () => {
 	// Create en empty obj
 	const emptyObj = emptyInputObj;
 	// Grab Current User
-	const { name } = useSelector((state) => state.user);
+	const { name } = useSelector(state => state.user);
+	// Grab all products
+	const { products: allProducts } = useSelector(state => state.products);
 	const {
 		inputs,
 		inputHandler,
@@ -40,9 +42,9 @@ const ProductAdd = () => {
 	// Image modal
 	const { imgOpen, modalHandler } = useModalHandler();
 	// Grab token
-	const { token } = useSelector((state) => state.user);
+	const { token } = useSelector(state => state.user);
 	// See if loading
-	const { isLoading } = useSelector((state) => state.products);
+	const { isLoading } = useSelector(state => state.products);
 
 	const dispatch = useDispatch();
 
@@ -67,7 +69,8 @@ const ProductAdd = () => {
 			token,
 			showModalMsgHandler,
 			'',
-			inputErrorHandler
+			inputErrorHandler,
+			allProducts
 		);
 	};
 	return (
