@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const dotenv = require('dotenv').config();
 const mongoose = require('mongoose');
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5555;
 const cors = require('cors');
 const path = require('path');
 
@@ -20,8 +20,14 @@ const uploadImgRoute = require('./routes/uploadImages');
 
 // DB Connect
 const db = process.env.DB_CONNECT;
-mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true }, () =>
-	console.log('DB connected')
+mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+
+	if(err) {
+		console.log(err);
+	} else {
+		console.log('DB connected');
+	}
+}
 );
 
 // Middleware
