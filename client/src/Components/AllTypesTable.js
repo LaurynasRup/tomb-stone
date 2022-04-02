@@ -1,19 +1,14 @@
 // Styled
 import styled from 'styled-components';
+import { ImageThumb } from '../StyledComps/styledComponents';
 // Components
 import { BtnRedSm } from '../Components/Button';
 // Icons
 import { MdDelete } from 'react-icons/md';
+// Fns
+import { displayThumbUrl } from '../functions/displayThumbUrl';
 
-const AllTypesTable = ({ productDeleteHandler, typesArray }) => {
-  const displayThumbUrl = url => {
-    const thumbUrlArr = url.split('upload/');
-    const thumbUrl = `${thumbUrlArr[0]}upload/c_thumb,w_200,g_face/${thumbUrlArr[1]}`;
-    return thumbUrl;
-  };
-
-  // add comment
-
+const AllTypesTable = ({ productDeleteHandler, typesArray, modalHandler }) => {
   return (
     <StyledTable>
       <thead>
@@ -30,10 +25,11 @@ const AllTypesTable = ({ productDeleteHandler, typesArray }) => {
             <td>{type.name}</td>
             <td>{type.type_id}</td>
             <td>
-              <img
+              <ImageThumb
                 src={displayThumbUrl(type.image)}
                 alt="Product Texture"
                 loading="lazy"
+                onClick={modalHandler}
               />
             </td>
             <td>
@@ -74,12 +70,6 @@ const StyledTable = styled.table`
   td {
     border-bottom: solid 1px #5c5c5c;
     padding: 0.4rem;
-
-    img {
-      height: 25px;
-      width: 25px;
-      border-radius: 50%;
-    }
   }
 `;
 export default AllTypesTable;
