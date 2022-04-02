@@ -12,6 +12,8 @@ const AllTypesTable = ({ productDeleteHandler, typesArray }) => {
     return thumbUrl;
   };
 
+  // add comment
+
   return (
     <StyledTable>
       <thead>
