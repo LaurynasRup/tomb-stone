@@ -7,12 +7,14 @@ export const useModalHandler = () => {
   });
   const modalHandler = e => {
     e.stopPropagation();
-    const imgSrc = e.target.src;
-    if (imgSrc) {
+    const image = e.target.dataset.image
+      ? e.target.dataset.image
+      : e.target.src;
+    if (image) {
       setImgOpen({
         ...imgOpen,
         open: !imgOpen.open,
-        src: imgSrc,
+        src: image,
       });
     } else {
       setImgOpen({

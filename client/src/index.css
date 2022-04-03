@@ -1,14 +1,14 @@
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-	font-family: 'Montserrat', sans-serif;
-	width: 100%;
+  font-family: 'Montserrat', sans-serif;
+  width: 100%;
 }
 
-body.no_scroll {
-	overflow: hidden;
+body.no-scroll {
+  overflow: hidden;
 }

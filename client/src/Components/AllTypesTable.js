@@ -30,6 +30,7 @@ const AllTypesTable = ({ productDeleteHandler, typesArray, modalHandler }) => {
                 alt="Product Texture"
                 loading="lazy"
                 onClick={modalHandler}
+                data-image={type.image}
               />
             </td>
             <td>

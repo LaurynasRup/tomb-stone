@@ -9,7 +9,6 @@ const ProductTable = ({ products, isLoading, allTypes, modalHandler }) => {
   const openProductHandler = id => {
     history.push(`product_view/${id}`);
   };
-  console.log(products);
   return (
     <>
       {!isLoading && (
@@ -45,6 +44,7 @@ const ProductTable = ({ products, isLoading, allTypes, modalHandler }) => {
                         loading="lazy"
                         src={displayThumbUrl(prod.product.type_img)}
                         onClick={modalHandler}
+                        data-image={prod.product.type_img}
                       />
                     </span>
                   </td>
