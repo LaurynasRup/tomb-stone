@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 // Components
 import ProductTable from '../Components/ProductTable';
 import ProductFilter from '../Components/ProductFilter';
@@ -88,10 +89,10 @@ const Home = () => {
   }, [products]);
 
   // Update products every time that filter is updated
-  useEffect(() => {
-    setCurrentPage(1);
-    filterProducts(products, filterInputs, sortProducts, setDisplayProducts);
-  }, [filterInputs, products, sortProducts, setCurrentPage]);
+  // useEffect(() => {
+  //   setCurrentPage(1);
+  //   filterProducts(products, filterInputs, sortProducts, setDisplayProducts);
+  // }, [filterInputs, products, sortProducts, setCurrentPage]);
 
   // Barcode result
   const [result, setResult] = useState(filterInputs.barcode);
@@ -101,6 +102,19 @@ const Home = () => {
     filterBarcodeHandler,
     setResult
   );
+  // Send to filtered page
+  const history = useHistory();
+  const filteredLinkHandler = () => {
+    let urlParamsArr = [];
+
+    for (let [key, value] of Object.entries(filterInputs)) {
+      if (value !== '') {
+        urlParamsArr.push(`${key}=${value}`);
+      }
+    }
+
+    history.push(`/home?${urlParamsArr.join('&')}`);
+  };
   return (
     <>
       {imgOpen.open && <ImageModal img={imgOpen} modalHandler={modalHandler} />}
@@ -129,6 +143,7 @@ const Home = () => {
               types={types}
               barcodeModalHandler={barcodeModalHandler}
               filterInputs={filterInputs}
+              filteredLinkHandler={filteredLinkHandler}
             />
           )}
 
