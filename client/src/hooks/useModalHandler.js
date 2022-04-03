@@ -16,12 +16,14 @@ export const useModalHandler = () => {
         open: !imgOpen.open,
         src: image,
       });
+      document.body.classList.add('no-scroll');
     } else {
       setImgOpen({
         ...imgOpen,
         open: !imgOpen.open,
         src: '',
       });
+      document.body.classList.remove('no-scroll');
     }
   };
 
