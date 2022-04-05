@@ -80,7 +80,7 @@ const FilterRow = ({
           </option>
         </select>
       </FilterRowCont>
-      <button onClick={filteredLinkHandler}>Filter</button>
+      <FilterBtn onClick={filteredLinkHandler}>Filter</FilterBtn>
     </>
   );
 };
@@ -152,6 +152,28 @@ const CameraBtn = styled.button`
   color: #32394d;
   transition: all 0.3s ease;
   outline-width: 0;
+  &:hover {
+    color: white;
+    background: #32394d;
+  }
+`;
+
+const FilterBtn = styled.button`
+  padding: 0.3rem 1rem;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: solid 1px #32394d;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 400;
+  color: #32394d;
+  transition: all 0.3s ease;
+  outline-width: 0;
+  margin-bottom: 1rem;
   &:hover {
     color: white;
     background: #32394d;

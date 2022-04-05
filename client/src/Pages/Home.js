@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 // Components
 import ProductTable from '../Components/ProductTable';
 import ProductFilter from '../Components/ProductFilter';
@@ -13,6 +13,8 @@ import ImageModal from '../Components/ImageModal';
 import { filterProducts } from '../functions/filterProducts';
 import { splitArray } from '../functions/spplitArray';
 import { onDetected } from '../functions/onDetected';
+// Utils
+import { emptyFilterObj } from '../Utils/objects';
 // Hooks
 import { useFilterProducts } from '../hooks/useFilterProducts';
 import { usePagination } from '../hooks/usePagination';
@@ -28,6 +30,7 @@ import { BsPlus } from 'react-icons/bs';
 const PER_PAGE = 15;
 
 const Home = () => {
+  const location = useLocation();
   // Retrieve token
   const { token, userType } = useSelector(state => state.user);
   // Grab products & loading from redux state
@@ -83,10 +86,10 @@ const Home = () => {
     // fetchTypes();
   }, [token, dispatch]);
 
-  // Set initial products
-  useEffect(() => {
-    setDisplayProducts(products);
-  }, [products]);
+  // // Set initial products
+  // useEffect(() => {
+  //   setDisplayProducts(products);
+  // }, [products]);
 
   // Update products every time that filter is updated
   // useEffect(() => {
@@ -102,6 +105,7 @@ const Home = () => {
     filterBarcodeHandler,
     setResult
   );
+
   // Send to filtered page
   const history = useHistory();
   const filteredLinkHandler = () => {
@@ -115,6 +119,30 @@ const Home = () => {
 
     history.push(`/home?${urlParamsArr.join('&')}`);
   };
+
+  //Grab url params & convert to obj
+  const urlParamsToFilter = (emptyObj, urlParamsStr) => {
+    const paramsObj = {};
+    // convert params to obj
+    const params = urlParamsStr.slice(1).split('&');
+    for (let param of params) {
+      const tempArr = param.split('=');
+      emptyObj[tempArr[0]] = tempArr[1];
+    }
+    return emptyObj;
+  };
+
+  // Run Filter Function everytime location changes
+  useEffect(() => {
+    if (location.search === '') {
+      setDisplayProducts(products);
+      console.log(products);
+    } else {
+      const filterObj = urlParamsToFilter(emptyFilterObj, location.search);
+      filterProducts(products, filterObj, sortProducts, setDisplayProducts);
+    }
+  }, [location, products]);
+
   return (
     <>
       {imgOpen.open && <ImageModal img={imgOpen} modalHandler={modalHandler} />}
