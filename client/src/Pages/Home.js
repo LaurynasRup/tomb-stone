@@ -122,7 +122,6 @@ const Home = () => {
 
   //Grab url params & convert to obj
   const urlParamsToFilter = (emptyObj, urlParamsStr) => {
-    const paramsObj = {};
     // convert params to obj
     const params = urlParamsStr.slice(1).split('&');
     for (let param of params) {
@@ -136,7 +135,6 @@ const Home = () => {
   useEffect(() => {
     if (location.search === '') {
       setDisplayProducts(products);
-      console.log(products);
     } else {
       const filterObj = urlParamsToFilter(emptyFilterObj, location.search);
       filterProducts(products, filterObj, sortProducts, setDisplayProducts);
