@@ -1,4 +1,4 @@
-export const filterProducts = (products, filterInputs, sortInput, fn) => {
+export const filterProducts = (products, filterInputs, fn) => {
   let newArr = [...products];
   if (filterInputs.barcode !== '') {
     newArr = newArr.filter(item =>
@@ -34,25 +34,25 @@ export const filterProducts = (products, filterInputs, sortInput, fn) => {
 
   const copyArr = [...newArr];
 
-  if (sortInput === '') {
+  if (filterInputs.sort === '') {
     newArr = copyArr;
   }
-  if (sortInput === 'length_asc') {
+  if (filterInputs.sort === 'length_asc') {
     newArr = newArr.sort((a, b) => a.dimensions.long - b.dimensions.long);
   }
-  if (sortInput === 'length_desc') {
+  if (filterInputs.sort === 'length_desc') {
     newArr = newArr.sort((a, b) => b.dimensions.long - a.dimensions.long);
   }
-  if (sortInput === 'height_asc') {
+  if (filterInputs.sort === 'height_asc') {
     newArr = newArr.sort((a, b) => a.dimensions.short - b.dimensions.short);
   }
-  if (sortInput === 'height_desc') {
+  if (filterInputs.sort === 'height_desc') {
     newArr = newArr.sort((a, b) => b.dimensions.short - a.dimensions.short);
   }
-  if (sortInput === 'width_asc') {
+  if (filterInputs.sort === 'width_asc') {
     newArr = newArr.sort((a, b) => a.dimensions.width - b.dimensions.width);
   }
-  if (sortInput === 'width_desc') {
+  if (filterInputs.sort === 'width_desc') {
     newArr = newArr.sort((a, b) => b.dimensions.width - a.dimensions.width);
   }
 

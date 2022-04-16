@@ -110,14 +110,25 @@ const Home = () => {
   const history = useHistory();
   const filteredLinkHandler = () => {
     let urlParamsArr = [];
+    let sortVar = '';
 
+    // Add filters
     for (let [key, value] of Object.entries(filterInputs)) {
       if (value !== '') {
         urlParamsArr.push(`${key}=${value}`);
       }
     }
 
-    history.push(`/home?${urlParamsArr.join('&')}`);
+    // Add sort
+    if (urlParamsArr.length !== 0 && sortProducts !== '') {
+      sortVar = `&sort=${sortProducts}`;
+    } else if (urlParamsArr.length === 0 && sortProducts !== '') {
+      sortVar = `sort=${sortProducts}`;
+    } else {
+      sortVar = '';
+    }
+
+    history.push(`/home?${urlParamsArr.join('&')}${sortVar}`);
   };
 
   //Grab url params & convert to obj
@@ -137,7 +148,7 @@ const Home = () => {
       setDisplayProducts(products);
     } else {
       const filterObj = urlParamsToFilter(emptyFilterObj, location.search);
-      filterProducts(products, filterObj, sortProducts, setDisplayProducts);
+      filterProducts(products, filterObj, setDisplayProducts);
     }
   }, [location, products]);
 
