@@ -30,6 +30,7 @@ import {
 } from '../Redux/actions/productsAction';
 
 const ProductEdit = () => {
+	// comment
 	const [editable] = useState(true);
 	// Find current product object
 	const currentProduct = useFindByUrl();
