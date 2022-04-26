@@ -22,6 +22,7 @@ import { useConfirmMsgModal } from '../hooks/useConfirmMsgModal';
 import { addProduct } from '../functions/addProduct';
 import { onDetected } from '../functions/onDetected';
 import { findMultiPublicId } from '../functions/findPublicId';
+import { getTodaysDate } from '../functions/getTodaysDate'
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -74,17 +75,66 @@ const ProductEdit = () => {
 		setResult
 	);
 
+	// function to compare two objects and return difference
+	const compareObjects = (obj1, obj2) => {
+		// transform obj1 to flat obj
+		const flatObj1 = {
+			barcode: obj1.barcode,
+			comments: obj1.comments,
+			dimensions_long: obj1.dimensions.long,
+			dimensions_short: obj1.dimensions.short,
+			dimensions_width: obj1.dimensions.width,
+			product_type: obj1.product.product_type,
+			reserved: obj1.reserved.isReserved,
+			reserveId: obj1.reserved.id,
+			location: obj1.warehouse_location,
+		}
+
+		// transform obj2 to flat obj
+		const flatObj2 = {
+			barcode: obj2.barcode,
+			comments: obj2.comments,
+			dimensions_long: obj2.length,
+			dimensions_short: obj2.height,
+			dimensions_width: obj2.width,
+			product_type: obj2.product.product_type,
+			reserved: obj2.reserved,
+			reserveId: obj2.reserveId,
+			location: obj2.location,
+		}
+
+		// Loop through obj1 and find diff from obj2
+		const diffArray = [];
+		for (const prop in flatObj1) {
+			if (flatObj1[prop] !== flatObj2[prop]) {
+				diffArray.push({[prop]: flatObj2[prop]});
+			}
+		}
+
+		if (diffArray.length === 0) {
+			return null;
+		} else {
+			return {
+				edited_by: name,
+				diff: diffArray,
+				date: getTodaysDate(), 
+			}
+		}
+
+	}
+
 	// Handle submit button
 	const submitHandler = () => {
-		addProduct(
-			inputs,
-			dispatch,
-			updateProductAction,
-			token,
-			showModalMsgHandler,
-			currentProduct._id,
-			inputErrorHandler
-		);
+		// addProduct(
+		// 	inputs,
+		// 	dispatch,
+		// 	updateProductAction,
+		// 	token,
+		// 	showModalMsgHandler,
+		// 	currentProduct._id,
+		// 	inputErrorHandler
+		// );
+		console.log(compareObjects(currentProduct, inputs));
 	};
 
 	// Handle delete button
