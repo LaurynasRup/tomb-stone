@@ -59,7 +59,7 @@ const Navbar = () => {
 			<StyledNav>
 				<div className="inner">
 					<div className="logo" onClick={redirectHomeHandler}>
-						Don <strong>Stone</strong>
+						Product <strong>Manager</strong>
 					</div>
 					{loggedIn && (
 						<ul>
